@@ -1,0 +1,41 @@
+PODS:
+  - chatroom_uikit (0.0.1):
+    - Flutter
+  - Flutter (1.0.0)
+  - HyphenateChat (4.1.0)
+  - im_flutter_sdk (0.0.1):
+    - Flutter
+    - HyphenateChat (= 4.1.0)
+  - integration_test (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - chatroom_uikit (from `.symlinks/plugins/chatroom_uikit/ios`)
+  - Flutter (from `Flutter`)
+  - im_flutter_sdk (from `.symlinks/plugins/im_flutter_sdk/ios`)
+  - integration_test (from `.symlinks/plugins/integration_test/ios`)
+
+SPEC REPOS:
+  trunk:
+    - HyphenateChat
+
+EXTERNAL SOURCES:
+  chatroom_uikit:
+    :path: ".symlinks/plugins/chatroom_uikit/ios"
+  Flutter:
+    :path: Flutter
+  im_flutter_sdk:
+    :path: ".symlinks/plugins/im_flutter_sdk/ios"
+  integration_test:
+    :path: ".symlinks/plugins/integration_test/ios"
+
+SPEC CHECKSUMS:
+  chatroom_uikit: 7770dee556851a0e727fbe184b750d8ef0ed5123
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  HyphenateChat: 0c8ef696b0f21cf5a10053266cd82a1e00659996
+  im_flutter_sdk: 87d2c37c629e41bd12b25ab43773cb0e41e24d26
+  integration_test: 13825b8a9334a850581300559b8839134b124670
+
+PODFILE CHECKSUM: 02caaa843f6501172c0d470d80e72f61175c8b93
+
+COCOAPODS: 1.11.3
