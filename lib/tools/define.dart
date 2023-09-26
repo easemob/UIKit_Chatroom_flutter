@@ -6,6 +6,8 @@ typedef RoomEventHandler = EMChatRoomEventHandler;
 typedef ChatEventHandler = EMChatEventHandler;
 typedef ChatException = EMError;
 
+typedef MarqueeCallback = void Function(String str);
+
 enum ChatroomBeKickedReason { removed, destroyed, offline }
 
 enum ChatroomOperationType { join, leave }

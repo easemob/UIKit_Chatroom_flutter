@@ -1,14 +1,9 @@
-import 'package:chatroom_uikit/tools/chat_provider.dart';
 import 'package:chatroom_uikit/widgets/chat_input_bar.dart';
 import 'package:flutter/material.dart';
 
 import 'controllers/chatroom_controller.dart';
 
 export 'controllers/chatroom_controller.dart';
-
-export 'notifications/gift_notification.dart';
-export './notifications/marquee_notification.dart';
-
 export './tools/define.dart';
 export './widgets/chat_input_bar.dart';
 export './widgets/chatroom_marquee_view.dart';
@@ -16,12 +11,12 @@ export './widgets/chatroom_marquee_view.dart';
 class ChatRoomUIKit extends StatefulWidget {
   const ChatRoomUIKit({
     required this.controller,
-    required this.child,
+    this.child,
     this.inputBar,
     super.key,
   });
   final ChatRoomController controller;
-  final Widget child;
+  final Widget? child;
   final Widget? inputBar;
 
   @override
@@ -41,7 +36,7 @@ class _ChatRoomUIKitState extends State<ChatRoomUIKit> {
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
-          ChatProvider(data: widget.controller, child: widget.child),
+          widget.child ?? Container(),
           widget.inputBar ??
               ChatInputBar(
                 onSend: ({required String msg}) {

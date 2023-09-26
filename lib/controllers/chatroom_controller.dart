@@ -1,13 +1,9 @@
 import 'dart:math';
 
 import 'package:chatroom_uikit/chatroom_uikit.dart';
-import 'package:chatroom_uikit/notifications/message_notification.dart';
-import 'package:chatroom_uikit/tools/chat_provider.dart';
-import 'package:flutter/material.dart';
-
 import '../listeners/chatroom_listener.dart';
 
-class ChatRoomController extends ChatUIKitChangeNotifier {
+class ChatRoomController {
   ChatRoomController({
     required this.roomId,
     this.roomListener,
@@ -20,6 +16,8 @@ class ChatRoomController extends ChatUIKitChangeNotifier {
 
   late final String _eventKey;
 
+  MarqueeCallback? marqueeCallback;
+
   void _addEvent() {
     _addChatEvent();
     _addRoomEvent();
@@ -30,20 +28,8 @@ class ChatRoomController extends ChatUIKitChangeNotifier {
     _removeRoomEvent();
   }
 
-  @override
   void dispose() {
     _removeEvent();
-    super.dispose();
-  }
-
-  @override
-  bool get needSaveData => true;
-
-  @override
-  void updateData(data) {
-    if (this != data) {
-      data._removeEvent();
-    }
   }
 }
 
@@ -177,33 +163,26 @@ extension ChatEvent on ChatRoomController {
   }
 }
 
+extension ChatUIKitExt on ChatRoomController {
+  void setMarqueeCallback(MarqueeCallback? callback) {
+    marqueeCallback = callback;
+  }
+}
+
 extension TestExt on ChatRoomController {
-  void sendLocalGiftNotification(
-    BuildContext context, {
+  void sendLocalGiftNotification({
     required String fromUserId,
     required String giftId,
-  }) {
-    ChatRoomGiftNotification(fromUserId: fromUserId, giftId: giftId)
-        .dispatch(context);
-  }
+  }) {}
 
-  void sendLocalMarqueeNotification(
-    BuildContext context, {
+  void sendLocalMarqueeNotification({
     required String content,
   }) {
-    ChatRoomMarqueeNotification(
-      content: content,
-    ).dispatch(context);
+    marqueeCallback?.call(content);
   }
 
-  void sendLocalMessageNotification(
-    BuildContext context, {
+  void sendLocalMessageNotification({
     required String fromUserId,
     required String content,
-  }) {
-    ChatRoomMessageNotification(
-      fromUserId: fromUserId,
-      content: content,
-    ).dispatch(context);
-  }
+  }) {}
 }

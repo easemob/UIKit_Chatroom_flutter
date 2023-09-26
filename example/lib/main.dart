@@ -39,6 +39,8 @@ class _MyAppState extends State<MyApp> {
               child: InkWell(
                 child: const Icon(Icons.more_horiz),
                 onTap: () {
+                  controller.sendLocalMarqueeNotification(
+                      content: "我是长内容我是长内容我是长内容我是长内容我是长内容我是长内容我是长内容！");
                   // controller?.addRevolvingLantern(
                   //     "我是长内容我是长内容我是长内容我是长内容我是长内容我是长内容我是长内容！");
                 },

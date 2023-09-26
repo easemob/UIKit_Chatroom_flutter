@@ -280,8 +280,8 @@ class _ChatInputBarState extends State<ChatInputBar> {
   Widget faceWidget() {
     Widget content = AnimatedContainer(
       onEnd: () {},
-      curve: Curves.easeOut,
-      duration: const Duration(milliseconds: 250),
+      curve: Curves.easeIn,
+      duration: const Duration(milliseconds: 300),
       height: _inputType == InputType.emoji ? 280 : 0,
       child: const ChatInputEmoji(),
     );
