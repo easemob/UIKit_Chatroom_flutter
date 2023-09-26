@@ -12,9 +12,15 @@ class ChatRoomListener {
     this.onUserBeKicked,
     this.onUserMuted,
     this.onUserUnmuted,
+    this.onGiftReceived,
   });
 
   final String roomId;
+
+  final void Function({
+    String giftId,
+    String fromUserId,
+  })? onGiftReceived;
 
   /// Received message from chatroom members.
   /// - Parameters:

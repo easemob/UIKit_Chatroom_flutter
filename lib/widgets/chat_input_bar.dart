@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:chat_uikit_theme/chat_uikit_theme.dart';
 
 import '../tools/image_loader.dart';
@@ -12,6 +11,7 @@ class ChatInputBar extends StatefulWidget {
     this.leading,
     this.trailing,
     this.textDirection,
+    this.onSend,
     super.key,
   }) {
     assert(trailing == null || trailing!.length <= 4,
@@ -23,6 +23,7 @@ class ChatInputBar extends StatefulWidget {
   final Widget? leading;
   final List<Widget>? trailing;
   final TextDirection? textDirection;
+  final void Function({required String msg})? onSend;
 
   @override
   State<ChatInputBar> createState() => _ChatInputBarState();
@@ -35,9 +36,32 @@ enum InputType {
 }
 
 class _ChatInputBarState extends State<ChatInputBar> {
+  @override
+  void initState() {
+    super.initState();
+    focusNode = FocusNode();
+    textEditingController = TextEditingController();
+    focusNode.addListener(() {
+      if (focusNode.hasFocus) {
+        setState(() {
+          _inputType = InputType.text;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    focusNode.dispose();
+    textEditingController.dispose();
+    super.dispose();
+  }
+
   InputType _inputType = InputType.normal;
 
-  TextEditingController textEditingController = TextEditingController();
+  late TextEditingController textEditingController;
+
+  late FocusNode focusNode;
 
   @override
   Widget build(BuildContext context) {
@@ -51,15 +75,21 @@ class _ChatInputBarState extends State<ChatInputBar> {
 
     content = SafeArea(
       maintainBottomViewPadding: true,
+      minimum:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: content,
     );
-
     return content;
   }
 
   Widget interiorWidget() {
     return InkWell(
-      onTap: () => setState(() => _inputType = InputType.text),
+      onTap: () {
+        setState(() {
+          _inputType = InputType.text;
+        });
+        focusNode.requestFocus();
+      },
       child: Row(
         textDirection: widget.textDirection,
         children: [
@@ -149,17 +179,6 @@ class _ChatInputBarState extends State<ChatInputBar> {
 
   Widget inputWidget() {
     List<Widget> list = [];
-    // if (widget.leading != null) {
-    //   Widget content = Padding(
-    //     padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 11),
-    //     child: ConstrainedBox(
-    //       constraints: BoxConstraints.loose(const Size(30, 30)),
-    //       child: widget.leading,
-    //     ),
-    //   );
-
-    //   list.add(content);
-    // }
 
     list.add(
       Expanded(
@@ -173,7 +192,6 @@ class _ChatInputBarState extends State<ChatInputBar> {
           margin: const EdgeInsets.all(8),
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: TextField(
-            autofocus: _inputType == InputType.text,
             textDirection: widget.textDirection,
             maxLines: 4,
             minLines: 1,
@@ -181,6 +199,8 @@ class _ChatInputBarState extends State<ChatInputBar> {
               border: InputBorder.none,
               isDense: true,
             ),
+            controller: textEditingController,
+            focusNode: focusNode,
             onTap: () {},
           ),
         ),
@@ -195,6 +215,11 @@ class _ChatInputBarState extends State<ChatInputBar> {
             _inputType = _inputType == InputType.emoji
                 ? InputType.text
                 : InputType.emoji;
+            if (_inputType == InputType.emoji) {
+              focusNode.unfocus();
+            } else {
+              focusNode.requestFocus();
+            }
           });
         },
         child: () {
@@ -207,7 +232,11 @@ class _ChatInputBarState extends State<ChatInputBar> {
 
     trailing.add(InkWell(
       onTap: () {
-        // todo: send message
+        widget.onSend?.call(msg: textEditingController.text);
+        textEditingController.text = '';
+        setState(() {
+          _inputType = InputType.normal;
+        });
       },
       child: ChatImageLoader.airplane(),
     ));
@@ -238,16 +267,29 @@ class _ChatInputBarState extends State<ChatInputBar> {
       child: content,
     );
 
+    // content = Padding(
+    //   padding: EdgeInsets.only(
+    //     bottom: MediaQuery.of(context).viewInsets.bottom,
+    //   ),
+    //   child: content,
+    // );
+
     return content;
   }
 
   Widget faceWidget() {
-    return AnimatedContainer(
+    Widget content = AnimatedContainer(
       onEnd: () {},
       curve: Curves.easeOut,
       duration: const Duration(milliseconds: 250),
       height: _inputType == InputType.emoji ? 280 : 0,
       child: const ChatInputEmoji(),
     );
+
+    // content = SafeArea(
+    //   maintainBottomViewPadding: true,
+    //   child: content,
+    // );
+    return content;
   }
 }

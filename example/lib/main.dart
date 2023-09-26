@@ -15,7 +15,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ChatRoomController controller = ChatRoomController();
+  ChatRoomController controller = ChatRoomController(roomId: 'roomId');
 
   @override
   void initState() {
@@ -27,7 +27,6 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       builder: (context, child) {
         return ChatUIKitTheme(
-          // color: ChatUIKitColor.dark(),
           child: child!,
         );
       },
@@ -35,14 +34,33 @@ class _MyAppState extends State<MyApp> {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: const Text('Plugin example app'),
+          actions: [
+            UnconstrainedBox(
+              child: InkWell(
+                child: const Icon(Icons.more_horiz),
+                onTap: () {
+                  // controller?.addRevolvingLantern(
+                  //     "我是长内容我是长内容我是长内容我是长内容我是长内容我是长内容我是长内容！");
+                },
+              ),
+            )
+          ],
         ),
         body: ChatRoomUIKit(
-          roomId: 'roomId',
           controller: controller,
-          child: const Stack(
+          child: Stack(
             children: [
-              Center(
-                child: Text('ChatRoomUIKit'),
+              InkWell(
+                onTap: () {},
+                child: Container(
+                  color: Colors.green,
+                ),
+              ),
+              Positioned(
+                top: MediaQuery.of(context).viewInsets.top,
+                height: 20,
+                width: MediaQuery.of(context).size.width,
+                child: const ChatRoomMarqueeView(),
               ),
             ],
           ),

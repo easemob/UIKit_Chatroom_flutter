@@ -1,17 +1,22 @@
-import '../listeners/chatroom_gift_listener.dart';
-import '../listeners/chatroom_listener.dart';
-import '../tools/define.dart';
+import 'dart:math';
 
-class ChatRoomController {
+import 'package:chatroom_uikit/chatroom_uikit.dart';
+import 'package:chatroom_uikit/notifications/message_notification.dart';
+import 'package:chatroom_uikit/tools/chat_provider.dart';
+import 'package:flutter/material.dart';
+
+import '../listeners/chatroom_listener.dart';
+
+class ChatRoomController extends ChatUIKitChangeNotifier {
   ChatRoomController({
+    required this.roomId,
     this.roomListener,
-    this.giftListener,
   }) {
-    _eventKey = 'ChatRoomController';
+    _eventKey = 'ChatRoomUIKitController_${Random().nextInt(100000)}}';
     _addEvent();
   }
   final ChatRoomListener? roomListener;
-  final ChatRoomGiftListener? giftListener;
+  final String roomId;
 
   late final String _eventKey;
 
@@ -25,14 +30,25 @@ class ChatRoomController {
     _removeRoomEvent();
   }
 
+  @override
   void dispose() {
     _removeEvent();
+    super.dispose();
+  }
+
+  @override
+  bool get needSaveData => true;
+
+  @override
+  void updateData(data) {
+    if (this != data) {
+      data._removeEvent();
+    }
   }
 }
 
 extension ChatroomImplement on ChatRoomController {
   Future<void> chatroomOperating({
-    required String roomId,
     required ChatroomOperationType type,
   }) async {
     switch (type) {
@@ -45,13 +61,12 @@ extension ChatroomImplement on ChatRoomController {
     }
   }
 
-  Future<String?> fetchAnnouncement({required String roomId}) async {
+  Future<String?> fetchAnnouncement() async {
     return await Client.getInstance.chatRoomManager
         .fetchChatRoomAnnouncement(roomId);
   }
 
   Future<void> updateAnnouncement({
-    required String roomId,
     required String announcement,
   }) async {
     await Client.getInstance.chatRoomManager.updateChatRoomAnnouncement(
@@ -61,7 +76,6 @@ extension ChatroomImplement on ChatRoomController {
   }
 
   Future<void> operatingUser({
-    required String roomId,
     required String userId,
     required ChatroomUserOperationType type,
   }) async {
@@ -94,7 +108,6 @@ extension ChatroomImplement on ChatRoomController {
   }
 
   Future<void> sendMessage({
-    required String roomId,
     required String content,
     List<String>? toUsers,
   }) async {
@@ -102,8 +115,6 @@ extension ChatroomImplement on ChatRoomController {
   }
 
   Future<void> sendCustomMessage({
-    required String roomId,
-    required String content,
     required String event,
     Map<String, String>? infoMap,
     List<String>? toUsers,
@@ -119,9 +130,7 @@ extension ChatroomImplement on ChatRoomController {
         .translateMessage(msg: message, languages: ['zh-cn']);
   }
 
-  Future<void> sendJoinMessage({
-    required String roomId,
-  }) async {
+  Future<void> sendJoinMessage() async {
     // todo:
   }
 
@@ -165,5 +174,36 @@ extension ChatEvent on ChatRoomController {
 
   void _removeChatEvent() {
     Client.getInstance.chatManager.removeEventHandler(_eventKey);
+  }
+}
+
+extension TestExt on ChatRoomController {
+  void sendLocalGiftNotification(
+    BuildContext context, {
+    required String fromUserId,
+    required String giftId,
+  }) {
+    ChatRoomGiftNotification(fromUserId: fromUserId, giftId: giftId)
+        .dispatch(context);
+  }
+
+  void sendLocalMarqueeNotification(
+    BuildContext context, {
+    required String content,
+  }) {
+    ChatRoomMarqueeNotification(
+      content: content,
+    ).dispatch(context);
+  }
+
+  void sendLocalMessageNotification(
+    BuildContext context, {
+    required String fromUserId,
+    required String content,
+  }) {
+    ChatRoomMessageNotification(
+      fromUserId: fromUserId,
+      content: content,
+    ).dispatch(context);
   }
 }
