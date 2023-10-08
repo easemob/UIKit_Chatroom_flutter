@@ -28,6 +28,7 @@ class ChatRoomMarqueeView extends StatefulWidget
 class _ChatRoomMarqueeViewState extends State<ChatRoomMarqueeView> {
   ScrollController scrollController = ScrollController();
 
+  double maxSize = 0;
   List<String> showList = [];
   String? current;
   Timer? timer;
@@ -104,71 +105,56 @@ class _ChatRoomMarqueeViewState extends State<ChatRoomMarqueeView> {
             return Container();
           }(),
           () {
+            Widget ret = Container(
+              padding: EdgeInsets.only(
+                  left: widget.icon == null ? 9 : 3,
+                  right: 10,
+                  top: 0,
+                  bottom: 1),
+              height: 20,
+              decoration: BoxDecoration(
+                color: widget.backgroundColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: widget.icon == null
+                      ? const Radius.circular(10)
+                      : Radius.zero,
+                  bottomLeft: widget.icon == null
+                      ? const Radius.circular(10)
+                      : Radius.zero,
+                  topRight: const Radius.circular(10),
+                  bottomRight: const Radius.circular(10),
+                ),
+              ),
+              clipBehavior: Clip.hardEdge,
+              child: content,
+            );
+
             if (needScroll) {
-              return Expanded(
-                child: Container(
-                  padding: EdgeInsets.only(
-                      left: widget.icon == null ? 9 : 3,
-                      right: 10,
-                      top: 0,
-                      bottom: 1),
-                  height: 20,
-                  decoration: BoxDecoration(
-                    color: widget.backgroundColor,
-                    borderRadius: BorderRadius.only(
-                      topLeft: widget.icon == null
-                          ? const Radius.circular(10)
-                          : Radius.zero,
-                      bottomLeft: widget.icon == null
-                          ? const Radius.circular(10)
-                          : Radius.zero,
-                      topRight: const Radius.circular(10),
-                      bottomRight: const Radius.circular(10),
-                    ),
-                  ),
-                  clipBehavior: Clip.hardEdge,
-                  child: content,
-                ),
-              );
-            } else {
-              return Container(
-                padding: EdgeInsets.only(
-                    left: widget.icon == null ? 9 : 3,
-                    right: 10,
-                    top: 0,
-                    bottom: 1),
-                height: 20,
-                decoration: BoxDecoration(
-                  color: widget.backgroundColor,
-                  borderRadius: BorderRadius.only(
-                    topLeft: widget.icon == null
-                        ? const Radius.circular(10)
-                        : Radius.zero,
-                    bottomLeft: widget.icon == null
-                        ? const Radius.circular(10)
-                        : Radius.zero,
-                    topRight: const Radius.circular(10),
-                    bottomRight: const Radius.circular(10),
-                  ),
-                ),
-                clipBehavior: Clip.hardEdge,
-                child: content,
+              ret = Expanded(
+                child: ret,
               );
             }
+            return ret;
           }(),
         ],
       );
     }
 
     content = WillPopScope(
-        child: content,
-        onWillPop: () async {
-          showList.clear();
-          ChatRoomUIKit.of(context)?.setMarqueeCallback(null);
-          return false;
-        });
+      child: content,
+      onWillPop: () async {
+        showList.clear();
+        ChatRoomUIKit.of(context)?.setMarqueeCallback(null);
+        return false;
+      },
+    );
 
-    return content;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        maxSize = constraints.maxWidth;
+        return content;
+      },
+    );
   }
 
   void play() {
@@ -178,11 +164,14 @@ class _ChatRoomMarqueeViewState extends State<ChatRoomMarqueeView> {
     TextPainter painter = TextPainter(
       text: TextSpan(
         text: current,
+        style: widget.textStyle,
       ),
       textDirection: TextDirection.ltr,
     )..layout(minWidth: 0, maxWidth: double.infinity);
 
-    needScroll = painter.size.width > MediaQuery.of(context).size.width;
+    final length = maxSize - (widget.icon != null ? 38 : 19);
+
+    needScroll = painter.size.width > length;
 
     if (needScroll) {
       _showMarquee();
@@ -194,16 +183,19 @@ class _ChatRoomMarqueeViewState extends State<ChatRoomMarqueeView> {
   void _showMarquee() async {
     update();
     await Future.delayed(const Duration(seconds: 2));
-
+    double maxScrollExtent = scrollController.position.maxScrollExtent;
     timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
       if (scrollController.positions.isEmpty) {
         timer.cancel();
         return;
       }
-      double maxScrollExtent = scrollController.position.maxScrollExtent;
+
       double pixels = scrollController.position.pixels;
       double nextPosition = pixels + 10;
-      if (nextPosition >= maxScrollExtent) {
+      if (nextPosition > maxScrollExtent) {
+        scrollController.animateTo(maxScrollExtent,
+            duration: const Duration(milliseconds: 300), curve: Curves.linear);
+
         timer.cancel();
         _sub = Future.delayed(const Duration(seconds: 2))
             .then((value) {
