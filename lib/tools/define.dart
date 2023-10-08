@@ -7,6 +7,7 @@ typedef ChatEventHandler = EMChatEventHandler;
 typedef ChatException = EMError;
 
 typedef MarqueeCallback = void Function(String str);
+typedef GiftCallback = void Function(String userId, String giftId);
 
 enum ChatroomBeKickedReason { removed, destroyed, offline }
 

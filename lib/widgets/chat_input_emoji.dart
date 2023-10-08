@@ -1,3 +1,4 @@
+import 'package:chat_uikit_theme/chat_uikit_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../tools/image_loader.dart';
@@ -113,9 +114,21 @@ class ChatInputEmoji extends StatelessWidget {
           child: InkWell(
             onTap: deleteOnTap?.call,
             child: Container(
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
+                boxShadow: ChatUIKitTheme.of(context)?.color.isDark ?? false
+                    ? ChatUIKitShadow.darkSmall
+                    : ChatUIKitShadow.lightSmall,
                 borderRadius: BorderRadius.circular(24),
-                color: Colors.red,
+                color: ChatUIKitTheme.of(context)?.color.isDark ?? false
+                    ? ChatUIKitTheme.of(context)?.color.neutralColor3
+                    : ChatUIKitTheme.of(context)?.color.neutralColor98,
+              ),
+              child: ChatImageLoader.delete(
+                size: 40,
+                color: ChatUIKitTheme.of(context)?.color.isDark ?? false
+                    ? ChatUIKitTheme.of(context)?.color.neutralColor98
+                    : ChatUIKitTheme.of(context)?.color.neutralColor3,
               ),
             ),
           ),

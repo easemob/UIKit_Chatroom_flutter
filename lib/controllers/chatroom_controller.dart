@@ -16,7 +16,9 @@ class ChatRoomController {
 
   late final String _eventKey;
 
+  ChatInputBarState? inputBarState;
   MarqueeCallback? marqueeCallback;
+  GiftCallback? giftCallback;
 
   void _addEvent() {
     _addChatEvent();
@@ -30,6 +32,10 @@ class ChatRoomController {
 
   void dispose() {
     _removeEvent();
+  }
+
+  void hiddenInputBar() {
+    inputBarState?.hiddenInputBar();
   }
 }
 
@@ -167,13 +173,19 @@ extension ChatUIKitExt on ChatRoomController {
   void setMarqueeCallback(MarqueeCallback? callback) {
     marqueeCallback = callback;
   }
+
+  void setGiftCallback(GiftCallback? callback) {
+    giftCallback = callback;
+  }
 }
 
 extension TestExt on ChatRoomController {
   void sendLocalGiftNotification({
     required String fromUserId,
     required String giftId,
-  }) {}
+  }) {
+    giftCallback?.call(fromUserId, giftId);
+  }
 
   void sendLocalMarqueeNotification({
     required String content,

@@ -118,4 +118,24 @@ class ChatImageLoader {
       color: color,
     );
   }
+
+  static inputChat({double size = 30, Color? color}) {
+    return Image.asset(
+      'images/chat/chat.png',
+      package: 'chatroom_uikit',
+      width: size,
+      height: size,
+      color: color,
+    );
+  }
+
+  static delete({double size = 30, Color? color}) {
+    return Image.asset(
+      'images/delete/delete.png',
+      package: 'chatroom_uikit',
+      width: size,
+      height: size,
+      color: color,
+    );
+  }
 }

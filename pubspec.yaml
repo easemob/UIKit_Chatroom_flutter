@@ -58,6 +58,8 @@ flutter:
     - images/success/
     - images/textKeyboard/
     - images/unselected/
+    - images/chat/
+    - images/delete/
   #
   # For details regarding assets in packages, see
   # https://flutter.dev/assets-and-images/#from-packages

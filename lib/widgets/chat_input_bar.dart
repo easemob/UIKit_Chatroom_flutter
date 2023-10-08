@@ -1,3 +1,4 @@
+import 'package:chatroom_uikit/chatroom_uikit.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_uikit_theme/chat_uikit_theme.dart';
 
@@ -26,7 +27,7 @@ class ChatInputBar extends StatefulWidget {
   final void Function({required String msg})? onSend;
 
   @override
-  State<ChatInputBar> createState() => _ChatInputBarState();
+  State<ChatInputBar> createState() => ChatInputBarState();
 }
 
 enum InputType {
@@ -35,10 +36,11 @@ enum InputType {
   emoji,
 }
 
-class _ChatInputBarState extends State<ChatInputBar> {
+class ChatInputBarState extends State<ChatInputBar> {
   @override
   void initState() {
     super.initState();
+    ChatRoomUIKit.of(context)?.inputBarState = this;
     focusNode = FocusNode();
     textEditingController = TextEditingController();
     focusNode.addListener(() {
@@ -51,9 +53,22 @@ class _ChatInputBarState extends State<ChatInputBar> {
   }
 
   @override
+  void didUpdateWidget(covariant ChatInputBar oldWidget) {
+    ChatRoomUIKit.of(context)?.inputBarState = this;
+    super.didUpdateWidget(oldWidget);
+  }
+
+  void hiddenInputBar() {
+    setState(() {
+      _inputType = InputType.normal;
+    });
+  }
+
+  @override
   void dispose() {
     focusNode.dispose();
     textEditingController.dispose();
+
     super.dispose();
   }
 
@@ -79,6 +94,14 @@ class _ChatInputBarState extends State<ChatInputBar> {
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: content,
     );
+
+    content = WillPopScope(
+        child: content,
+        onWillPop: () async {
+          ChatRoomUIKit.of(context)?.inputBarState = null;
+          return false;
+        });
+
     return content;
   }
 
@@ -96,7 +119,7 @@ class _ChatInputBarState extends State<ChatInputBar> {
           Container(
             margin: const EdgeInsets.all(4),
             width: 24,
-            child: widget.inputIcon ?? const Icon(Icons.chat),
+            child: widget.inputIcon ?? ChatImageLoader.inputChat(),
           ),
           Expanded(
             child: Padding(
@@ -105,6 +128,7 @@ class _ChatInputBarState extends State<ChatInputBar> {
                 widget.inputHint ?? 'Let\'s chat',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
+                style: const TextStyle(color: Colors.white),
               ),
             ),
           )
@@ -134,7 +158,7 @@ class _ChatInputBarState extends State<ChatInputBar> {
       height: 38,
       padding: const EdgeInsets.only(left: 4, right: 4),
       decoration: BoxDecoration(
-        color: Colors.red,
+        color: ChatUIKitTheme.of(context)?.color.barrageColor,
         borderRadius: BorderRadius.circular(24),
       ),
       child: interiorWidget(),
@@ -167,7 +191,6 @@ class _ChatInputBarState extends State<ChatInputBar> {
     content = Container(
       padding: const EdgeInsets.only(left: 8, right: 8),
       height: 54,
-      color: Colors.blue,
       child: Padding(
         padding: const EdgeInsets.only(left: 8, right: 8),
         child: content,
@@ -224,8 +247,16 @@ class _ChatInputBarState extends State<ChatInputBar> {
         },
         child: () {
           return _inputType == InputType.emoji
-              ? ChatImageLoader.textKeyboard()
-              : ChatImageLoader.face();
+              ? ChatImageLoader.textKeyboard(
+                  color: ChatUIKitTheme.of(context)?.color.isDark ?? false
+                      ? ChatUIKitTheme.of(context)?.color.neutralColor98
+                      : ChatUIKitTheme.of(context)?.color.neutralColor1,
+                )
+              : ChatImageLoader.face(
+                  color: ChatUIKitTheme.of(context)?.color.isDark ?? false
+                      ? ChatUIKitTheme.of(context)?.color.neutralColor98
+                      : ChatUIKitTheme.of(context)?.color.neutralColor1,
+                );
         }(),
       ),
     );
@@ -267,13 +298,6 @@ class _ChatInputBarState extends State<ChatInputBar> {
       child: content,
     );
 
-    // content = Padding(
-    //   padding: EdgeInsets.only(
-    //     bottom: MediaQuery.of(context).viewInsets.bottom,
-    //   ),
-    //   child: content,
-    // );
-
     return content;
   }
 
@@ -283,13 +307,16 @@ class _ChatInputBarState extends State<ChatInputBar> {
       curve: Curves.easeIn,
       duration: const Duration(milliseconds: 300),
       height: _inputType == InputType.emoji ? 280 : 0,
-      child: const ChatInputEmoji(),
+      child: Container(
+        color: ChatUIKitTheme.of(context)?.color.isDark ?? false
+            ? ChatUIKitTheme.of(context)?.color.neutralColor1
+            : ChatUIKitTheme.of(context)?.color.neutralColor98,
+        child: ChatInputEmoji(
+          deleteOnTap: () {},
+        ),
+      ),
     );
 
-    // content = SafeArea(
-    //   maintainBottomViewPadding: true,
-    //   child: content,
-    // );
     return content;
   }
 }

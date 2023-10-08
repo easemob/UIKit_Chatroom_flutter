@@ -1,7 +1,6 @@
 import 'package:chat_uikit_theme/chat_uikit_theme.dart';
+import 'package:chatroom_uikit_example/next.dart';
 import 'package:flutter/material.dart';
-
-import 'package:chatroom_uikit/chatroom_uikit.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,8 +14,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ChatRoomController controller = ChatRoomController(roomId: 'roomId');
-
   @override
   void initState() {
     super.initState();
@@ -27,46 +24,42 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       builder: (context, child) {
         return ChatUIKitTheme(
+          // color: Theme.of(context).brightness == Brightness.light
+          //     ? ChatUIKitColor.light()
+          //     : ChatUIKitColor.dark(),
+          color: ChatUIKitColor.light(),
+          // color: ChatUIKitColor.dark(),
+
           child: child!,
         );
       },
+      routes: {
+        "next": (context) {
+          return const NextPage();
+        }
+      },
       home: Scaffold(
-        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: const Text('Plugin example app'),
           actions: [
             UnconstrainedBox(
               child: InkWell(
                 child: const Icon(Icons.more_horiz),
-                onTap: () {
-                  controller.sendLocalMarqueeNotification(
-                      content: "我是长内容我是长内容我是长内容我是长内容我是长内容我是长内容我是长内容！");
-                  // controller?.addRevolvingLantern(
-                  //     "我是长内容我是长内容我是长内容我是长内容我是长内容我是长内容我是长内容！");
-                },
+                onTap: () {},
               ),
             )
           ],
         ),
-        body: ChatRoomUIKit(
-          controller: controller,
-          child: Stack(
-            children: [
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  color: Colors.green,
-                ),
-              ),
-              Positioned(
-                top: MediaQuery.of(context).viewInsets.top,
-                height: 20,
-                width: MediaQuery.of(context).size.width,
-                child: const ChatRoomMarqueeView(),
-              ),
-            ],
-          ),
-        ),
+        body: Builder(builder: (ctx) {
+          return Center(
+            child: ElevatedButton(
+              child: const Text("Go"),
+              onPressed: () {
+                Navigator.of(ctx).pushNamed("next");
+              },
+            ),
+          );
+        }),
       ),
     );
   }
