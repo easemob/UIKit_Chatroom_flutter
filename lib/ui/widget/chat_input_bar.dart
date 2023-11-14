@@ -338,7 +338,7 @@ class ChatInputBarState extends State<ChatInputBar> {
         child: ChatInputEmoji(
           deleteOnTap: () {
             TextEditingValue value = textEditingController.value;
-            int current = value.selection.baseOffset;
+            int current = value.selection.start;
             String mStr = "";
             int offset = 0;
             do {
@@ -352,7 +352,7 @@ class ChatInputBarState extends State<ChatInputBar> {
 
               if (current >= 2) {
                 String subText = value.text.substring(current - 2, current);
-                if (ChatInputEmoji.emojis.contains(subText)) {
+                if (EmojiMapping.emojis.contains(subText)) {
                   mStr = value.text.substring(0, current - 2) +
                       value.text.substring(current);
                   offset = current - 2;

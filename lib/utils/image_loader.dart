@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ChatImageLoader {
   static Widget emoji(String imageName, {double size = 36}) {
-    String name = imageName.substring(3, imageName.length - 1);
+    String name = imageName.substring(0, imageName.length);
     return Image.asset(
       'assets/images/emojis/$name',
       package: 'chatroom_uikit',

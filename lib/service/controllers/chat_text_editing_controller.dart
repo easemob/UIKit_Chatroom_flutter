@@ -29,7 +29,7 @@ class ChatTextEditingController extends TextEditingController {
         final secondIndex = text.indexOf(']', firstIndex);
         if (secondIndex != -1) {
           String subTxt = text.substring(firstIndex, secondIndex + 1);
-          if (ChatInputEmoji.emojis.contains(subTxt)) {
+          if (EmojiMapping.emojis.contains(subTxt)) {
             includeEmojis.add(EmojiIndex(
               index: firstIndex,
               length: subTxt.length,

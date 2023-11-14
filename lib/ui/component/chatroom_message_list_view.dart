@@ -1,4 +1,5 @@
 import 'package:chatroom_uikit/chatroom_uikit.dart';
+import 'package:chatroom_uikit/service/controllers/chat_text_editing_controller.dart';
 
 import 'package:chatroom_uikit/utils/extension.dart';
 import 'package:chatroom_uikit/utils/time_tool.dart';
@@ -461,18 +462,79 @@ class ChatRoomTextListTile extends StatefulWidget {
 }
 
 class _ChatRoomTextListTileState extends State<ChatRoomTextListTile> {
+  late final String content;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.msg.body.type == BodyType.TXT) {
+      content = EmojiMapping.replaceEmojiToImage(
+          (widget.msg.body as TextBody).content);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    String content = '';
-    if (widget.msg.body.type == BodyType.TXT) {
-      content = (widget.msg.body as TextBody).content;
+    List<InlineSpan> list = [];
+    List<EmojiIndex> indexList = [];
+
+    String tmpStr = content;
+    for (var element in EmojiMapping.emojiImages) {
+      int indexFirst = 0;
+      do {
+        indexFirst = tmpStr.indexOf(element, indexFirst);
+        if (indexFirst == -1) {
+          break;
+        }
+
+        indexList.add(EmojiIndex(
+          emoji: element,
+          index: indexFirst,
+          length: element.length,
+        ));
+        indexFirst += element.length;
+      } while (indexFirst != -1);
     }
+
+    indexList.sort((a, b) => a.index.compareTo(b.index));
+    EmojiIndex? lastIndex;
+    for (final emojiIndex in indexList) {
+      if (lastIndex == null) {
+        list.add(TextSpan(text: content.substring(0, emojiIndex.index)));
+      } else {
+        list.add(
+          TextSpan(
+            text: content.substring(
+              lastIndex.index + lastIndex.length,
+              emojiIndex.index,
+            ),
+          ),
+        );
+      }
+      list.add((WidgetSpan(
+          child: ChatImageLoader.emoji(emojiIndex.emoji, size: 20))));
+
+      lastIndex = emojiIndex;
+    }
+
+    if (lastIndex != null) {
+      list.add(
+        TextSpan(
+          text: content.substring(lastIndex.index + lastIndex.emoji.length),
+        ),
+      );
+    } else {
+      list.add(
+        TextSpan(text: content),
+      );
+    }
+
     return ChatRoomListTile(
       widget.msg,
       child: TextSpan(
         children: [
           const WidgetSpan(child: Padding(padding: EdgeInsets.only(left: 4))),
-          TextSpan(text: ":${EmojiMapping.replaceEmojiBack(content)}"),
+          TextSpan(children: list),
         ],
       ),
     );
