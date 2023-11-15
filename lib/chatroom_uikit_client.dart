@@ -187,7 +187,7 @@ extension ChatRoomServiceAction on ChatroomUIKitClient {
   }) {
     if (message.trim().isEmpty) return Future.value();
     return _checkResult(roomId, RoomEventsType.sendMessage, () {
-      final String msg = EmojiMapping.replaceImageToEmoji(message);
+      final String msg = EmojiMapping.replaceEmojiToImage(message);
       return roomService.sendRoomMessage(
         roomId: roomId,
         message: msg,

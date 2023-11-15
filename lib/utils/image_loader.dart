@@ -4,7 +4,7 @@ class ChatImageLoader {
   static Widget emoji(String imageName, {double size = 36}) {
     String name = imageName.substring(0, imageName.length);
     return Image.asset(
-      'assets/images/emojis/$name',
+      'assets/images/emojis/$name.png',
       package: 'chatroom_uikit',
       width: size,
       height: size,
