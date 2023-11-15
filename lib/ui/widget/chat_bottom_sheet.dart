@@ -115,13 +115,13 @@ class ChatBottomSheetWidget extends StatelessWidget {
           : ChatUIKitTheme.of(context).color.neutralColor95),
     ));
     list.add(
-      Container(
-        padding: const EdgeInsets.symmetric(vertical: 17),
-        alignment: Alignment.center,
-        child: InkWell(
-          onTap: () {
-            Navigator.of(context).pop();
-          },
+      InkWell(
+        onTap: () {
+          Navigator.of(context).pop();
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 17),
+          alignment: Alignment.center,
           child: Text(
             ChatroomLocal.bottomSheetCancel.getString(context),
             style: cancelStyle ??

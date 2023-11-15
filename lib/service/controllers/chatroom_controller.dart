@@ -51,8 +51,8 @@ class ChatroomController with ChatroomResponse, ChatroomEventResponse {
     }
 
     this.participantControllers = participantControllers ?? list;
-    ChatRoomUIKitClient.instance.roomService.bindResponse(this);
-    ChatRoomUIKitClient.instance.bindRoomEventResponse(this);
+    ChatroomUIKitClient.instance.roomService.bindResponse(this);
+    ChatroomUIKitClient.instance.bindRoomEventResponse(this);
   }
   final String roomId;
   final String ownerId;
@@ -73,8 +73,8 @@ class ChatroomController with ChatroomResponse, ChatroomEventResponse {
   ChatRoomShowGiftListAction? _showGiftsViewAction;
 
   void dispose() {
-    ChatRoomUIKitClient.instance.roomService.unbindResponse(this);
-    ChatRoomUIKitClient.instance.unbindRoomEventResponse(this);
+    ChatroomUIKitClient.instance.roomService.unbindResponse(this);
+    ChatroomUIKitClient.instance.unbindRoomEventResponse(this);
   }
 
   @override
@@ -109,7 +109,7 @@ extension ChatroomImplement on ChatroomController {
     ChatroomOperationType type,
   ) async {
     try {
-      await ChatRoomUIKitClient.instance.chatroomOperating(
+      await ChatroomUIKitClient.instance.chatroomOperating(
         roomId: roomId,
         type: type,
       );
@@ -122,7 +122,7 @@ extension ChatroomImplement on ChatroomController {
     String userId,
   ) async {
     try {
-      await ChatRoomUIKitClient.instance.operatingUser(
+      await ChatroomUIKitClient.instance.operatingUser(
         roomId: roomId,
         userId: userId,
         type: type,
@@ -132,7 +132,7 @@ extension ChatroomImplement on ChatroomController {
 
   Future<void> sendMessage(String content) async {
     try {
-      await ChatRoomUIKitClient.instance.sendRoomMessage(
+      await ChatroomUIKitClient.instance.sendRoomMessage(
         roomId: roomId,
         message: content,
       );
@@ -141,7 +141,7 @@ extension ChatroomImplement on ChatroomController {
 
   Future<void> sendGift(GiftEntityProtocol gift) async {
     try {
-      await ChatRoomUIKitClient.instance.sendGift(
+      await ChatroomUIKitClient.instance.sendGift(
         roomId: roomId,
         gift: gift,
       );
@@ -153,7 +153,7 @@ extension ChatroomImplement on ChatroomController {
     required LanguageCode languageCode,
   }) async {
     try {
-      return await ChatRoomUIKitClient.instance.translateMessage(
+      return await ChatroomUIKitClient.instance.translateMessage(
           roomId: roomId, message: message, language: languageCode);
     } on ChatError {
       return Future.value();
@@ -163,7 +163,7 @@ extension ChatroomImplement on ChatroomController {
   Future<void> recall(
       {required String roomId, required ChatMessage message}) async {
     try {
-      await ChatRoomUIKitClient.instance.recall(
+      await ChatroomUIKitClient.instance.recall(
         roomId: roomId,
         message: message,
       );
@@ -176,7 +176,7 @@ extension ChatroomImplement on ChatroomController {
     required String reason,
   }) async {
     try {
-      await ChatRoomUIKitClient.instance.report(
+      await ChatroomUIKitClient.instance.report(
         roomId: roomId,
         messageId: messageId,
         tag: tag,

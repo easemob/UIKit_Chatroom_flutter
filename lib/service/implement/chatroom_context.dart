@@ -30,7 +30,7 @@ class ChatRoomContext {
     }
 
     List<UserInfoProtocol> fetched =
-        await ChatRoomUIKitClient.instance.fetchUserInfos(
+        await ChatroomUIKitClient.instance.fetchUserInfos(
       userIds: unCachedUserIds,
     );
 

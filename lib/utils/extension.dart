@@ -48,7 +48,7 @@ extension Gift on ChatMessage {
       }
       String? jString = (body as CustomBody).params![ChatRoomUIKitEvent.gift];
       final map = json.decode(jString!);
-      ret = ChatRoomUIKitClient.instance.giftService.giftFromJson(map);
+      ret = ChatroomUIKitClient.instance.giftService.giftFromJson(map);
     } while (false);
 
     return ret;
@@ -61,7 +61,7 @@ extension UserInfo on ChatMessage {
         ChatRoomContext.instance.userInfosMap[Client.getInstance.currentUserId];
     if (userInfo != null) {
       Map<String, dynamic>? map =
-          ChatRoomUIKitClient.instance.userService.userToJson(userInfo);
+          ChatroomUIKitClient.instance.userService.userToJson(userInfo);
       if (map?.isNotEmpty == true) {
         attributes ??= {};
         attributes![ChatRoomUIKitEvent.userInfo] = map;
@@ -72,7 +72,7 @@ extension UserInfo on ChatMessage {
   UserInfoProtocol? getUserEntity() {
     Map<String, dynamic>? map = attributes?[ChatRoomUIKitEvent.userInfo];
     if (map != null) {
-      return ChatRoomUIKitClient.instance.userService.userFromJson(map);
+      return ChatroomUIKitClient.instance.userService.userFromJson(map);
     } else {
       return null;
     }

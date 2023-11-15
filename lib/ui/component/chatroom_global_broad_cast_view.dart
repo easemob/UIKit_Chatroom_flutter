@@ -41,7 +41,7 @@ class _ChatroomGlobalBroadcastViewState
   @override
   void initState() {
     super.initState();
-    ChatRoomUIKitClient.instance.roomService.bindResponse(this);
+    ChatroomUIKitClient.instance.roomService.bindResponse(this);
   }
 
   @override
@@ -63,7 +63,7 @@ class _ChatroomGlobalBroadcastViewState
 
   @override
   void dispose() {
-    ChatRoomUIKitClient.instance.roomService.unbindResponse(this);
+    ChatroomUIKitClient.instance.roomService.unbindResponse(this);
     scrollController.dispose();
     timer?.cancel();
     _sub?.cancel();

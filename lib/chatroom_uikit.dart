@@ -14,16 +14,19 @@ export 'chatroom_localizations.dart';
 export 'ui/widget/chat_uikit_button.dart';
 export 'ui/widget/chat_bottom_sheet_background.dart';
 export 'ui/widget/custom_tab_indicator.dart';
+export 'ui/component/chatroom_report_list_view.dart';
 
 export 'service/controllers/chatroom_controller.dart' hide ChatUIKitExt;
 export 'service/controllers/chat_report_controller.dart';
 export 'service/controllers/chatroom_controller.dart';
 
+export 'default/controllers/default_message_list_controller.dart';
 export 'default/controllers/default_gift_page_controller.dart';
 export 'default/controllers/default_report_controller.dart';
 export 'default/data/gift_entity.dart';
 export 'default/data/user_entity.dart';
 
+export 'service/controllers/chatroom_message_list_controller.dart';
 export 'service/controllers/participant_page_controller.dart';
 export 'service/controllers/gift_page_controller.dart';
 
@@ -40,6 +43,7 @@ export 'utils/define.dart';
 export 'utils/image_loader.dart';
 export 'utils/chatroom_enums.dart';
 export 'utils/language_convertor.dart';
+export 'utils/chatroom_event_item_action.dart';
 
 export 'ui/widget/chat_bottom_sheet.dart';
 export 'ui/widget/chat_dialog.dart';
@@ -104,7 +108,7 @@ class ChatRoomUIKitState extends State<ChatRoomUIKit> {
 
   void joinChatRoom() async {
     try {
-      await ChatRoomUIKitClient.instance.chatroomOperating(
+      await ChatroomUIKitClient.instance.chatroomOperating(
         roomId: widget.controller.roomId,
         type: ChatroomOperationType.join,
       );
@@ -151,9 +155,7 @@ class ChatRoomUIKitState extends State<ChatRoomUIKit> {
           roomId: widget.controller.roomId,
           ownerId: widget.controller.ownerId,
           services: widget.controller.participantControllers,
-          onError: (error) {
-            // widget.controller.roomListener?.onErrorOccur?.call(error: error);
-          },
+          onError: (error) {},
         );
       },
     );

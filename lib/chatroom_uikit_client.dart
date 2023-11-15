@@ -2,10 +2,10 @@ import 'package:chatroom_uikit/chatroom_uikit.dart';
 
 import 'package:flutter/widgets.dart';
 
-class ChatRoomUIKitClient {
-  static ChatRoomUIKitClient? _instance;
-  static ChatRoomUIKitClient get instance =>
-      _instance ??= ChatRoomUIKitClient();
+class ChatroomUIKitClient {
+  static ChatroomUIKitClient? _instance;
+  static ChatroomUIKitClient get instance =>
+      _instance ??= ChatroomUIKitClient();
 
   void unInit() {
     _instance?.banders.clear();
@@ -59,7 +59,7 @@ class ChatRoomUIKitClient {
   }
 }
 
-extension GiftServiceAction on ChatRoomUIKitClient {
+extension GiftServiceAction on ChatroomUIKitClient {
   Future<void> sendGift({
     required String roomId,
     required GiftEntityProtocol gift,
@@ -69,7 +69,7 @@ extension GiftServiceAction on ChatRoomUIKitClient {
   }
 }
 
-extension UserServiceAction on ChatRoomUIKitClient {
+extension UserServiceAction on ChatroomUIKitClient {
   Future<void> login({
     required String userId,
     required String token,
@@ -104,7 +104,7 @@ extension UserServiceAction on ChatRoomUIKitClient {
   }
 }
 
-extension ChatRoomServiceAction on ChatRoomUIKitClient {
+extension ChatRoomServiceAction on ChatroomUIKitClient {
   Future<CursorResult<String>> fetchParticipants(
       String roomId, int pageSize, String cursor) {
     return _checkResult(roomId, RoomEventsType.fetchParticipants, () {
@@ -273,7 +273,7 @@ extension ChatRoomServiceAction on ChatRoomUIKitClient {
   }
 }
 
-extension ControllerBander on ChatRoomUIKitClient {
+extension ControllerBander on ChatroomUIKitClient {
   void bindRoomEventResponse(ChatroomEventResponse controller) {
     if (banders.contains(controller)) return;
     banders.add(controller);

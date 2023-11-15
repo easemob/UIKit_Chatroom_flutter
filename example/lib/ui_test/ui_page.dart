@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:chatroom_uikit/chatroom_uikit.dart';
+import 'package:chatroom_uikit_example/ui_test/my_notification.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,7 +16,7 @@ class UIPage extends StatefulWidget {
 class _UIPageState extends State<UIPage> {
   late ChatroomController controller;
 
-  bool isDart = false;
+  bool isLight = false;
   @override
   void initState() {
     super.initState();
@@ -33,7 +34,7 @@ class _UIPageState extends State<UIPage> {
               gifts: () {
                 List<GiftEntityProtocol> list = [];
                 map[element].forEach((element) {
-                  GiftEntityProtocol? gift = ChatRoomUIKitClient
+                  GiftEntityProtocol? gift = ChatroomUIKitClient
                       .instance.giftService
                       .giftFromJson(element);
                   if (gift != null) {
@@ -56,59 +57,6 @@ class _UIPageState extends State<UIPage> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Plugin example app'),
-        actions: [
-          UnconstrainedBox(
-            child: InkWell(
-              child: const Text("msg"),
-              onTap: () {
-                // controller.sendLocalMessageNotification(
-                //   senderId: 'Stevie',
-                //   content: "hello",
-                // );
-              },
-            ),
-          ),
-          const SizedBox(width: 30),
-          UnconstrainedBox(
-            child: InkWell(
-              child: const Text("toast"),
-              onTap: () {
-                // controller.sendLocalMarqueeNotification(
-                //     content: "我是长内容我是长内容我是长内容我是长内容我是长内容我是长内容我是长内容！");
-              },
-            ),
-          ),
-          const SizedBox(width: 30),
-          UnconstrainedBox(
-            child: InkWell(
-              child: const Text("gift"),
-              onTap: () {
-                // final gift = GiftEntity(
-                //   giftId: 'beada6a3-eae6-450e-869c-743d02fa95e7',
-                //   giftName: 'PlantPlantPlant',
-                //   giftIcon:
-                //       'https://fullapp.oss-cn-beijing.aliyuncs.com/uikit/pictures/gift/AUIKitGift12.png',
-                //   giftPrice: 888,
-                //   giftEffect:
-                //       'https://fullapp.oss-cn-beijing.aliyuncs.com/uikit/pag/planet.pag',
-                // );
-
-                // final user = UserEntity(
-                //   'userId',
-                //   nickname: "nickname",
-                //   // avatarURL:
-                //   //     'https://fullapp.oss-cn-beijing.aliyuncs.com/uikit/pictures/gift/AUIKitGift12.png',
-                // );
-                // controller.sendLocalGiftNotification(
-                //   giftEntity: gift,
-                //   fromUserId: user.userId,
-                //   user: user,
-                // );
-              },
-            ),
-          ),
-          const SizedBox(width: 30),
-        ],
       ),
       body: Container(
         decoration: const BoxDecoration(
@@ -164,11 +112,11 @@ class _UIPageState extends State<UIPage> {
                     right: 20,
                     child: Center(
                       child: Switch(
-                          value: isDart,
+                          value: isLight,
                           onChanged: (value) {
-                            setState(() {
-                              isDart = value;
-                            });
+                            isLight = value;
+                            MyNotification(isLight).dispatch(context);
+                            setState(() {});
                           },
                           activeColor: Colors.white),
                     ),

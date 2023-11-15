@@ -3,7 +3,6 @@ import 'package:chatroom_uikit/service/controllers/chat_text_editing_controller.
 
 import 'package:chatroom_uikit/utils/extension.dart';
 import 'package:chatroom_uikit/utils/time_tool.dart';
-import 'package:chatroom_uikit/ui/component/chatroom_report_list_view.dart';
 
 import 'package:flutter/material.dart';
 
@@ -13,12 +12,14 @@ class ChatroomMessageListView extends StatefulWidget {
     this.onLongPress,
     this.itemBuilder,
     this.reportController,
+    this.controller,
     super.key,
   });
 
   final Widget Function(ChatMessage msg)? itemBuilder;
   final void Function(BuildContext content, ChatMessage msg)? onTap;
   final void Function(BuildContext content, ChatMessage msg)? onLongPress;
+  final ChatroomMessageListController? controller;
   final DefaultReportController? reportController;
   @override
   State<ChatroomMessageListView> createState() =>
@@ -34,13 +35,15 @@ class _ChatroomMessageListViewState extends State<ChatroomMessageListView>
   final scrollController = ScrollController();
 
   late ChatReportController reportController;
+  late ChatroomMessageListController controller;
 
   @override
   void initState() {
     super.initState();
-    ChatRoomUIKitClient.instance.roomService.bindResponse(this);
-    ChatRoomUIKitClient.instance.giftService.bindResponse(this);
+    ChatroomUIKitClient.instance.roomService.bindResponse(this);
+    ChatroomUIKitClient.instance.giftService.bindResponse(this);
 
+    controller = widget.controller ?? DefaultMessageListController();
     reportController = widget.reportController ?? DefaultReportController();
     scrollController.addListener(() {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -57,24 +60,11 @@ class _ChatroomMessageListViewState extends State<ChatroomMessageListView>
     });
   }
 
-  void hasRecalled(String msgId) {
-    list.removeWhere((element) => element.msgId == msgId);
-    setState(() {});
-  }
-
-  void hasTransform(ChatMessage message) {
-    final index = list.indexWhere((element) => element.msgId == message.msgId);
-    if (index != -1) {
-      list[index] = message;
-      setState(() {});
-    }
-  }
-
   @override
   void dispose() {
     scrollController.dispose();
-    ChatRoomUIKitClient.instance.roomService.unbindResponse(this);
-    ChatRoomUIKitClient.instance.giftService.unbindResponse(this);
+    ChatroomUIKitClient.instance.roomService.unbindResponse(this);
+    ChatroomUIKitClient.instance.giftService.unbindResponse(this);
     super.dispose();
   }
 
@@ -149,7 +139,15 @@ class _ChatroomMessageListViewState extends State<ChatroomMessageListView>
       if (msg.isGiftMsg() || msg.isJoinNotify()) return;
       String? roomId = ChatRoomUIKit.roomController(context)?.roomId;
       String? ownerId = ChatRoomUIKit.roomController(context)?.ownerId;
-      if (roomId?.isNotEmpty == true) {
+
+      List<ChatBottomSheetItem>? actions = controller.listItemLongPressed(
+        context: context,
+        message: msg,
+        roomId: roomId!,
+        ownerId: ownerId!,
+      );
+
+      if (actions?.isNotEmpty == true) {
         showModalBottomSheet(
           context: context,
           clipBehavior: Clip.hardEdge,
@@ -161,67 +159,7 @@ class _ChatroomMessageListViewState extends State<ChatroomMessageListView>
           ),
           builder: (context) {
             return ChatBottomSheetWidget(
-              items: [
-                ChatBottomSheetItem.normal(
-                  label: ChatroomLocal.bottomSheetTranslate.getString(context),
-                  onTap: () async {
-                    Navigator.of(context).pop();
-                    try {
-                      await ChatRoomUIKitClient.instance.translateMessage(
-                          roomId: msg.conversationId!,
-                          message: msg,
-                          language: LanguageConvertor.instance
-                              .targetLanguage(context));
-                    } catch (e) {
-                      vLog(e.toString());
-                    }
-                  },
-                ),
-                ChatBottomSheetItem.normal(
-                  label: ChatroomLocal.bottomSheetDelete.getString(context),
-                  onTap: () async {
-                    Navigator.of(context).pop();
-                    try {
-                      await ChatRoomUIKitClient.instance
-                          .recall(roomId: msg.conversationId!, message: msg);
-                    } catch (e) {
-                      vLog(e.toString());
-                    }
-                  },
-                ),
-                if (ChatRoomUIKit.roomController(context)?.ownerId ==
-                    Client.getInstance.currentUserId)
-                  ChatBottomSheetItem.normal(
-                    label: ChatroomLocal.bottomSheetMute.getString(context),
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ChatBottomSheetItem.destructive(
-                  label: ChatroomLocal.bottomSheetReport.getString(context),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    showModalBottomSheet(
-                      context: context,
-                      clipBehavior: Clip.hardEdge,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(16.0),
-                          topRight: Radius.circular(16.0),
-                        ),
-                      ),
-                      builder: (context) {
-                        return ChatroomReportListView(
-                          roomId: roomId!,
-                          messageId: msg.msgId,
-                          owner: ownerId,
-                          controllers: [reportController],
-                        );
-                      },
-                    );
-                  },
-                ),
-              ],
+              items: actions,
             );
           },
         );
@@ -669,7 +607,7 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           color: ChatUIKitTheme.of(context).color.barrageColor1),
-      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       child: content,
     );
 

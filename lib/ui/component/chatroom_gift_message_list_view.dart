@@ -42,12 +42,12 @@ class _ChatroomGiftMessageListViewState
   @override
   void initState() {
     super.initState();
-    ChatRoomUIKitClient.instance.giftService.bindResponse(this);
+    ChatroomUIKitClient.instance.giftService.bindResponse(this);
   }
 
   @override
   void dispose() {
-    ChatRoomUIKitClient.instance.giftService.unbindResponse(this);
+    ChatroomUIKitClient.instance.giftService.unbindResponse(this);
     for (var element in list) {
       element.stopTimer();
     }

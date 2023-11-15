@@ -6,12 +6,12 @@ class ChatroomReportListView extends StatefulWidget {
   const ChatroomReportListView({
     required this.roomId,
     required this.messageId,
-    required this.controllers,
+    this.controller,
     this.owner,
     super.key,
   });
 
-  final List<ChatReportController> controllers;
+  final ChatReportController? controller;
   final String messageId;
   final String roomId;
   final String? owner;
@@ -24,9 +24,12 @@ class _ChatroomReportListViewState extends State<ChatroomReportListView>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
+  late ChatReportController controller;
+
   @override
   void initState() {
     super.initState();
+    controller = widget.controller ?? DefaultReportController();
     _tabController = TabController(vsync: this, length: 1);
   }
 
@@ -58,14 +61,12 @@ class _ChatroomReportListViewState extends State<ChatroomReportListView>
               ? ChatUIKitTheme.of(context).color.neutralColor98
               : ChatUIKitTheme.of(context).color.neutralColor1),
           isScrollable: true,
-          tabs: widget.controllers
-              .map((e) => Tab(text: e.title(context)))
-              .toList(),
+          tabs: [controller].map((e) => Tab(text: e.title(context))).toList(),
         ),
         Expanded(
           child: TabBarView(
             controller: _tabController,
-            children: widget.controllers
+            children: [controller]
                 .map((e) => ChatReportPage(
                       roomId: widget.roomId,
                       messageId: widget.messageId,

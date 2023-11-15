@@ -32,12 +32,13 @@ class GiftServiceImplement extends GiftService {
     GiftEntityProtocol gift,
     UserInfoProtocol? user,
   ) async {
-    await ChatRoomUIKitClient.instance.sendCustomMessage(
-        roomId: roomId,
-        event: ChatRoomUIKitEvent.giftEvent,
-        params: {
-          ChatRoomUIKitEvent.gift: json.encode(giftToJson(gift)),
-        });
+    await ChatroomUIKitClient.instance.sendCustomMessage(
+      roomId: roomId,
+      event: ChatRoomUIKitEvent.giftEvent,
+      params: {
+        ChatRoomUIKitEvent.gift: json.encode(giftToJson(gift)),
+      },
+    );
   }
 
   @override

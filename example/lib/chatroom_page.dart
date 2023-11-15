@@ -47,7 +47,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
               gifts: () {
                 List<GiftEntityProtocol> list = [];
                 map[element].forEach((element) {
-                  GiftEntityProtocol? gift = ChatRoomUIKitClient
+                  GiftEntityProtocol? gift = ChatroomUIKitClient
                       .instance.giftService
                       .giftFromJson(element);
                   if (gift != null) {

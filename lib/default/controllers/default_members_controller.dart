@@ -35,7 +35,7 @@ class DefaultMembersController extends ChatRoomParticipantPageController {
     fetchAll = false;
 
     try {
-      CursorResult<String> result = await ChatRoomUIKitClient.instance
+      CursorResult<String> result = await ChatroomUIKitClient.instance
           .fetchParticipants(roomId, pageSize, '');
 
       if (result.cursor?.isEmpty == true) {
@@ -62,7 +62,7 @@ class DefaultMembersController extends ChatRoomParticipantPageController {
         title: ChatroomLocal.bottomSheetMute.getString(context),
         onPressed: (context, roomId, userId, user) async {
           try {
-            await ChatRoomUIKitClient.instance.operatingUser(
+            await ChatroomUIKitClient.instance.operatingUser(
               roomId: roomId,
               userId: userId,
               type: ChatroomUserOperationType.mute,
@@ -91,7 +91,7 @@ class DefaultMembersController extends ChatRoomParticipantPageController {
                     onTap: () async {
                       Navigator.of(context).pop();
                       try {
-                        await ChatRoomUIKitClient.instance.roomService
+                        await ChatroomUIKitClient.instance.roomService
                             .operatingUser(
                           roomId: roomId,
                           userId: userId,

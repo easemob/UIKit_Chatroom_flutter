@@ -31,7 +31,7 @@ class DefaultReportController extends ChatReportController {
     String reason,
   ) async {
     try {
-      await ChatRoomUIKitClient.instance.report(
+      await ChatroomUIKitClient.instance.report(
         roomId: roomId,
         messageId: messageId,
         tag: tag,

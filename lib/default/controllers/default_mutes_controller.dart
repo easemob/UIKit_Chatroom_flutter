@@ -9,7 +9,7 @@ class DefaultMutesController extends ChatRoomParticipantPageController {
   @override
   Future<List<String>> loadMoreUsers(String roomId, String ownerId) async {
     try {
-      List<String> result = await ChatRoomUIKitClient.instance
+      List<String> result = await ChatroomUIKitClient.instance
           .fetchMutes(roomId, pageNum, pageNum);
 
       pageNum++;
@@ -23,7 +23,7 @@ class DefaultMutesController extends ChatRoomParticipantPageController {
   Future<List<String>> reloadUsers(String roomId, String ownerId) async {
     pageNum = 1;
     try {
-      List<String> result = await ChatRoomUIKitClient.instance
+      List<String> result = await ChatroomUIKitClient.instance
           .fetchMutes(roomId, pageNum, pageNum);
       return result;
     } catch (e) {
@@ -40,7 +40,7 @@ class DefaultMutesController extends ChatRoomParticipantPageController {
         title: ChatroomLocal.bottomSheetUnmute.getString(context),
         onPressed: (context, roomId, userId, user) async {
           try {
-            await ChatRoomUIKitClient.instance.operatingUser(
+            await ChatroomUIKitClient.instance.operatingUser(
               roomId: roomId,
               userId: userId,
               type: ChatroomUserOperationType.unmute,
@@ -69,7 +69,7 @@ class DefaultMutesController extends ChatRoomParticipantPageController {
                     onTap: () async {
                       Navigator.of(context).pop();
                       try {
-                        await ChatRoomUIKitClient.instance.roomService
+                        await ChatroomUIKitClient.instance.roomService
                             .operatingUser(
                           roomId: roomId,
                           userId: userId,

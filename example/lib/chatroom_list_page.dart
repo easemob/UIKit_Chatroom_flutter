@@ -41,7 +41,7 @@ class _ChatRoomListPageState extends State<ChatRoomListPage> {
         leading: ElevatedButton(
           onPressed: () async {
             Navigator.pop(context);
-            await ChatRoomUIKitClient.instance.logout();
+            await ChatroomUIKitClient.instance.logout();
           },
           child: const Text('Logout'),
         ),
