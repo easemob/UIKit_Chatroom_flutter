@@ -28,10 +28,11 @@ packages:
   chat_uikit_theme:
     dependency: transitive
     description:
-      path: "../../chat_uikit_theme"
-      relative: true
-    source: path
-    version: "0.0.1"
+      name: chat_uikit_theme
+      sha256: "3878c810af715281fc7e10c54abc90a0df7061a0cdf16ee1748ad1e1fae7a7ba"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   chatroom_uikit:
     dependency: "direct main"
     description:

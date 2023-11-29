@@ -72,7 +72,9 @@ extension UserInfo on ChatMessage {
   UserInfoProtocol? getUserEntity() {
     Map<String, dynamic>? map = attributes?[ChatRoomUIKitEvent.userInfo];
     if (map != null) {
-      return ChatroomUIKitClient.instance.userService.userFromJson(map);
+      UserInfoProtocol? userInfo =
+          ChatroomUIKitClient.instance.userService.userFromJson(map);
+      return userInfo;
     } else {
       return null;
     }

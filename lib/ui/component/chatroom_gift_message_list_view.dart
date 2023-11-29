@@ -267,32 +267,11 @@ class GiftItem extends StatelessWidget {
   Widget item(BuildContext context) {
     List<Widget> list = [];
 
-    Widget placeholder = (ChatRoomSettings.userDefaultAvatar == null)
-        ? Container(
-            color: Colors.grey,
-            child: const Icon(
-              Icons.perm_identity,
-              size: 26,
-              color: Colors.white,
-            ),
-          )
-        : Image.asset(ChatRoomSettings.userDefaultAvatar!);
-
-    // 头像
-    Widget content = ChatImageLoader.networkImage(
-      image: userInfo?.avatarURL,
-      placeholderWidget: placeholder,
-    );
-
-    content = Container(
+    Widget content = ChatAvatar(
       width: 36,
       height: 36,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(18),
-      ),
-      clipBehavior: Clip.hardEdge,
+      user: userInfo,
       margin: const EdgeInsets.all(4),
-      child: content,
     );
 
     list.add(content);

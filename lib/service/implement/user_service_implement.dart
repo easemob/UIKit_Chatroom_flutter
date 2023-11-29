@@ -100,7 +100,8 @@ class UserServiceImplement extends UserService {
   @override
   UserInfoProtocol? userFromJson(Map<String, dynamic>? json) {
     if (json?.isNotEmpty == true) {
-      return UserEntity.fromJson(json!);
+      UserEntity entity = UserEntity.fromJson(json!);
+      return entity;
     }
     return null;
   }

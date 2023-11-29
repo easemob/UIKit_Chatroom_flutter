@@ -14,6 +14,8 @@ export 'chatroom_localizations.dart';
 export 'ui/widget/chat_uikit_button.dart';
 export 'ui/widget/chat_bottom_sheet_background.dart';
 export 'ui/widget/custom_tab_indicator.dart';
+export 'ui/widget/chat_avatar.dart';
+
 export 'ui/component/chatroom_report_list_view.dart';
 
 export 'service/controllers/chatroom_controller.dart' hide ChatUIKitExt;

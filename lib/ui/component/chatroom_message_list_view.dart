@@ -47,14 +47,16 @@ class _ChatroomMessageListViewState extends State<ChatroomMessageListView>
     reportController = widget.reportController ?? DefaultReportController();
     scrollController.addListener(() {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        if (scrollController.offset >=
-            scrollController.position.maxScrollExtent - 30) {
-          canScroll = true;
-          if (unreadCount.value != 0) {
-            unreadCount.value = 0;
+        if (scrollController.hasClients) {
+          if (scrollController.offset >=
+              scrollController.position.maxScrollExtent - 30) {
+            canScroll = true;
+            if (unreadCount.value != 0) {
+              unreadCount.value = 0;
+            }
+          } else {
+            canScroll = false;
           }
-        } else {
-          canScroll = false;
         }
       });
     });
@@ -170,7 +172,7 @@ class _ChatroomMessageListViewState extends State<ChatroomMessageListView>
   @override
   Widget build(BuildContext context) {
     Widget content = ListView.separated(
-      physics: const AlwaysScrollableScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       padding: EdgeInsets.zero,
       controller: scrollController,
       itemCount: list.length,
@@ -191,7 +193,11 @@ class _ChatroomMessageListViewState extends State<ChatroomMessageListView>
                 } else if (msg.isJoinNotify()) {
                   return ChatRoomJoinListTile(msg);
                 } else {
-                  return ChatRoomTextListTile(msg);
+                  if (msg.body.type == BodyType.TXT) {
+                    return ChatRoomTextListTile(msg);
+                  } else {
+                    return const SizedBox();
+                  }
                 }
               }(),
         );
@@ -400,23 +406,34 @@ class ChatRoomTextListTile extends StatefulWidget {
 }
 
 class _ChatRoomTextListTileState extends State<ChatRoomTextListTile> {
-  late final String content;
+  String? content;
 
   @override
   void initState() {
     super.initState();
-    if (widget.msg.body.type == BodyType.TXT) {
-      content = EmojiMapping.replaceEmojiToImage(
-          (widget.msg.body as TextBody).content);
-    }
   }
 
   @override
   Widget build(BuildContext context) {
+    if (widget.msg.body.type == BodyType.TXT) {
+      TextBody body = widget.msg.body as TextBody;
+      if (body
+              .translations?[
+                  LanguageConvertor.instance.targetLanguage(context).code]
+              ?.isNotEmpty ==
+          true) {
+        content = body.translations![
+            LanguageConvertor.instance.targetLanguage(context).code]!;
+      }
+      content ??= body.content;
+    }
+
+    content = EmojiMapping.replaceEmojiToImage(content!);
+
     List<InlineSpan> list = [];
     List<EmojiIndex> indexList = [];
 
-    String tmpStr = content;
+    String tmpStr = content!;
     for (var element in EmojiMapping.emojiImages) {
       int indexFirst = 0;
       do {
@@ -438,11 +455,11 @@ class _ChatRoomTextListTileState extends State<ChatRoomTextListTile> {
     EmojiIndex? lastIndex;
     for (final emojiIndex in indexList) {
       if (lastIndex == null) {
-        list.add(TextSpan(text: content.substring(0, emojiIndex.index)));
+        list.add(TextSpan(text: content!.substring(0, emojiIndex.index)));
       } else {
         list.add(
           TextSpan(
-            text: content.substring(
+            text: content!.substring(
               lastIndex.index + lastIndex.length,
               emojiIndex.index,
             ),
@@ -458,7 +475,7 @@ class _ChatRoomTextListTileState extends State<ChatRoomTextListTile> {
     if (lastIndex != null) {
       list.add(
         TextSpan(
-          text: content.substring(lastIndex.index + lastIndex.emoji.length),
+          text: content!.substring(lastIndex.index + lastIndex.emoji.length),
         ),
       );
     } else {
@@ -496,7 +513,8 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
       list.add(TextSpan(text: TimeTool.timeStrByMs(widget.msg.serverTime)));
     }
 
-    UserInfoProtocol? user = widget.msg.getUserEntity();
+    UserInfoProtocol? user =
+        ChatRoomContext.instance.userInfosMap[widget.msg.from];
 
     if (ChatRoomSettings.enableMsgListIdentify) {
       if (user?.identify?.isNotEmpty == true) {
@@ -534,30 +552,11 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
     if (ChatRoomSettings.enableMsgListAvatar) {
       list.add(
         WidgetSpan(
-          child: Container(
-            clipBehavior: Clip.hardEdge,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(9)),
-            ),
+          child: ChatAvatar(
             width: 18,
             height: 18,
+            user: user,
             margin: const EdgeInsets.only(left: 4),
-            child: () {
-              if (user?.avatarURL?.isNotEmpty == true) {
-                return ChatImageLoader.networkImage(
-                  image: user?.avatarURL ?? '',
-                  size: 18,
-                  placeholderWidget:
-                      (ChatRoomSettings.userDefaultAvatar == null)
-                          ? ChatImageLoader.defaultAvatar(size: 18)
-                          : Image.asset(
-                              ChatRoomSettings.userDefaultAvatar!,
-                            ),
-                );
-              } else {
-                return ChatImageLoader.avatar(size: 18);
-              }
-            }(),
           ),
           alignment: PlaceholderAlignment.middle,
         ),

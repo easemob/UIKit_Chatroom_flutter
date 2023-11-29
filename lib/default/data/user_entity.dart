@@ -25,13 +25,17 @@ class UserEntity extends UserInfoProtocol {
     this.identify,
   });
 
-  UserEntity.fromJson(
+  factory UserEntity.fromJson(
     Map<String, dynamic> json,
-  )   : userId = json["userId"]!,
-        nickname = json['nickName'],
-        avatarURL = json['avatarURL'],
-        gender = json['gender'],
-        identify = json['identify'];
+  ) {
+    return UserEntity(
+      json['userId']!,
+      nickname: json['nickName'],
+      avatarURL: json['avatarURL'],
+      gender: json['gender'],
+      identify: json['identify'],
+    );
+  }
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {};

@@ -9,7 +9,9 @@ class ChatRoomSettings {
   static bool enableMsgListAvatar = true;
   static bool enableMsgListNickname = true;
   static bool enableMsgListIdentify = true;
+
   static bool enableMsgListGift = true;
 
-  static CornerRadius inputBarRadius = CornerRadius.medium;
+  static CornerRadius inputBarRadius = CornerRadius.large;
+  static CornerRadius avatarRadius = CornerRadius.large;
 }

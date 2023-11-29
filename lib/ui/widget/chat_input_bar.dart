@@ -167,14 +167,30 @@ class ChatInputBarState extends State<ChatInputBar> {
       ));
     }
 
+    CornerRadius radius = ChatRoomSettings.inputBarRadius;
+
+    double height = 38;
+    double circle = height /
+        () {
+          if (radius == CornerRadius.extraSmall) {
+            return 16;
+          } else if (radius == CornerRadius.small) {
+            return 8;
+          } else if (radius == CornerRadius.medium) {
+            return 4;
+          } else {
+            return 2;
+          }
+        }();
+
     Widget content = Container(
-      height: 38,
+      height: height,
       padding: const EdgeInsets.only(left: 4, right: 4),
       decoration: BoxDecoration(
         color: ChatUIKitTheme.of(context).color.isDark
             ? ChatUIKitTheme.of(context).color.barrageColor2
             : ChatUIKitTheme.of(context).color.barrageColor1,
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(circle),
       ),
       child: interiorWidget(),
     );
@@ -215,6 +231,22 @@ class ChatInputBarState extends State<ChatInputBar> {
   Widget inputWidget() {
     List<Widget> list = [];
 
+    CornerRadius radius = ChatRoomSettings.inputBarRadius;
+
+    double height = 38;
+    double circle = height /
+        () {
+          if (radius == CornerRadius.extraSmall) {
+            return 16;
+          } else if (radius == CornerRadius.small) {
+            return 8;
+          } else if (radius == CornerRadius.medium) {
+            return 4;
+          } else {
+            return 2;
+          }
+        }();
+
     list.add(
       Expanded(
         child: Container(
@@ -222,7 +254,7 @@ class ChatInputBarState extends State<ChatInputBar> {
             color: (ChatUIKitTheme.of(context).color.isDark
                 ? ChatUIKitTheme.of(context).color.neutralColor2
                 : ChatUIKitTheme.of(context).color.neutralColor95),
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(circle),
           ),
           margin: const EdgeInsets.all(8),
           padding: const EdgeInsets.symmetric(horizontal: 16),

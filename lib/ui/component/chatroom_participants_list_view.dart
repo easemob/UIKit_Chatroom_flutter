@@ -670,26 +670,10 @@ class _ChatRoomParticipantItemState extends State<ChatRoomParticipantItem> {
             return Container();
           }
         }(),
-        Container(
+        ChatAvatar(
           width: 40,
           height: 40,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          clipBehavior: Clip.hardEdge,
-          child: ChatImageLoader.networkImage(
-            image: widget.user.info?.avatarURL ?? '',
-            placeholderWidget: (ChatRoomSettings.userDefaultAvatar == null)
-                ? Container(
-                    color: Colors.grey,
-                    child: const Icon(
-                      Icons.perm_identity,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                  )
-                : Image.asset(ChatRoomSettings.userDefaultAvatar!),
-          ),
+          user: widget.user.info,
         ),
         Container(
           margin: const EdgeInsets.only(left: 12),

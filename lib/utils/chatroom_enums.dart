@@ -7,4 +7,7 @@ enum ChatroomUserOperationType {
 
 /// Description Chatroom operation events.Ext,leave or join, destroyed.
 enum ChatroomOperationType { join, leave, destroyed }
+
 enum ChatroomBeKickedReason { removed, destroyed, offline }
+
+enum CornerRadius { extraSmall, small, medium, large }

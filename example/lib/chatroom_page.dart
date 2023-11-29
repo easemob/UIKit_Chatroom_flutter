@@ -69,7 +69,8 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
     ChatRoomSettings.enableMsgListAvatar = true;
     ChatRoomSettings.enableMsgListNickname = true;
     ChatRoomSettings.enableMsgListGift = true;
-    return Scaffold(
+
+    Widget content = Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text("${widget.roomId}: ${widget.ownerId}"),
@@ -139,5 +140,14 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
         ),
       ),
     );
+
+    content = GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: content,
+    );
+
+    return content;
   }
 }
