@@ -190,7 +190,7 @@ extension ChatRoomServiceAction on ChatroomUIKitClient {
       final String msg = EmojiMapping.replaceEmojiToImage(message);
       return roomService.sendRoomMessage(
         roomId: roomId,
-        message: msg,
+        message: msg.trim(),
         receiver: receiver,
       );
     });

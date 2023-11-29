@@ -10,7 +10,9 @@ class ChatRoomSettings {
   static bool enableMsgListNickname = true;
   static bool enableMsgListIdentify = true;
 
-  static bool enableMsgListGift = true;
+  static bool enableMsgListGift = false;
+
+  static bool enableParticipantItemIdentify = false;
 
   static CornerRadius inputBarRadius = CornerRadius.large;
   static CornerRadius avatarRadius = CornerRadius.large;

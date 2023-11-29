@@ -654,7 +654,8 @@ class _ChatRoomParticipantItemState extends State<ChatRoomParticipantItem> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         () {
-          if (widget.user.info?.identify?.isNotEmpty == true) {
+          if (widget.user.info?.identify?.isNotEmpty == true &&
+              ChatRoomSettings.enableParticipantItemIdentify) {
             return Container(
               margin: const EdgeInsets.only(right: 14.7),
               width: 21.67,
