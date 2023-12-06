@@ -2,8 +2,8 @@ import 'package:chatroom_uikit/chatroom_uikit.dart';
 
 import 'package:flutter/material.dart';
 
-typedef ChatRoomShowGiftListAction = void Function(
-    List<ChatRoomGiftPageController>);
+typedef ChatroomShowGiftListAction = void Function(
+    List<ChatroomGiftPageController>);
 
 class ChatRoomGiftListView extends StatefulWidget {
   const ChatRoomGiftListView({
@@ -12,7 +12,7 @@ class ChatRoomGiftListView extends StatefulWidget {
     super.key,
   });
 
-  final List<ChatRoomGiftPageController> giftControllers;
+  final List<ChatroomGiftPageController> giftControllers;
   final void Function(GiftEntityProtocol gift)? onSendTap;
 
   @override

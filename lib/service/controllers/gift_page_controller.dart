@@ -1,9 +1,14 @@
 import 'package:chatroom_uikit/service/protocol/gift_service.dart';
 
-abstract class ChatRoomGiftPageController {
+/// Gift page controller, you can customize the gift page
+abstract class ChatroomGiftPageController {
+  /// gift page title
   String get title;
+
+  /// gift list
   List<GiftEntityProtocol> get gifts;
 
+  /// gift will send, you can customize the gift
   GiftEntityProtocol giftWillSend(GiftEntityProtocol gift) {
     return gift;
   }

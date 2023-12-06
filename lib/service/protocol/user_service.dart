@@ -32,7 +32,10 @@ abstract class UserService {
   /// Login SDK
   /// - Parameters:
   ///   - userId: user id
-  Future<void> login({required String userId, required String token});
+  Future<void> login(
+      {required String userId,
+      required String tokenOrPwd,
+      bool isPassword = false});
 
   /// Logout SDK
   /// - Parameter completion: Callback,success or failure

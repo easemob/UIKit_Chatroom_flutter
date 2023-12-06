@@ -66,28 +66,9 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
 
   @override
   Widget build(BuildContext context) {
-    ChatRoomSettings.enableMsgListAvatar = true;
-    ChatRoomSettings.enableMsgListNickname = true;
-    ChatRoomSettings.enableMsgListGift = true;
-
     Widget content = Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text("${widget.roomId}: ${widget.ownerId}"),
-        actions: [
-          UnconstrainedBox(
-            child: InkWell(
-              onTap: () {
-                controller.showParticipantPages();
-              },
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(Icons.person_2_rounded),
-              ),
-            ),
-          )
-        ],
-      ),
+      appBar: AppBar(),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -98,7 +79,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
         child: ChatRoomUIKit(
           controller: controller,
           inputBar: ChatInputBar(
-            trailing: [
+            actions: [
               InkWell(
                 onTap: () => controller.showGiftSelectPages(),
                 child: Padding(
@@ -116,9 +97,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                   height: 20,
                   left: 20,
                   right: 20,
-                  child: ChatroomGlobalBroadcastView(
-                    icon: Image.asset('images/speaker.png'),
-                  ),
+                  child:const ChatroomGlobalBroadcastView(),
                 ),
                 const Positioned(
                   left: 16,

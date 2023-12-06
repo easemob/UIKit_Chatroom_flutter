@@ -2,7 +2,7 @@ import 'package:chatroom_uikit/chatroom_uikit.dart';
 import 'package:flutter/material.dart';
 
 typedef ChatroomShowParticipantViewAction = void Function(
-    String roomId, List<ChatRoomParticipantPageController>?);
+    String roomId, List<ChatroomParticipantPageController>?);
 
 class ChatroomParticipantsListView extends StatefulWidget {
   const ChatroomParticipantsListView({
@@ -20,7 +20,7 @@ class ChatroomParticipantsListView extends StatefulWidget {
     String? roomId,
   )? itemBuilder;
 
-  final List<ChatRoomParticipantPageController> services;
+  final List<ChatroomParticipantPageController> services;
   final void Function(ChatError error)? onError;
 
   @override
@@ -140,7 +140,7 @@ class ChatRoomParticipantsPage extends StatefulWidget {
     this.onSearch,
   });
 
-  final ChatRoomParticipantPageController service;
+  final ChatroomParticipantPageController service;
   final void Function(ChatError e)? onError;
   final void Function(bool onSearch)? onSearch;
 
@@ -162,7 +162,7 @@ class _ChatRoomParticipantsPageState extends State<ChatRoomParticipantsPage>
   late String roomId;
   late String ownerId;
   FocusNode focusNode = FocusNode();
-  late ChatRoomParticipantPageController controller;
+  late ChatroomParticipantPageController controller;
 
   @override
   void initState() {
@@ -215,14 +215,14 @@ class _ChatRoomParticipantsPageState extends State<ChatRoomParticipantsPage>
         return ChatRoomParticipantItem(
           tmpList[index],
           onDismissed: () => showUsers.remove(userId),
-          onMoreAction:
-              (widget.service.itemMoreActions(context, roomId, ownerId) !=
-                          null &&
-                      Client.getInstance.currentUserId != userId)
-                  ? () {
-                      moreActionTap(tmpList[index]);
-                    }
-                  : null,
+          onMoreAction: (widget.service
+                          .itemMoreActions(context, userId, roomId, ownerId) !=
+                      null &&
+                  Client.getInstance.currentUserId != userId)
+              ? () {
+                  moreActionTap(tmpList[index]);
+                }
+              : null,
         );
       },
       controller: scrollController,
@@ -291,6 +291,7 @@ class _ChatRoomParticipantsPageState extends State<ChatRoomParticipantsPage>
     content = ValueListenableBuilder(
       valueListenable: isSearch,
       builder: (context, value, child) {
+        final theme = ChatUIKitTheme.of(context);
         Widget content;
         if (value) {
           content = Row(
@@ -302,9 +303,9 @@ class _ChatRoomParticipantsPageState extends State<ChatRoomParticipantsPage>
                   height: 36,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(18),
-                    color: (ChatUIKitTheme.of(context).color.isDark
-                        ? ChatUIKitTheme.of(context).color.neutralColor2
-                        : ChatUIKitTheme.of(context).color.neutralColor95),
+                    color: (theme.color.isDark
+                        ? theme.color.neutralColor2
+                        : theme.color.neutralColor95),
                   ),
                   child: Row(
                     children: [
@@ -312,13 +313,23 @@ class _ChatRoomParticipantsPageState extends State<ChatRoomParticipantsPage>
                         padding: const EdgeInsets.fromLTRB(8, 6, 4, 8),
                         child: ChatImageLoader.search(
                           size: 20,
-                          color: (ChatUIKitTheme.of(context).color.isDark
-                              ? ChatUIKitTheme.of(context).color.neutralColor4
-                              : ChatUIKitTheme.of(context).color.neutralColor6),
+                          color: (theme.color.isDark
+                              ? theme.color.neutralColor4
+                              : theme.color.neutralColor6),
                         ),
                       ),
                       Expanded(
                         child: TextField(
+                          style: TextStyle(
+                              color: theme.color.isDark
+                                  ? theme.color.neutralColor98
+                                  : theme.color.neutralColor1,
+                              fontWeight: theme.font.bodyLarge.fontWeight,
+                              fontSize: theme.font.bodyLarge.fontSize),
+                          keyboardAppearance:
+                              ChatUIKitTheme.of(context).color.isDark
+                                  ? Brightness.dark
+                                  : Brightness.light,
                           focusNode: focusNode,
                           decoration: const InputDecoration(
                             border:
@@ -351,15 +362,11 @@ class _ChatRoomParticipantsPageState extends State<ChatRoomParticipantsPage>
                   child: Text(
                     ChatroomLocal.cancel.getString(context),
                     style: TextStyle(
-                      color: (ChatUIKitTheme.of(context).color.isDark
-                          ? ChatUIKitTheme.of(context).color.neutralColor6
-                          : ChatUIKitTheme.of(context).color.primaryColor5),
-                      fontWeight: ChatUIKitTheme.of(context)
-                          .font
-                          .labelMedium
-                          .fontWeight,
-                      fontSize:
-                          ChatUIKitTheme.of(context).font.labelMedium.fontSize,
+                      color: (theme.color.isDark
+                          ? theme.color.neutralColor6
+                          : theme.color.primaryColor5),
+                      fontWeight: theme.font.labelMedium.fontWeight,
+                      fontSize: theme.font.labelMedium.fontSize,
                     ),
                   ),
                 ),
@@ -372,18 +379,18 @@ class _ChatRoomParticipantsPageState extends State<ChatRoomParticipantsPage>
             height: 36,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(18),
-              color: (ChatUIKitTheme.of(context).color.isDark
-                  ? ChatUIKitTheme.of(context).color.neutralColor2
-                  : ChatUIKitTheme.of(context).color.neutralColor95),
+              color: (theme.color.isDark
+                  ? theme.color.neutralColor2
+                  : theme.color.neutralColor95),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ChatImageLoader.search(
                   size: 22,
-                  color: (ChatUIKitTheme.of(context).color.isDark
-                      ? ChatUIKitTheme.of(context).color.neutralColor4
-                      : ChatUIKitTheme.of(context).color.neutralColor6),
+                  color: (theme.color.isDark
+                      ? theme.color.neutralColor4
+                      : theme.color.neutralColor6),
                 ),
                 const SizedBox(width: 5.83),
                 Text(
@@ -393,9 +400,9 @@ class _ChatRoomParticipantsPageState extends State<ChatRoomParticipantsPage>
                         ChatUIKitTheme.of(context).font.bodyLarge.fontWeight,
                     fontSize:
                         ChatUIKitTheme.of(context).font.bodyLarge.fontSize,
-                    color: (ChatUIKitTheme.of(context).color.isDark
-                        ? ChatUIKitTheme.of(context).color.neutralColor4
-                        : ChatUIKitTheme.of(context).color.neutralColor6),
+                    color: (theme.color.isDark
+                        ? theme.color.neutralColor4
+                        : theme.color.neutralColor6),
                   ),
                 ),
               ],
@@ -420,11 +427,11 @@ class _ChatRoomParticipantsPageState extends State<ChatRoomParticipantsPage>
   }
 
   void moreActionTap(ChatRoomParticipantItemData itemData) {
-    if (!isSearch.value) {
-      // 搜索状态下是否关闭当前模态
-      Navigator.of(context).pop();
-    }
-
+    // if (!isSearch.value) {
+    //   // 搜索状态下是否关闭当前模态
+    //   Navigator.of(context).pop();
+    // }
+    Navigator.of(context).pop();
     String? ownerId = ChatroomParticipantsListView.of(context)?.ownerId;
     showModalBottomSheet(
       context: context,
@@ -436,8 +443,9 @@ class _ChatRoomParticipantsPageState extends State<ChatRoomParticipantsPage>
         ),
       ),
       builder: (context) {
-        List<ChatBottomSheetItem> list =
-            widget.service.itemMoreActions(context, roomId, ownerId)!.map((e) {
+        List<ChatBottomSheetItem> list = widget.service
+            .itemMoreActions(context, itemData.userId, roomId, ownerId)!
+            .map((e) {
           return ChatBottomSheetItem(
             label: e.title,
             onTap: () {
@@ -521,7 +529,7 @@ class _ChatRoomParticipantsPageState extends State<ChatRoomParticipantsPage>
 
   Future<Map<String, UserInfoProtocol>?> updateUserInfo(
       List<String> userIds) async {
-    return await ChatRoomContext.instance.getUserInfo(userIds);
+    return await ChatroomContext.instance.getUserInfo(userIds);
   }
 
   Future<Map<String, String>?> updateUserDetail(List<String> userIds) async {

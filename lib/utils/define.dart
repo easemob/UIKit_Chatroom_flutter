@@ -1,25 +1,25 @@
-import 'package:im_flutter_sdk/im_flutter_sdk.dart';
+import 'package:im_flutter_sdk/im_flutter_sdk.dart' as chat;
 
 import 'package:flutter/foundation.dart';
 
-typedef Client = EMClient;
-typedef ChatMessage = EMMessage;
-typedef ChatRoomEventHandler = EMChatRoomEventHandler;
-typedef ChatEventHandler = EMChatEventHandler;
-typedef ConnectionEventHandler = EMConnectionEventHandler;
-typedef MessageEvent = ChatMessageEvent;
-typedef ChatError = EMError;
-typedef ChatOptions = EMOptions;
-typedef UserInfo = EMUserInfo;
-typedef ChatRoom = EMChatRoom;
-typedef PageResult<T> = EMPageResult<T>;
-typedef CursorResult<T> = EMCursorResult<T>;
-typedef RoomLeaveReason = LeaveReason;
-typedef MsgType = ChatType;
-typedef BodyType = MessageType;
-typedef TextBody = EMTextMessageBody;
-typedef CustomBody = EMCustomMessageBody;
-typedef RoomPermission = EMChatRoomPermissionType;
+typedef Client = chat.EMClient;
+typedef ChatMessage = chat.EMMessage;
+typedef ChatRoomEventHandler = chat.EMChatRoomEventHandler;
+typedef ChatEventHandler = chat.EMChatEventHandler;
+typedef ConnectionEventHandler = chat.EMConnectionEventHandler;
+typedef MessageEvent = chat.ChatMessageEvent;
+typedef ChatError = chat.EMError;
+typedef ChatOptions = chat.EMOptions;
+typedef UserInfo = chat.EMUserInfo;
+typedef ChatRoom = chat.EMChatRoom;
+typedef PageResult<T> = chat.EMPageResult<T>;
+typedef CursorResult<T> = chat.EMCursorResult<T>;
+typedef RoomLeaveReason = chat.LeaveReason;
+typedef ChatType = chat.ChatType;
+typedef BodyType = chat.MessageType;
+typedef TextBody = chat.EMTextMessageBody;
+typedef CustomBody = chat.EMCustomMessageBody;
+typedef RoomPermissionType = chat.EMChatRoomPermissionType;
 
 vLog(String log) {
   debugPrint("ChatRoomDemo: $log");

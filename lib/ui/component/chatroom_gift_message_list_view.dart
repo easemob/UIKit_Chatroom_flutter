@@ -13,11 +13,11 @@ typedef ChatroomGiftMessageListViewBuilder = Widget? Function({
 });
 
 class ChatroomGiftMessageListView extends StatefulWidget {
-  const ChatroomGiftMessageListView({
-    this.giftWidgetBuilder,
-    this.placeholder,
-    super.key,
-  });
+const ChatroomGiftMessageListView({
+  this.giftWidgetBuilder,
+  this.placeholder,
+  super.key,
+});
 
   final ChatroomGiftMessageListViewBuilder? giftWidgetBuilder;
   final String? placeholder;
@@ -307,7 +307,7 @@ class GiftItem extends StatelessWidget {
             Expanded(
               flex: 0,
               child: Text(
-                'Sent \'${gift.giftName}\'',
+                '${ChatroomLocal.giftSent.getString(context)} \'${gift.giftName}\'',
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   fontWeight:

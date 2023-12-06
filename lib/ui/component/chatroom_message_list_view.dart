@@ -20,7 +20,7 @@ class ChatroomMessageListView extends StatefulWidget {
   final void Function(BuildContext content, ChatMessage msg)? onTap;
   final void Function(BuildContext content, ChatMessage msg)? onLongPress;
   final ChatroomMessageListController? controller;
-  final DefaultReportController? reportController;
+  final ChatReportController? reportController;
   @override
   State<ChatroomMessageListView> createState() =>
       _ChatroomMessageListViewState();
@@ -161,7 +161,7 @@ class _ChatroomMessageListViewState extends State<ChatroomMessageListView>
           ),
           builder: (context) {
             return ChatBottomSheetWidget(
-              items: actions,
+              items: actions!,
             );
           },
         );
@@ -359,7 +359,9 @@ class _ChatRoomGiftListTileState extends State<ChatRoomGiftListTile> {
         child: TextSpan(
           children: [
             const WidgetSpan(child: Padding(padding: EdgeInsets.only(left: 4))),
-            TextSpan(text: 'Sent \'@${gift.giftName}\''),
+            TextSpan(
+                text:
+                    '${ChatroomLocal.giftSent.getString(context)} \'@${gift.giftName}\''),
             WidgetSpan(
               child: Container(
                 clipBehavior: Clip.hardEdge,
@@ -514,7 +516,7 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
     }
 
     UserInfoProtocol? user =
-        ChatRoomContext.instance.userInfosMap[widget.msg.from];
+        ChatroomContext.instance.userInfosMap[widget.msg.from];
 
     if (ChatRoomSettings.enableMsgListIdentify) {
       if (user?.identify?.isNotEmpty == true) {

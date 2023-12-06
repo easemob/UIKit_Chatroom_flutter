@@ -1,6 +1,7 @@
 import 'package:chatroom_uikit/chatroom_uikit.dart';
 
-class DefaultGiftPageController extends ChatRoomGiftPageController {
+/// Default gift page controller
+class DefaultGiftPageController extends ChatroomGiftPageController {
   @override
   final String title;
 

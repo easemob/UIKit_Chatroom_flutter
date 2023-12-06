@@ -5,7 +5,6 @@ import 'package:chatroom_uikit_example/chatroom_page.dart';
 import 'package:chatroom_uikit_example/ui_test/my_notification.dart';
 
 import 'package:chatroom_uikit_example/ui_test/ui_page.dart';
-import 'package:chatroom_uikit_example/your_app_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -96,7 +95,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String? _userId;
-  String? _token;
+  String? _password;
   String? _nickname;
 
   @override
@@ -109,14 +108,6 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Plugin example app'),
-        actions: [
-          UnconstrainedBox(
-            child: InkWell(
-              child: const Icon(Icons.more_horiz),
-              onTap: () {},
-            ),
-          )
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -143,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     hintText: 'token',
                   ),
                   onChanged: (value) {
-                    _token = value;
+                    _password = value;
                   },
                 ),
                 TextField(
@@ -175,13 +166,13 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> loginAndPushRoom() async {
-    if (_userId?.isNotEmpty == true && (_token?.isNotEmpty == true)) {
+    if (_userId?.isNotEmpty == true && (_password?.isNotEmpty == true)) {
       EasyLoading.show(status: 'login...');
-      UserInfoProtocol user = YourAppUser(_userId!, nickname: _nickname);
+      UserEntity user = UserEntity(_userId!, nickname: _nickname);
       try {
-        await ChatroomUIKitClient.instance.login(
+        await ChatroomUIKitClient.instance.loginWithPassword(
           userId: _userId!,
-          token: _token!,
+          password: _password!,
           userInfo: user,
         );
         pushToChatRoomList();

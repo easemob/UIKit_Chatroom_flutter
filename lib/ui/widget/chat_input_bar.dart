@@ -7,19 +7,19 @@ class ChatInputBar extends StatefulWidget {
     this.inputIcon,
     this.inputHint,
     this.leading,
-    this.trailing,
+    this.actions,
     this.textDirection,
     this.onSend,
     super.key,
   }) {
-    assert(trailing == null || trailing!.length <= 4,
-        'can\'t more than 4 actions');
+    assert(
+        actions == null || actions!.length <= 4, 'can\'t more than 4 actions');
   }
 
   final Widget? inputIcon;
   final String? inputHint;
   final Widget? leading;
-  final List<Widget>? trailing;
+  final List<Widget>? actions;
   final TextDirection? textDirection;
   final void Function({required String msg})? onSend;
 
@@ -203,9 +203,9 @@ class ChatInputBarState extends State<ChatInputBar> {
 
     children.add(content);
 
-    if (widget.trailing != null) {
+    if (widget.actions != null) {
       children.addAll(
-        widget.trailing!.map(
+        widget.actions!.map(
           (e) => Padding(
             padding: const EdgeInsets.only(left: 8),
             child: constrained(e),
@@ -260,6 +260,9 @@ class ChatInputBarState extends State<ChatInputBar> {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: TextField(
             textDirection: widget.textDirection,
+            keyboardAppearance: ChatUIKitTheme.of(context).color.isDark
+                ? Brightness.dark
+                : Brightness.light,
             maxLines: 4,
             minLines: 1,
             style: TextStyle(

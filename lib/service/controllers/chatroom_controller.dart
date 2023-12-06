@@ -2,8 +2,8 @@
 
 import 'package:chatroom_uikit/chatroom_uikit.dart';
 
-import 'package:chatroom_uikit/default/controllers/default_members_controller.dart';
-import 'package:chatroom_uikit/default/controllers/default_mutes_controller.dart';
+import 'package:chatroom_uikit/service/default/controllers/default_members_controller.dart';
+import 'package:chatroom_uikit/service/default/controllers/default_mutes_controller.dart';
 import 'package:flutter/material.dart';
 
 class ChatRoomUIKitEvent {
@@ -43,9 +43,9 @@ class ChatroomController with ChatroomResponse, ChatroomEventResponse {
     required this.ownerId,
     this.listener,
     this.giftControllers,
-    List<ChatRoomParticipantPageController>? participantControllers,
+    List<ChatroomParticipantPageController>? participantControllers,
   }) {
-    List<ChatRoomParticipantPageController> list = [DefaultMembersController()];
+    List<ChatroomParticipantPageController> list = [DefaultMembersController()];
     if (ownerId == Client.getInstance.currentUserId) {
       list.add(DefaultMutesController());
     }
@@ -61,8 +61,10 @@ class ChatroomController with ChatroomResponse, ChatroomEventResponse {
     return ownerId == Client.getInstance.currentUserId;
   }
 
-  late final List<ChatRoomParticipantPageController> participantControllers;
-  final Future<List<ChatRoomGiftPageController>?>? giftControllers;
+  late final List<ChatroomParticipantPageController> participantControllers;
+
+  /// 礼物列表
+  final Future<List<ChatroomGiftPageController>?>? giftControllers;
 
   // late final String _eventKey;
 
@@ -70,9 +72,10 @@ class ChatroomController with ChatroomResponse, ChatroomEventResponse {
   ChatInputBarState? _inputBarState;
 
   VoidCallback? _showParticipantsViewAction;
-  ChatRoomShowGiftListAction? _showGiftsViewAction;
+  ChatroomShowGiftListAction? _showGiftsViewAction;
 
   void dispose() {
+    ChatroomContext.instance.muteList.clear();
     ChatroomUIKitClient.instance.roomService.unbindResponse(this);
     ChatroomUIKitClient.instance.unbindRoomEventResponse(this);
   }
@@ -195,7 +198,7 @@ extension ChatUIKitExt on ChatroomController {
     _showParticipantsViewAction = callback;
   }
 
-  void setShowGiftsViewCallback(ChatRoomShowGiftListAction? callback) {
+  void setShowGiftsViewCallback(ChatroomShowGiftListAction? callback) {
     _showGiftsViewAction = callback;
   }
 }

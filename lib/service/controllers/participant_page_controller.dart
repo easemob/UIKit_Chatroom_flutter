@@ -2,7 +2,7 @@ import 'package:chatroom_uikit/chatroom_uikit.dart';
 
 import 'package:flutter/widgets.dart';
 
-abstract class ChatRoomParticipantPageController {
+abstract class ChatroomParticipantPageController {
   String title(BuildContext context, String? roomId, String? ownerId);
 
   Future<List<String>> reloadUsers(String roomId, String ownerId);
@@ -16,6 +16,7 @@ abstract class ChatRoomParticipantPageController {
 
   List<ChatEventItemAction>? itemMoreActions(
     BuildContext context,
+    String? userId,
     String? roomId,
     String? ownerId,
   ) {

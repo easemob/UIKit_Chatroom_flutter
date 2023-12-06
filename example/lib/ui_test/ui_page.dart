@@ -72,7 +72,7 @@ class _UIPageState extends State<UIPage> {
           child: ChatRoomUIKit(
             controller: controller,
             inputBar: ChatInputBar(
-              trailing: [
+              actions: [
                 InkWell(
                   onTap: () => {
                     controller.showParticipantPages(),

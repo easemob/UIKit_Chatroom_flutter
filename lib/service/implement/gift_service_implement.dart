@@ -87,7 +87,7 @@ extension ChatEventsListener on GiftServiceImplement {
 
   void onMessagesReceived(List<ChatMessage> msgs) {
     for (var msg in msgs) {
-      if (msg.isGiftMsg() && msg.chatType == MsgType.ChatRoom) {
+      if (msg.isGiftMsg() && msg.chatType == ChatType.ChatRoom) {
         final gift = msg.getGiftEntity();
         if (gift != null) {
           for (var response in responses) {

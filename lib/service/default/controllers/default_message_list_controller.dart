@@ -25,24 +25,53 @@ class DefaultMessageListController extends ChatroomMessageListController {
           }
         },
       ),
-      ChatBottomSheetItem.normal(
-        label: ChatroomLocal.bottomSheetDelete.getString(context),
-        onTap: () async {
-          Navigator.of(context).pop();
-          try {
-            await ChatroomUIKitClient.instance
-                .recall(roomId: message.conversationId!, message: message);
-          } catch (e) {
-            vLog(e.toString());
-          }
-        },
-      ),
       if (ChatRoomUIKit.roomController(context)?.ownerId ==
-          Client.getInstance.currentUserId)
+              Client.getInstance.currentUserId ||
+          message.from == Client.getInstance.currentUserId)
+        ChatBottomSheetItem.normal(
+          label: ChatroomLocal.bottomSheetDelete.getString(context),
+          onTap: () async {
+            Navigator.of(context).pop();
+            try {
+              await ChatroomUIKitClient.instance
+                  .recall(roomId: message.conversationId!, message: message);
+            } catch (e) {
+              vLog(e.toString());
+            }
+          },
+        ),
+      if (ChatRoomUIKit.roomController(context)?.ownerId ==
+              Client.getInstance.currentUserId &&
+          message.from != Client.getInstance.currentUserId &&
+          ChatroomContext.instance.muteList.contains(message.from))
+        ChatBottomSheetItem.normal(
+          label: ChatroomLocal.bottomSheetUnmute.getString(context),
+          onTap: () {
+            ChatroomUIKitClient.instance
+                .operatingUser(
+                  roomId: roomId!,
+                  userId: message.from!,
+                  type: ChatroomUserOperationType.unmute,
+                )
+                .then((value) {})
+                .whenComplete(() => Navigator.of(context).pop());
+          },
+        ),
+      if (ChatRoomUIKit.roomController(context)?.ownerId ==
+              Client.getInstance.currentUserId &&
+          message.from != Client.getInstance.currentUserId &&
+          ChatroomContext.instance.muteList.contains(message.from) == false)
         ChatBottomSheetItem.normal(
           label: ChatroomLocal.bottomSheetMute.getString(context),
           onTap: () {
-            Navigator.of(context).pop();
+            ChatroomUIKitClient.instance
+                .operatingUser(
+                  roomId: roomId!,
+                  userId: message.from!,
+                  type: ChatroomUserOperationType.mute,
+                )
+                .then((value) {})
+                .whenComplete(() => Navigator.of(context).pop());
           },
         ),
       ChatBottomSheetItem.destructive(

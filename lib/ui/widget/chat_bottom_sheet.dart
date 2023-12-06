@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 
 class ChatBottomSheetWidget extends StatelessWidget {
   const ChatBottomSheetWidget({
+    required this.items,
     this.title,
     this.titleStyle,
-    this.items,
     this.cancelStyle,
     super.key,
   });
 
   final String? title;
   final TextStyle? titleStyle;
-  final List<ChatBottomSheetItem>? items;
+  final List<ChatBottomSheetItem> items;
   final TextStyle? cancelStyle;
   @override
   Widget build(BuildContext context) {
@@ -76,18 +76,21 @@ class ChatBottomSheetWidget extends StatelessWidget {
       ));
     }
 
-    items?.forEach((element) {
-      list.add(
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Divider(
-            height: .5,
-            color: (ChatUIKitTheme.of(context).color.isDark
-                ? ChatUIKitTheme.of(context).color.neutralColor2
-                : ChatUIKitTheme.of(context).color.neutralColor9),
+    for (var element in items) {
+      if (element != items[0] || title?.isNotEmpty == true) {
+        list.add(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Divider(
+              height: .5,
+              color: (ChatUIKitTheme.of(context).color.isDark
+                  ? ChatUIKitTheme.of(context).color.neutralColor2
+                  : ChatUIKitTheme.of(context).color.neutralColor9),
+            ),
           ),
-        ),
-      );
+        );
+      }
+
       list.add(
         InkWell(
           onTap: () {
@@ -106,7 +109,7 @@ class ChatBottomSheetWidget extends StatelessWidget {
           ),
         ),
       );
-    });
+    }
 
     list.add(Container(
       height: 8,

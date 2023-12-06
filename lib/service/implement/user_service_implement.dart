@@ -35,15 +35,23 @@ class UserServiceImplement extends UserService {
   @override
   Future<void> login({
     required String userId,
-    required String token,
+    required String tokenOrPwd,
+    bool isPassword = false,
   }) async {
     userId = userId.trim()..toLowerCase();
-    await Client.getInstance.login(userId, token, false);
+    if (isPassword) {
+      await Client.getInstance.loginWithPassword(userId, tokenOrPwd);
+    } else {
+      await Client.getInstance.loginWithToken(userId, tokenOrPwd);
+    }
+
     await Client.getInstance.startCallback();
   }
 
   @override
   Future<void> logout() async {
+    ChatroomContext.instance.userInfosMap.clear();
+    ChatroomContext.instance.muteList.clear();
     await Client.getInstance.logout(true);
   }
 
@@ -58,7 +66,7 @@ class UserServiceImplement extends UserService {
       list.add(convertUserInfo(element));
     }
 
-    ChatRoomContext.instance.updateUserInfos(list);
+    ChatroomContext.instance.updateUserInfos(list);
 
     return list;
   }
@@ -77,7 +85,7 @@ class UserServiceImplement extends UserService {
       gender: user.gender,
       ext: identifyMap,
     );
-    ChatRoomContext.instance.updateUserInfos([user]);
+    ChatroomContext.instance.updateUserInfos([user]);
   }
 
   UserInfoProtocol convertUserInfo(UserInfo user) {

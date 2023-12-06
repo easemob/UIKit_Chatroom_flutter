@@ -11,6 +11,7 @@ mixin ChatroomLocal {
   static const String kickedOutRoom = 'kickedOutRoom';
   static const String startChat = "startChat";
   static const String report = "report";
+  static const String giftSent = "giftSent";
   static const String violationOptions = "violationOptions";
   static const String bottomSheetPrivateChat =
       'barrage_long_press_menu_private_chat';
@@ -47,7 +48,8 @@ mixin ChatroomLocal {
 
   static const Map<String, dynamic> zh = {
     sent: '发送',
-    joined: "已加入",
+    giftSent: '送了',
+    joined: "进入聊天室",
     postSuccess: "发布成功",
     postFailed: '发布失败',
     welcome: "欢迎来到",
@@ -56,12 +58,12 @@ mixin ChatroomLocal {
     noticePosted: "公告已发布",
     contentProhibited: "内容含有敏感词",
     kickedOutRoom: '您已经被踢出聊天室',
-    startChat: "说点什么",
+    startChat: "发条弹幕吧~",
     report: "举报",
     violationOptions: "违规选项",
     bottomSheetPrivateChat: '私聊',
     bottomSheetTranslate: '翻译',
-    bottomSheetDelete: '删除',
+    bottomSheetDelete: '撤回',
     bottomSheetMute: '禁言',
     bottomSheetUnmute: '解除禁言',
     bottomSheetReport: '举报',
@@ -92,6 +94,7 @@ mixin ChatroomLocal {
   static const Map<String, dynamic> en = {
     sent: 'Sent',
     joined: "Joined",
+    giftSent: 'Sent',
     postSuccess: "Post Success",
     postFailed: 'Post Failed"',
     welcome: "Welcome to",
@@ -107,7 +110,7 @@ mixin ChatroomLocal {
     bottomSheetTranslate: 'Translate',
     bottomSheetDelete: 'Delete',
     bottomSheetMute: 'Mute',
-    bottomSheetUnmute: 'unmute',
+    bottomSheetUnmute: 'Unmute',
     bottomSheetRemove: "Remove",
     bottomSheetReport: 'Report',
     bottomSheetCancel: 'Cancel',

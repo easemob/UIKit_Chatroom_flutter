@@ -2,29 +2,18 @@ import 'package:chatroom_uikit/chatroom_uikit.dart';
 
 import 'package:flutter/material.dart';
 
-class DefaultMembersController extends ChatRoomParticipantPageController {
+class DefaultMutesController extends ChatroomParticipantPageController {
   int pageSize = 20;
-  String cursor = '';
-  bool fetchAll = false;
+  int pageNum = 1;
 
   @override
   Future<List<String>> loadMoreUsers(String roomId, String ownerId) async {
-    if (fetchAll) return Future(() => []);
-
     try {
-      CursorResult<String> result =
-          await Client.getInstance.chatRoomManager.fetchChatRoomMembers(
-        roomId,
-        cursor: cursor,
-        pageSize: pageSize,
-      );
+      List<String> result = await ChatroomUIKitClient.instance
+          .fetchMutes(roomId: roomId, pageNum: pageNum, pageSize: pageSize);
 
-      if (result.cursor?.isEmpty == true) {
-        fetchAll = true;
-      }
-      cursor = result.cursor ?? '';
-
-      return result.data;
+      pageNum++;
+      return result;
     } catch (e) {
       return [];
     }
@@ -32,19 +21,13 @@ class DefaultMembersController extends ChatRoomParticipantPageController {
 
   @override
   Future<List<String>> reloadUsers(String roomId, String ownerId) async {
-    fetchAll = false;
-
+    pageNum = 1;
     try {
-      CursorResult<String> result = await ChatroomUIKitClient.instance
-          .fetchParticipants(roomId, pageSize, '');
+      List<String> result = await ChatroomUIKitClient.instance
+          .fetchMutes(roomId: roomId, pageNum: pageNum, pageSize: pageSize);
 
-      if (result.cursor?.isEmpty == true) {
-        fetchAll = true;
-      }
-      cursor = result.cursor ?? '';
-      result.data.remove(ownerId);
-      result.data.insert(0, ownerId);
-      return result.data;
+      ChatroomContext.instance.muteList = result;
+      return result;
     } catch (e) {
       return [];
     }
@@ -52,27 +35,28 @@ class DefaultMembersController extends ChatRoomParticipantPageController {
 
   @override
   List<ChatEventItemAction>? itemMoreActions(
-    final BuildContext context,
-    final String? roomId,
-    final String? ownerId,
+    BuildContext context,
+    final String? userId,
+    String? roomId,
+    String? ownerId,
   ) {
     if (Client.getInstance.currentUserId != ownerId) return null;
     return [
       ChatEventItemAction(
-        title: ChatroomLocal.bottomSheetMute.getString(context),
+        title: ChatroomLocal.bottomSheetUnmute.getString(context),
         onPressed: (context, roomId, userId, user) async {
           try {
             await ChatroomUIKitClient.instance.operatingUser(
               roomId: roomId,
               userId: userId,
-              type: ChatroomUserOperationType.mute,
+              type: ChatroomUserOperationType.unmute,
             );
             // ignore: empty_catches
           } catch (e) {}
         },
       ),
       ChatEventItemAction(
-        title: ChatroomLocal.memberRemove.getString(context),
+        title: ChatroomLocal.bottomSheetRemove.getString(context),
         highlight: true,
         onPressed: (context, roomId, userId, user) async {
           showDialog(
@@ -112,6 +96,6 @@ class DefaultMembersController extends ChatRoomParticipantPageController {
 
   @override
   String title(BuildContext context, String? roomId, String? ownerId) {
-    return ChatroomLocal.memberListTitle.getString(context);
+    return ChatroomLocal.muteListTitle.getString(context);
   }
 }

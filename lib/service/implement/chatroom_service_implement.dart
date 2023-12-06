@@ -64,12 +64,14 @@ class ChatRoomServiceImplement extends ChatRoomService {
           [userId],
           duration: -1,
         );
+        ChatroomContext.instance.muteList.add(userId);
         break;
       case ChatroomUserOperationType.unmute:
         await Client.getInstance.chatRoomManager.unMuteChatRoomMembers(
           roomId,
           [userId],
         );
+        ChatroomContext.instance.muteList.remove(userId);
         break;
       case ChatroomUserOperationType.kick:
         await Client.getInstance.chatRoomManager.removeChatRoomMembers(
@@ -91,7 +93,7 @@ class ChatRoomServiceImplement extends ChatRoomService {
     final msg = ChatMessage.createTxtSendMessage(
       targetId: roomId,
       content: message,
-      chatType: MsgType.ChatRoom,
+      chatType: ChatType.ChatRoom,
     );
     msg.addUserEntity();
     if (receiver?.isNotEmpty == true) {
@@ -111,7 +113,7 @@ class ChatRoomServiceImplement extends ChatRoomService {
       targetId: roomId,
       event: event,
       params: params,
-      chatType: MsgType.ChatRoom,
+      chatType: ChatType.ChatRoom,
     );
     msg.addUserEntity();
     if (receiver?.isNotEmpty == true) {
@@ -206,7 +208,7 @@ extension ChatroomEventsListener on ChatRoomServiceImplement {
     String participant,
   ) async {
     for (var response in responses) {
-      ChatRoomContext.instance.userInfosMap.remove(participant);
+      ChatroomContext.instance.userInfosMap.remove(participant);
       response.onUserLeave(roomId, participant);
     }
   }
@@ -244,9 +246,13 @@ extension ChatroomEventsListener on ChatRoomServiceImplement {
       "ChatRoomServiceImplement",
       ChatRoomEventHandler(
         onMuteListAddedFromChatRoom: (roomId, mutes, expireTime) {
+          ChatroomContext.instance.muteList.addAll(mutes);
           onMuteListAddedFromChatRoom(roomId, mutes);
         },
         onMuteListRemovedFromChatRoom: (roomId, mutes) {
+          for (var element in mutes) {
+            ChatroomContext.instance.muteList.remove(element);
+          }
           onMuteListRemovedFromChatRoom(roomId, mutes);
         },
         onMemberExitedFromChatRoom: (roomId, roomName, participant) {
@@ -271,7 +277,7 @@ extension ChatroomEventsListener on ChatRoomServiceImplement {
           onMessagesReceived([msg]);
         },
         onError: (msgId, msg, error) {
-          for (var element in ChatroomUIKitClient.instance.banders) {
+          for (var element in ChatroomUIKitClient.instance.responses) {
             element.onEventResultChanged(
               msg.conversationId!,
               RoomEventsType.sendMessage,
@@ -334,7 +340,7 @@ extension ChatroomEventsListener on ChatRoomServiceImplement {
       }
       final info = msg.getUserEntity();
       if (info != null) {
-        ChatRoomContext.instance.userInfosMap[info.userId] = info;
+        ChatroomContext.instance.userInfosMap[info.userId] = info;
       }
 
       if (msg.isGlobalNotify()) {
@@ -370,16 +376,9 @@ extension ChatroomEventsListener on ChatRoomServiceImplement {
 
     if (globalNotifies.isNotEmpty) {
       for (var response in responses) {
-        for (var element in receives.keys) {
-          response.onGlobalNotifyReceived(element, receives[element]!);
+        for (var element in globalNotifies.keys) {
+          response.onGlobalNotifyReceived(element, globalNotifies[element]!);
         }
-      }
-    }
-
-    // TODO: test notify.
-    for (var response in responses) {
-      for (var element in receives.keys) {
-        response.onGlobalNotifyReceived(element, receives[element]!);
       }
     }
   }

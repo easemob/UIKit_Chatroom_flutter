@@ -1,15 +1,17 @@
 import 'package:chatroom_uikit/chatroom_uikit.dart';
 
-class ChatRoomContext {
-  static ChatRoomContext? _instance;
-  static ChatRoomContext get instance => _instance ??= ChatRoomContext._();
+class ChatroomContext {
+  static ChatroomContext? _instance;
+  static ChatroomContext get instance => _instance ??= ChatroomContext._();
 
   String? ownerId;
   String? roomId;
 
-  ChatRoomContext._();
+  ChatroomContext._();
 
   final Map<String, UserInfoProtocol> userInfosMap = {};
+
+  List<String> muteList = [];
 
   Future<Map<String, UserInfoProtocol>?> getUserInfo(
       List<String> userIds) async {

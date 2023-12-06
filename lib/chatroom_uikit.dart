@@ -22,11 +22,11 @@ export 'service/controllers/chatroom_controller.dart' hide ChatUIKitExt;
 export 'service/controllers/chat_report_controller.dart';
 export 'service/controllers/chatroom_controller.dart';
 
-export 'default/controllers/default_message_list_controller.dart';
-export 'default/controllers/default_gift_page_controller.dart';
-export 'default/controllers/default_report_controller.dart';
-export 'default/data/gift_entity.dart';
-export 'default/data/user_entity.dart';
+export 'service/default/controllers/default_message_list_controller.dart';
+export 'service/default/controllers/default_gift_page_controller.dart';
+export 'service/default/controllers/default_report_controller.dart';
+export 'service/default/data/gift_entity.dart';
+export 'service/default/data/user_entity.dart';
 
 export 'service/controllers/chatroom_message_list_controller.dart';
 export 'service/controllers/participant_page_controller.dart';
@@ -87,7 +87,7 @@ class ChatRoomUIKit extends StatefulWidget {
 }
 
 class ChatRoomUIKitState extends State<ChatRoomUIKit> {
-  List<ChatRoomGiftPageController> giftServices = [];
+  List<ChatroomGiftPageController> giftServices = [];
 
   @override
   void didUpdateWidget(covariant ChatRoomUIKit oldWidget) {
@@ -120,7 +120,7 @@ class ChatRoomUIKitState extends State<ChatRoomUIKit> {
     }
   }
 
-  void showGiftsView(List<ChatRoomGiftPageController> services) {
+  void showGiftsView(List<ChatroomGiftPageController> services) {
     showModalBottomSheet(
       context: context,
       clipBehavior: Clip.hardEdge,

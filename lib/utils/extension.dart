@@ -23,8 +23,7 @@ extension Notify on ChatMessage {
 
 extension GlobalNotify on ChatMessage {
   bool isGlobalNotify() {
-    // TODO: 实现广播消息解析
-    return false;
+    return isBroadcast;
   }
 }
 
@@ -58,7 +57,7 @@ extension Gift on ChatMessage {
 extension UserInfo on ChatMessage {
   void addUserEntity() {
     UserInfoProtocol? userInfo =
-        ChatRoomContext.instance.userInfosMap[Client.getInstance.currentUserId];
+        ChatroomContext.instance.userInfosMap[Client.getInstance.currentUserId];
     if (userInfo != null) {
       Map<String, dynamic>? map =
           ChatroomUIKitClient.instance.userService.userToJson(userInfo);
