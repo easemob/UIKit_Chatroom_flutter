@@ -30,7 +30,7 @@ class UserEntity extends UserInfoProtocol {
   ) {
     return UserEntity(
       json['userId']!,
-      nickname: json['nickName'],
+      nickname: json['nickname'],
       avatarURL: json['avatarURL'],
       gender: json['gender'],
       identify: json['identify'],
@@ -40,7 +40,7 @@ class UserEntity extends UserInfoProtocol {
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {};
     map.putIfNotNull('userId', userId);
-    map.putIfNotNull('nickName', nickname);
+    map.putIfNotNull('nickname', nickname);
     map.putIfNotNull('avatarURL', avatarURL);
     map.putIfNotNull('gender', gender);
     map.putIfNotNull('identify', identify);
