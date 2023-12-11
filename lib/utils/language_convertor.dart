@@ -13,8 +13,15 @@ class LanguageConvertor {
         LanguageConvertor.defaultLanguage;
   }
 
+  LanguageCode fromLocale(Locale? local) {
+    _targetLanguage = local?.languageCode.toLanguageCode() ??
+        LanguageConvertor.defaultLanguage;
+    return _targetLanguage!;
+  }
+
   LanguageCode? _systemLanguage(BuildContext context) {
-    return Localizations.localeOf(context).languageCode.toLanguageCode();
+    Locale local = Localizations.localeOf(context);
+    return local.languageCode.toLanguageCode();
   }
 
   static LanguageCode defaultLanguage = LanguageCode.en;
@@ -24,6 +31,7 @@ enum LanguageCode {
   en,
   zh_Hans,
   zh_Hant,
+  zh,
   ru,
   de,
   fr,
@@ -37,6 +45,8 @@ extension LanguageCodeExt on LanguageCode {
     switch (this) {
       case LanguageCode.en:
         return 'en';
+      case LanguageCode.zh:
+        return 'zh';
       case LanguageCode.zh_Hans:
         return 'zh-Hans';
       case LanguageCode.zh_Hant:
@@ -60,6 +70,8 @@ extension StringExt on String {
     switch (this) {
       case 'en':
         return LanguageCode.en;
+      case 'zh':
+        return LanguageCode.zh;
       case 'zh-Hans':
         return LanguageCode.zh_Hans;
       case 'zh-Hant':

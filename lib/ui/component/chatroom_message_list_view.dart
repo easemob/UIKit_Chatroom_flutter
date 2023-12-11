@@ -419,14 +419,13 @@ class _ChatRoomTextListTileState extends State<ChatRoomTextListTile> {
   Widget build(BuildContext context) {
     if (widget.msg.body.type == BodyType.TXT) {
       TextBody body = widget.msg.body as TextBody;
-      if (body
-              .translations?[
-                  LanguageConvertor.instance.targetLanguage(context).code]
-              ?.isNotEmpty ==
-          true) {
-        content = body.translations![
-            LanguageConvertor.instance.targetLanguage(context).code]!;
-      }
+      body.translations?.forEach((key, value) {
+        if (key.contains(
+            LanguageConvertor.instance.targetLanguage(context).code)) {
+          content = value;
+        }
+      });
+
       content ??= body.content;
     }
 
