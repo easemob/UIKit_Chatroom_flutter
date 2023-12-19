@@ -25,9 +25,7 @@ class DefaultMessageListController extends ChatroomMessageListController {
           }
         },
       ),
-      if (ChatRoomUIKit.roomController(context)?.ownerId ==
-              Client.getInstance.currentUserId ||
-          message.from == Client.getInstance.currentUserId)
+      if (message.from == Client.getInstance.currentUserId)
         ChatBottomSheetItem.normal(
           label: ChatroomLocal.bottomSheetDelete.getString(context),
           onTap: () async {

@@ -105,6 +105,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Locale local = Localizations.localeOf(context);
+    debugPrint('local: $local');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Plugin example app'),

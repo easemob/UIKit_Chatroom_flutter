@@ -19,7 +19,11 @@ dependencies:
   im_flutter_sdk:
     path: ../../../im_flutter_sdk/
 
-  flutter_localization: ^0.1.13
+  flutter_localization: ^0.1.14
+  # flutter_localization:
+  #   git:
+  #     url: https://github.com/channdara/flutter_localization.git
+  #     ref: feature/script-code
   
 
 
