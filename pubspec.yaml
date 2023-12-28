@@ -1,7 +1,7 @@
 name: chatroom_uikit
 description: A new Flutter plugin project.
-version: 0.0.1
-homepage:
+version: 1.0.0-rc.1
+homepage: https://www.easemob.com/
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
