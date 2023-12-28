@@ -97,7 +97,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                   height: 20,
                   left: 20,
                   right: 20,
-                  child:const ChatroomGlobalBroadcastView(),
+                  child: const ChatroomGlobalBroadcastView(),
                 ),
                 const Positioned(
                   left: 16,

@@ -6,12 +6,12 @@ typedef ChatroomGlobalBroadcastBuilder = Widget Function(List<String> list);
 
 class ChatroomGlobalBroadcastView extends StatefulWidget
     implements PreferredSizeWidget {
-const ChatroomGlobalBroadcastView({
-  this.icon,
-  this.textStyle,
-  this.backgroundColor,
-  super.key,
-});
+  const ChatroomGlobalBroadcastView({
+    this.icon,
+    this.textStyle,
+    this.backgroundColor,
+    super.key,
+  });
 
   final Widget? icon;
   final TextStyle? textStyle;

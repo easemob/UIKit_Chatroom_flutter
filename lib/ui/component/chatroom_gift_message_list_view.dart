@@ -13,11 +13,11 @@ typedef ChatroomGiftMessageListViewBuilder = Widget? Function({
 });
 
 class ChatroomGiftMessageListView extends StatefulWidget {
-const ChatroomGiftMessageListView({
-  this.giftWidgetBuilder,
-  this.placeholder,
-  super.key,
-});
+  const ChatroomGiftMessageListView({
+    this.giftWidgetBuilder,
+    this.placeholder,
+    super.key,
+  });
 
   final ChatroomGiftMessageListViewBuilder? giftWidgetBuilder;
   final String? placeholder;
