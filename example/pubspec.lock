@@ -161,10 +161,11 @@ packages:
   im_flutter_sdk:
     dependency: transitive
     description:
-      path: "../../../../im_flutter_sdk"
-      relative: true
-    source: path
-    version: "4.2.0"
+      name: im_flutter_sdk
+      sha256: c752e14747f6d6051791e53ac89039e740c7d90d8eb9d78593578ef9a2069790
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.0-rc.1"
   integration_test:
     dependency: "direct dev"
     description: flutter
