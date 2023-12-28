@@ -1,3 +1,11 @@
-## 0.0.1
+## 1.0.0
 
-* TODO: Describe initial release.
+#### 新增
+
+- 新增 `ChatRoomGiftListView`;
+- 新增 `ChatroomGiftMessageListView`;
+- 新增 `ChatroomGlobalBroadcastView`;
+- 新增 `ChatroomMessageListView`;
+- 新增 `ChatroomParticipantsListView`;
+- 新增 `ChatroomReportListView`;
+
