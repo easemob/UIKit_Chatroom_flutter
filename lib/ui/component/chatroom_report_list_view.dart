@@ -98,13 +98,13 @@ class ChatReportPage extends StatefulWidget {
 }
 
 class _ChatReportPageState extends State<ChatReportPage> {
-  int selectedIndex = 1;
+  String? selectedKey;
 
   final scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
-    List<String> item = widget.controller.reportList(context);
+    Map<String, String> items = widget.controller.reportList(context);
 
     Widget content = CustomScrollView(
       controller: scrollController,
@@ -131,16 +131,23 @@ class _ChatReportPageState extends State<ChatReportPage> {
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (BuildContext context, int index) {
+              String reasonKey = items.keys.toList()[index];
+              String value = items[reasonKey]!;
               return InkWell(
                 onTap: () {
-                  setState(() {
-                    selectedIndex = index;
-                  });
+                  selectedKey = reasonKey;
+                  setState(() {});
                 },
-                child: tile(item[index], selectedIndex == index),
+                child: () {
+                  return tile(
+                    value,
+                    reasonKey,
+                    selectedKey == reasonKey,
+                  );
+                }(),
               );
             },
-            childCount: item.length,
+            childCount: items.length,
           ),
         ),
       ],
@@ -183,8 +190,8 @@ class _ChatReportPageState extends State<ChatReportPage> {
                       context,
                       widget.roomId,
                       widget.messageId,
-                      item[selectedIndex],
-                      item[selectedIndex],
+                      selectedKey!,
+                      items[selectedKey]!,
                     );
                     Navigator.of(context).pop();
                   },
@@ -206,7 +213,11 @@ class _ChatReportPageState extends State<ChatReportPage> {
     return content;
   }
 
-  Widget tile(String title, bool selected) {
+  Widget tile(
+    String title,
+    String titleKey,
+    bool selected,
+  ) {
     return SizedBox(
       height: 54,
       child: Row(
