@@ -110,7 +110,7 @@ class _ChatroomGiftMessageListViewState
   }
 
   @override
-  void receiveGift(Object roomId, ChatMessage msg) {
+  void receiveGift(Object roomId, Message msg) {
     GiftEntityProtocol gift = msg.getGiftEntity()!;
     String senderId = msg.from!;
     UserInfoProtocol? user = msg.getUserEntity();

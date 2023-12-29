@@ -45,7 +45,7 @@ class _ChatroomGlobalBroadcastViewState
   }
 
   @override
-  void onGlobalNotifyReceived(String roomId, List<ChatMessage> notifyMessages) {
+  void onGlobalNotifyReceived(String roomId, List<Message> notifyMessages) {
     List<String> contents = [];
     if (notifyMessages.isNotEmpty &&
         ChatRoomUIKit.roomController(context)?.roomId == roomId) {

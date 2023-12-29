@@ -104,7 +104,8 @@ class _ChatReportPageState extends State<ChatReportPage> {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, String> items = widget.controller.reportList(context);
+    Map<String, String> items =
+        widget.controller.reportList(context, widget.messageId);
 
     Widget content = CustomScrollView(
       controller: scrollController,
@@ -131,14 +132,15 @@ class _ChatReportPageState extends State<ChatReportPage> {
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (BuildContext context, int index) {
-              String reasonKey = items.keys.toList()[index];
-              String value = items[reasonKey]!;
               return InkWell(
                 onTap: () {
-                  selectedKey = reasonKey;
-                  setState(() {});
+                  setState(() {
+                    selectedKey == items.keys.toList()[index];
+                  });
                 },
                 child: () {
+                  String reasonKey = items.keys.toList()[index];
+                  String value = items[reasonKey]!;
                   return tile(
                     value,
                     reasonKey,

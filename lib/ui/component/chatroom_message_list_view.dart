@@ -11,16 +11,15 @@ class ChatroomMessageListView extends StatefulWidget {
     this.onTap,
     this.onLongPress,
     this.itemBuilder,
-    this.reportController,
     this.controller,
     super.key,
   });
 
-  final Widget Function(ChatMessage msg)? itemBuilder;
-  final void Function(BuildContext content, ChatMessage msg)? onTap;
-  final void Function(BuildContext content, ChatMessage msg)? onLongPress;
+  final Widget Function(Message msg)? itemBuilder;
+  final void Function(BuildContext content, Message msg)? onTap;
+  final void Function(BuildContext content, Message msg)? onLongPress;
   final ChatroomMessageListController? controller;
-  final ChatReportController? reportController;
+
   @override
   State<ChatroomMessageListView> createState() =>
       _ChatroomMessageListViewState();
@@ -28,13 +27,12 @@ class ChatroomMessageListView extends StatefulWidget {
 
 class _ChatroomMessageListViewState extends State<ChatroomMessageListView>
     with ChatroomResponse, GiftResponse {
-  List<ChatMessage> list = [];
+  List<Message> list = [];
   bool isScrolling = false;
   bool canScroll = true;
   ValueNotifier<int> unreadCount = ValueNotifier(0);
   final scrollController = ScrollController();
 
-  late ChatReportController reportController;
   late ChatroomMessageListController controller;
 
   @override
@@ -44,7 +42,6 @@ class _ChatroomMessageListViewState extends State<ChatroomMessageListView>
     ChatroomUIKitClient.instance.giftService.bindResponse(this);
 
     controller = widget.controller ?? DefaultMessageListController();
-    reportController = widget.reportController ?? DefaultReportController();
     scrollController.addListener(() {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         if (scrollController.hasClients) {
@@ -71,7 +68,7 @@ class _ChatroomMessageListViewState extends State<ChatroomMessageListView>
   }
 
   @override
-  void onMessageReceived(String roomId, List<ChatMessage> msgs) {
+  void onMessageReceived(String roomId, List<Message> msgs) {
     if (ChatRoomUIKit.roomController(context)?.roomId == roomId) {
       setState(() {
         list.addAll(msgs);
@@ -94,7 +91,7 @@ class _ChatroomMessageListViewState extends State<ChatroomMessageListView>
   @override
   void receiveGift(
     String roomId,
-    ChatMessage msg,
+    Message msg,
   ) {
     if (ChatRoomSettings.enableMsgListGift) {
       onMessageReceived(roomId, [msg]);
@@ -102,12 +99,12 @@ class _ChatroomMessageListViewState extends State<ChatroomMessageListView>
   }
 
   @override
-  void onUserJoined(String roomId, List<ChatMessage> msgs) {
+  void onUserJoined(String roomId, List<Message> msgs) {
     onMessageReceived(roomId, msgs);
   }
 
   @override
-  void onMessageRecalled(String roomId, List<ChatMessage> msgs) {
+  void onMessageRecalled(String roomId, List<Message> msgs) {
     if (ChatRoomUIKit.roomController(context)?.roomId == roomId) {
       setState(() {
         list.removeWhere((element) {
@@ -118,7 +115,7 @@ class _ChatroomMessageListViewState extends State<ChatroomMessageListView>
   }
 
   @override
-  void onMessageTransformed(String roomId, ChatMessage message) {
+  void onMessageTransformed(String roomId, Message message) {
     if (roomId == ChatRoomUIKit.roomController(context)?.roomId) {
       setState(() {
         final index =
@@ -130,11 +127,11 @@ class _ChatroomMessageListViewState extends State<ChatroomMessageListView>
     }
   }
 
-  void tapAction(ChatMessage msg) {
+  void tapAction(Message msg) {
     widget.onTap?.call(context, msg);
   }
 
-  void longPressAction(ChatMessage msg) {
+  void longPressAction(Message msg) {
     if (widget.onLongPress != null) {
       widget.onLongPress?.call(context, msg);
     } else {
@@ -325,7 +322,7 @@ class _ChatroomMessageListViewState extends State<ChatroomMessageListView>
 
 class ChatRoomJoinListTile extends StatefulWidget {
   const ChatRoomJoinListTile(this.msg, {super.key});
-  final ChatMessage msg;
+  final Message msg;
   @override
   State<ChatRoomJoinListTile> createState() => _ChatRoomJoinListTileState();
 }
@@ -342,7 +339,7 @@ class _ChatRoomJoinListTileState extends State<ChatRoomJoinListTile> {
 
 class ChatRoomGiftListTile extends StatefulWidget {
   const ChatRoomGiftListTile(this.msg, {super.key});
-  final ChatMessage msg;
+  final Message msg;
 
   @override
   State<ChatRoomGiftListTile> createState() => _ChatRoomGiftListTileState();
@@ -401,7 +398,7 @@ class _ChatRoomGiftListTileState extends State<ChatRoomGiftListTile> {
 
 class ChatRoomTextListTile extends StatefulWidget {
   const ChatRoomTextListTile(this.msg, {super.key});
-  final ChatMessage msg;
+  final Message msg;
 
   @override
   State<ChatRoomTextListTile> createState() => _ChatRoomTextListTileState();
@@ -499,7 +496,7 @@ class _ChatRoomTextListTileState extends State<ChatRoomTextListTile> {
 
 class ChatRoomListTile extends StatefulWidget {
   const ChatRoomListTile(this.msg, {this.child, super.key});
-  final ChatMessage msg;
+  final Message msg;
   final TextSpan? child;
   @override
   State<ChatRoomListTile> createState() => _ChatRoomListTileState();

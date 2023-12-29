@@ -3,7 +3,7 @@ import 'package:im_flutter_sdk/im_flutter_sdk.dart' as chat;
 import 'package:flutter/foundation.dart';
 
 typedef Client = chat.EMClient;
-typedef ChatMessage = chat.EMMessage;
+typedef Message = chat.EMMessage;
 typedef ChatRoomEventHandler = chat.EMChatRoomEventHandler;
 typedef ChatEventHandler = chat.EMChatEventHandler;
 typedef ConnectionEventHandler = chat.EMConnectionEventHandler;

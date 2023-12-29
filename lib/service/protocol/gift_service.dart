@@ -28,7 +28,7 @@ abstract class GiftService {
 mixin GiftResponse {
   void receiveGift(
     String roomId,
-    ChatMessage msg,
+    Message msg,
   );
 }
 

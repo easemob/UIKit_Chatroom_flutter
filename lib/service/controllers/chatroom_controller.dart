@@ -151,8 +151,8 @@ extension ChatroomImplement on ChatroomController {
     } on ChatError {}
   }
 
-  Future<ChatMessage?> translateMessage({
-    required ChatMessage message,
+  Future<Message?> translateMessage({
+    required Message message,
     required LanguageCode languageCode,
   }) async {
     try {
@@ -164,7 +164,7 @@ extension ChatroomImplement on ChatroomController {
   }
 
   Future<void> recall(
-      {required String roomId, required ChatMessage message}) async {
+      {required String roomId, required Message message}) async {
     try {
       await ChatroomUIKitClient.instance.recall(
         roomId: roomId,

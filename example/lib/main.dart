@@ -8,7 +8,7 @@ import 'package:chatroom_uikit_example/ui_test/ui_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-const String appKey = '';
+const String appKey = 'easemob#easeim';
 
 void main() async {
   await ChatroomUIKitClient.instance.initWithAppkey(

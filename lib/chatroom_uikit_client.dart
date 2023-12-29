@@ -312,10 +312,10 @@ extension ChatRoomServiceAction on ChatroomUIKitClient {
   ///
   /// Param [language] translate language.
   ///
-  /// Return [ChatMessage] translate message.
-  Future<ChatMessage?> translateMessage({
+  /// Return [Message] translate message.
+  Future<Message?> translateMessage({
     required String roomId,
-    required ChatMessage message,
+    required Message message,
     required LanguageCode language,
   }) {
     return _checkResult(roomId, RoomEventsType.translate, () {
@@ -336,7 +336,7 @@ extension ChatRoomServiceAction on ChatroomUIKitClient {
   ///
   Future<void> recall({
     required String roomId,
-    required ChatMessage message,
+    required Message message,
   }) {
     return _checkResult(roomId, RoomEventsType.recall, () {
       return roomService.recall(

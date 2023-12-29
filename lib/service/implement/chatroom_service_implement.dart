@@ -90,7 +90,7 @@ class ChatRoomServiceImplement extends ChatRoomService {
     required String message,
     List<String>? receiver,
   }) async {
-    final msg = ChatMessage.createTxtSendMessage(
+    final msg = Message.createTxtSendMessage(
       targetId: roomId,
       content: message,
       chatType: ChatType.ChatRoom,
@@ -109,7 +109,7 @@ class ChatRoomServiceImplement extends ChatRoomService {
     Map<String, String>? params,
     List<String>? receiver,
   }) async {
-    final msg = ChatMessage.createCustomSendMessage(
+    final msg = Message.createCustomSendMessage(
       targetId: roomId,
       event: event,
       params: params,
@@ -123,12 +123,12 @@ class ChatRoomServiceImplement extends ChatRoomService {
   }
 
   @override
-  Future<ChatMessage> translateMessage({
+  Future<Message> translateMessage({
     required String roomId,
-    required ChatMessage message,
+    required Message message,
     required LanguageCode language,
   }) async {
-    ChatMessage msg = await Client.getInstance.chatManager.translateMessage(
+    Message msg = await Client.getInstance.chatManager.translateMessage(
       msg: message,
       languages: [language.code],
     );
@@ -155,7 +155,7 @@ class ChatRoomServiceImplement extends ChatRoomService {
 
   @override
   Future<void> recall(
-      {required String roomId, required ChatMessage message}) async {
+      {required String roomId, required Message message}) async {
     try {
       await Client.getInstance.chatManager.recallMessage(message.msgId);
       onMessageRecalled(roomId, message);
@@ -292,9 +292,9 @@ extension ChatroomEventsListener on ChatRoomServiceImplement {
       'ChatRoomServiceImplement',
       ChatEventHandler(
         onMessagesRecalled: (messages) {
-          Map<String, List<ChatMessage>> map = {};
+          Map<String, List<Message>> map = {};
           for (var msg in messages) {
-            List<ChatMessage> list = map[msg.conversationId] ?? [];
+            List<Message> list = map[msg.conversationId] ?? [];
             list.add(msg);
             map[msg.conversationId!] = list;
           }
@@ -313,7 +313,7 @@ extension ChatroomEventsListener on ChatRoomServiceImplement {
 
   void onMessageRecalled(
     String roomId,
-    ChatMessage message,
+    Message message,
   ) {
     for (var response in responses) {
       response.onMessageRecalled(roomId, [message]);
@@ -322,17 +322,17 @@ extension ChatroomEventsListener on ChatRoomServiceImplement {
 
   void onMessageTransformed(
     String roomId,
-    ChatMessage message,
+    Message message,
   ) {
     for (var response in responses) {
       response.onMessageTransformed(roomId, message);
     }
   }
 
-  void onMessagesReceived(List<ChatMessage> messages) {
-    Map<String, List<ChatMessage>> receives = {};
-    Map<String, List<ChatMessage>> join = {};
-    Map<String, List<ChatMessage>> globalNotifies = {};
+  void onMessagesReceived(List<Message> messages) {
+    Map<String, List<Message>> receives = {};
+    Map<String, List<Message>> join = {};
+    Map<String, List<Message>> globalNotifies = {};
 
     for (var msg in messages) {
       if (msg.isGiftMsg()) {
@@ -344,15 +344,15 @@ extension ChatroomEventsListener on ChatRoomServiceImplement {
       }
 
       if (msg.isGlobalNotify()) {
-        List<ChatMessage> list = globalNotifies[msg.conversationId] ?? [];
+        List<Message> list = globalNotifies[msg.conversationId] ?? [];
         list.add(msg);
         globalNotifies[msg.conversationId!] = list;
       } else if (msg.isJoinNotify()) {
-        List<ChatMessage> list = join[msg.conversationId] ?? [];
+        List<Message> list = join[msg.conversationId] ?? [];
         list.add(msg);
         join[msg.conversationId!] = list;
       } else {
-        List<ChatMessage> list = receives[msg.conversationId] ?? [];
+        List<Message> list = receives[msg.conversationId] ?? [];
         list.add(msg);
         receives[msg.conversationId!] = list;
       }

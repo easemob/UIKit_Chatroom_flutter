@@ -1,4 +1,5 @@
 import 'package:chatroom_uikit/chatroom_uikit.dart';
+import 'package:flutter/material.dart';
 
 class ChatRoomSettings {
   /// Default display avatar
@@ -33,4 +34,9 @@ class ChatRoomSettings {
 
   /// Avatar corner radius
   static CornerRadius avatarRadius = CornerRadius.large;
+
+  static String? reportTitle;
+
+  /// report message reason
+  static Map<String, String>? reportMap;
 }

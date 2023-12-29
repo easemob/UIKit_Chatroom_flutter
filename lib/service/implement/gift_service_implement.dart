@@ -85,7 +85,7 @@ extension ChatEventsListener on GiftServiceImplement {
     Client.getInstance.chatManager.removeMessageEvent('GiftServiceImplement');
   }
 
-  void onMessagesReceived(List<ChatMessage> msgs) {
+  void onMessagesReceived(List<Message> msgs) {
     for (var msg in msgs) {
       if (msg.isGiftMsg() && msg.chatType == ChatType.ChatRoom) {
         final gift = msg.getGiftEntity();

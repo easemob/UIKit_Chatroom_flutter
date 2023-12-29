@@ -77,9 +77,9 @@ abstract class ChatRoomService {
   /// - Parameters:
   ///   - message: ChatMessage kind of text message.
   ///   - completion: Translate callback,what if success or error.
-  Future<ChatMessage> translateMessage({
+  Future<Message> translateMessage({
     required String roomId,
-    required ChatMessage message,
+    required Message message,
     required LanguageCode language,
   });
 
@@ -89,7 +89,7 @@ abstract class ChatRoomService {
   ///   - tag: Illegal type defined at console.
   ///   - reason: reason
   ///   - completion: Report callback,what if success or error.
-  Future<void> recall({required String roomId, required ChatMessage message});
+  Future<void> recall({required String roomId, required Message message});
 
   /// Report illegal message.
   /// - Parameters:
@@ -111,27 +111,26 @@ mixin ChatroomResponse {
   /// - Parameters:
   ///   - roomId: chatroom id
   ///   - message: EMChatMessage
-  void onMessageReceived(String roomId, List<ChatMessage> msgs) {}
+  void onMessageReceived(String roomId, List<Message> msgs) {}
 
   /// When some one recall a message,the method will call.
   /// - Parameters:
   ///   - roomId: chatroom id
   ///   - message: ChatMessage
   ///   - userId: call recall user id
-  void onMessageRecalled(String roomId, List<ChatMessage> msgs) {}
+  void onMessageRecalled(String roomId, List<Message> msgs) {}
 
   /// When admin publish global notify message,the method will called.
   /// - Parameters:
   ///   - roomId: chatroom id
   ///   - notifyMessage: ChatMessage
-  void onGlobalNotifyReceived(
-      String roomId, List<ChatMessage> notifyMessages) {}
+  void onGlobalNotifyReceived(String roomId, List<Message> notifyMessages) {}
 
   /// When a user joins a chatroom.The method carry user info for display.
   /// - Parameters:
   ///   - roomId: chatroom id
   ///   - message: ``ChatMessage``
-  void onUserJoined(String roomId, List<ChatMessage> msgs) {}
+  void onUserJoined(String roomId, List<Message> msgs) {}
 
   /// When some user leave chatroom.
   /// - Parameters:
@@ -166,5 +165,5 @@ mixin ChatroomResponse {
   ///   - operatorId: Operator user id
   void onUserUnmuted(String roomId, List<String> userIds) {}
 
-  void onMessageTransformed(String roomId, ChatMessage message) {}
+  void onMessageTransformed(String roomId, Message message) {}
 }

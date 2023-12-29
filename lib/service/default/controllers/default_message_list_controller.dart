@@ -6,7 +6,7 @@ class DefaultMessageListController extends ChatroomMessageListController {
   @override
   List<ChatBottomSheetItem>? listItemLongPressed({
     required BuildContext context,
-    required ChatMessage message,
+    required Message message,
     String? roomId,
     String? ownerId,
   }) {
@@ -101,7 +101,7 @@ class DefaultMessageListController extends ChatroomMessageListController {
   @override
   List<ChatBottomSheetItem>? listItemOnTap({
     required BuildContext context,
-    required ChatMessage message,
+    required Message message,
     String? roomId,
     String? ownerId,
   }) {

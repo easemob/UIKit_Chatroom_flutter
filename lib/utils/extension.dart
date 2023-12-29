@@ -10,7 +10,7 @@ extension PutWithoutNull on Map<String, dynamic> {
   }
 }
 
-extension Notify on ChatMessage {
+extension Notify on Message {
   bool isJoinNotify() {
     if (body.type == BodyType.CUSTOM) {
       if (ChatRoomUIKitEvent.userJoinEvent == (body as CustomBody).event) {
@@ -21,13 +21,13 @@ extension Notify on ChatMessage {
   }
 }
 
-extension GlobalNotify on ChatMessage {
+extension GlobalNotify on Message {
   bool isGlobalNotify() {
     return isBroadcast;
   }
 }
 
-extension Gift on ChatMessage {
+extension Gift on Message {
   bool isGiftMsg() {
     if (body.type == BodyType.CUSTOM) {
       return (body as CustomBody).event == ChatRoomUIKitEvent.giftEvent;
@@ -54,7 +54,7 @@ extension Gift on ChatMessage {
   }
 }
 
-extension UserInfo on ChatMessage {
+extension UserInfo on Message {
   void addUserEntity() {
     UserInfoProtocol? userInfo =
         ChatroomContext.instance.userInfosMap[Client.getInstance.currentUserId];

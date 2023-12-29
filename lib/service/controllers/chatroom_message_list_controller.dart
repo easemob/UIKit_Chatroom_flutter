@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 abstract class ChatroomMessageListController {
   List<ChatBottomSheetItem>? listItemLongPressed({
     required BuildContext context,
-    required ChatMessage message,
+    required Message message,
     required String roomId,
     required String ownerId,
   }) {
@@ -13,7 +13,7 @@ abstract class ChatroomMessageListController {
 
   List<ChatBottomSheetItem>? listItemOnTap({
     required BuildContext context,
-    required ChatMessage message,
+    required Message message,
     required String roomId,
     required String ownerId,
   }) {
