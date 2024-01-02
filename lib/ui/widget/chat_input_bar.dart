@@ -92,7 +92,7 @@ class ChatInputBarState extends State<ChatInputBar> {
       child: content,
     );
 
-    content = SafeArea(child: content, bottom: false, top: false);
+    content = SafeArea(child: content, top: false);
 
     content = WillPopScope(
         child: content,
@@ -384,10 +384,11 @@ class ChatInputBarState extends State<ChatInputBar> {
               return;
             } else if (selection.baseOffset != value.text.length) {
               String subText = value.text.substring(0, selection.start);
+              subText = subText.characters.skipLast(1).toString();
               String text = subText.characters.skipLast(1).toString() +
                   value.text.substring(selection.start);
-              TextSelection newSelection =
-                  TextSelection.fromPosition(TextPosition(offset: text.length));
+              TextSelection newSelection = TextSelection.fromPosition(
+                  TextPosition(offset: subText.length));
 
               textEditingController.value = TextEditingValue(
                 text: text,
