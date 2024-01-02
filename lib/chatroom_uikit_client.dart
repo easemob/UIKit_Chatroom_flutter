@@ -270,9 +270,10 @@ extension ChatRoomServiceAction on ChatroomUIKitClient {
   }) {
     if (message.trim().isEmpty) return Future.value();
     return _checkResult(roomId, RoomEventsType.sendMessage, () {
+      final String msg = EmojiMapping.replaceEmojiToImage(message);
       return roomService.sendRoomMessage(
         roomId: roomId,
-        message: message.trim(),
+        message: msg.trim(),
         receiver: receiver,
       );
     });
