@@ -131,8 +131,8 @@ class ChatUIKitButton extends StatelessWidget {
 
   Color primaryTextColor(BuildContext context) {
     return (ChatUIKitTheme.of(context).color.isDark
-        ? ChatUIKitTheme.of(context).color.neutralColor1
-        : ChatUIKitTheme.of(context).color.neutralColor98);
+        ? ChatUIKitTheme.of(context).color.neutralColor98
+        : ChatUIKitTheme.of(context).color.neutralColor1);
   }
 
   Color neutralTextColor(BuildContext context) {

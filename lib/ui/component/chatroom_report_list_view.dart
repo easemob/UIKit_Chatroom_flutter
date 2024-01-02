@@ -135,7 +135,7 @@ class _ChatReportPageState extends State<ChatReportPage> {
               return InkWell(
                 onTap: () {
                   setState(() {
-                    selectedKey == items.keys.toList()[index];
+                    selectedKey = items.keys.toList()[index];
                   });
                 },
                 child: () {
@@ -239,7 +239,7 @@ class _ChatReportPageState extends State<ChatReportPage> {
               ? Icon(Icons.radio_button_checked,
                   size: 21.33,
                   color: (ChatUIKitTheme.of(context).color.isDark
-                      ? ChatUIKitTheme.of(context).color.neutralColor6
+                      ? ChatUIKitTheme.of(context).color.primaryColor6
                       : ChatUIKitTheme.of(context).color.primaryColor5))
               : Icon(Icons.radio_button_unchecked,
                   size: 21.33,

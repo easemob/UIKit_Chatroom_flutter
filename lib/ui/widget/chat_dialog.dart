@@ -13,10 +13,12 @@ Future<T> showChatDialog<T>(
   String? subTitle,
   String? title,
   List<String>? hiddenList,
+  Color barrierColor = Colors.black54,
   ChatDialogRectangleBorderType borderType =
       ChatDialogRectangleBorderType.circular,
 }) async {
   return await showDialog(
+    barrierColor: barrierColor,
     context: context,
     builder: (context) {
       return ChatDialog(
@@ -24,6 +26,7 @@ Future<T> showChatDialog<T>(
         subTitle: subTitle,
         hiddenList: hiddenList,
         items: items,
+        borderType: borderType,
       );
     },
   );
@@ -49,6 +52,9 @@ class ChatDialog<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width - 50;
     return Dialog(
+      elevation: 0,
+      shadowColor: Colors.transparent,
+      backgroundColor: Colors.transparent,
       clipBehavior: Clip.hardEdge,
       shape: ContinuousRectangleBorder(
         borderRadius: BorderRadius.circular(() {
@@ -244,7 +250,7 @@ class ChatDialog<T> extends StatelessWidget {
               );
             } else {
               return Padding(
-                padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
+                padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   mainAxisSize: MainAxisSize.max,

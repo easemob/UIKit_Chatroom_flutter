@@ -171,6 +171,8 @@ class ChatRoomGiftItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = ChatUIKitTheme.of(context);
+
     Widget placeholderWidget = (placeholder != null)
         ? Image.asset(placeholder!, fit: BoxFit.fill)
         : (ChatRoomSettings.defaultGiftIcon == null)
@@ -190,42 +192,57 @@ class ChatRoomGiftItem extends StatelessWidget {
 
     List<Widget> widgets = [];
     widgets.add(
-      Expanded(
-        child: imageWidget,
-      ),
+      Expanded(child: imageWidget),
     );
 
     if (selected) {
       widgets.addAll([
-        Text(
-          gift.giftPrice.toString(),
-          style: TextStyle(
-            fontWeight:
-                ChatUIKitTheme.of(context).font.labelExtraSmall.fontWeight,
-            fontSize: ChatUIKitTheme.of(context).font.labelExtraSmall.fontSize,
-            color: (ChatUIKitTheme.of(context).color.isDark
-                ? ChatUIKitTheme.of(context).color.neutralColor6
-                : ChatUIKitTheme.of(context).color.neutralColor5),
-          ),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            () {
+              if (ChatRoomSettings.defaultGiftPriceIcon != null) {
+                return Image.asset(
+                  ChatRoomSettings.defaultGiftPriceIcon!,
+                  width: 14,
+                  height: 14,
+                );
+              } else {
+                return const SizedBox();
+              }
+            }(),
+            Flexible(
+              fit: FlexFit.loose,
+              child: Text(
+                gift.giftPrice.toString(),
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontWeight: theme.font.labelExtraSmall.fontWeight,
+                  fontSize: theme.font.labelExtraSmall.fontSize,
+                  color: (theme.color.isDark
+                      ? ChatUIKitTheme.of(context).color.neutralColor6
+                      : ChatUIKitTheme.of(context).color.neutralColor5),
+                ),
+              ),
+            )
+          ],
         ),
         InkWell(
           onTap: () => onSendTap?.call(gift),
           child: Container(
             height: 28,
             decoration: BoxDecoration(
-              color: (ChatUIKitTheme.of(context).color.isDark
-                  ? ChatUIKitTheme.of(context).color.primaryColor5
-                  : ChatUIKitTheme.of(context).color.primaryColor6),
+              color: (theme.color.isDark
+                  ? theme.color.primaryColor5
+                  : theme.color.primaryColor6),
             ),
             child: Center(
               child: Text(
                 ChatroomLocal.sent.getString(context),
                 style: TextStyle(
-                  fontWeight:
-                      ChatUIKitTheme.of(context).font.labelMedium.fontWeight,
-                  fontSize:
-                      ChatUIKitTheme.of(context).font.labelMedium.fontSize,
-                  color: ChatUIKitTheme.of(context).color.neutralColor98,
+                  fontWeight: theme.font.labelMedium.fontWeight,
+                  fontSize: theme.font.labelMedium.fontSize,
+                  color: theme.color.neutralColor98,
                 ),
               ),
             ),
@@ -243,27 +260,47 @@ class ChatRoomGiftItem extends StatelessWidget {
             maxLines: 1,
             softWrap: false,
             style: TextStyle(
-              fontWeight: ChatUIKitTheme.of(context).font.titleSmall.fontWeight,
-              fontSize: ChatUIKitTheme.of(context).font.titleSmall.fontSize,
-              color: (ChatUIKitTheme.of(context).color.isDark
-                  ? ChatUIKitTheme.of(context).color.neutralColor98
-                  : ChatUIKitTheme.of(context).color.neutralColor1),
+              fontWeight: theme.font.titleSmall.fontWeight,
+              fontSize: theme.font.titleSmall.fontSize,
+              color: (theme.color.isDark
+                  ? theme.color.neutralColor98
+                  : theme.color.neutralColor1),
             ),
           ),
         ),
         SizedBox(
           height: 14,
-          child: Text(
-            gift.giftPrice.toString(),
-            style: TextStyle(
-              fontWeight:
-                  ChatUIKitTheme.of(context).font.labelExtraSmall.fontWeight,
-              fontSize:
-                  ChatUIKitTheme.of(context).font.labelExtraSmall.fontSize,
-              color: (ChatUIKitTheme.of(context).color.isDark
-                  ? ChatUIKitTheme.of(context).color.neutralColor6
-                  : ChatUIKitTheme.of(context).color.neutralColor5),
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              () {
+                if (ChatRoomSettings.defaultGiftPriceIcon != null) {
+                  return Image.asset(
+                    ChatRoomSettings.defaultGiftPriceIcon!,
+                    width: 14,
+                    height: 14,
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              }(),
+              Flexible(
+                fit: FlexFit.loose,
+                child: Text(
+                  gift.giftPrice.toString(),
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: theme.font.labelExtraSmall.fontWeight,
+                    fontSize: theme.font.labelExtraSmall.fontSize,
+                    color: (theme.color.isDark
+                        ? ChatUIKitTheme.of(context).color.neutralColor6
+                        : ChatUIKitTheme.of(context).color.neutralColor5),
+                  ),
+                ),
+              )
+            ],
           ),
         ),
       ]);
@@ -280,9 +317,9 @@ class ChatRoomGiftItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
           color: selected
-              ? (ChatUIKitTheme.of(context).color.isDark
-                  ? ChatUIKitTheme.of(context).color.primaryColor5
-                  : ChatUIKitTheme.of(context).color.primaryColor6)
+              ? (theme.color.isDark
+                  ? theme.color.primaryColor5
+                  : theme.color.primaryColor6)
               : Colors.transparent,
         ),
       ),

@@ -254,6 +254,8 @@ class _ChatroomMessageListViewState extends State<ChatroomMessageListView>
   }
 
   Widget unreadBubble() {
+    final theme = ChatUIKitTheme.of(context);
+
     return ValueListenableBuilder(
       valueListenable: unreadCount,
       builder: (context, value, child) {
@@ -264,9 +266,9 @@ class _ChatroomMessageListViewState extends State<ChatroomMessageListView>
           padding: const EdgeInsets.fromLTRB(6, 4, 16, 4),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(13),
-            color: (ChatUIKitTheme.of(context).color.isDark
-                ? ChatUIKitTheme.of(context).color.neutralColor1
-                : ChatUIKitTheme.of(context).color.neutralColor98),
+            color: (theme.color.isDark
+                ? theme.color.neutralColor1
+                : theme.color.neutralColor98),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -274,9 +276,9 @@ class _ChatroomMessageListViewState extends State<ChatroomMessageListView>
               Icon(
                 Icons.keyboard_arrow_down,
                 size: 18,
-                color: (ChatUIKitTheme.of(context).color.isDark
-                    ? ChatUIKitTheme.of(context).color.primaryColor6
-                    : ChatUIKitTheme.of(context).color.primaryColor5),
+                color: (theme.color.isDark
+                    ? theme.color.primaryColor6
+                    : theme.color.primaryColor5),
               ),
               const SizedBox(width: 2),
               Expanded(
@@ -285,13 +287,11 @@ class _ChatroomMessageListViewState extends State<ChatroomMessageListView>
                   '${value >= 99 ? '99+' : value} ${ChatroomLocal.newMessage.getString(context)}',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    fontWeight:
-                        ChatUIKitTheme.of(context).font.labelMedium.fontWeight,
-                    fontSize:
-                        ChatUIKitTheme.of(context).font.labelMedium.fontSize,
-                    color: (ChatUIKitTheme.of(context).color.isDark
-                        ? ChatUIKitTheme.of(context).color.primaryColor6
-                        : ChatUIKitTheme.of(context).color.primaryColor5),
+                    fontWeight: theme.font.labelMedium.fontWeight,
+                    fontSize: theme.font.labelMedium.fontSize,
+                    color: (theme.color.isDark
+                        ? theme.color.primaryColor6
+                        : theme.color.primaryColor5),
                   ),
                 ),
               )
@@ -332,7 +332,13 @@ class _ChatRoomJoinListTileState extends State<ChatRoomJoinListTile> {
   Widget build(BuildContext context) {
     return ChatRoomListTile(
       widget.msg,
-      child: TextSpan(text: " ${ChatroomLocal.joined.getString(context)}"),
+      child: TextSpan(
+          text: " ${ChatroomLocal.joined.getString(context)}",
+          style: TextStyle(
+            color: ChatUIKitTheme.of(context).color.isDark
+                ? ChatUIKitTheme.of(context).color.secondaryColor7
+                : ChatUIKitTheme.of(context).color.secondaryColor8,
+          )),
     );
   }
 }
@@ -505,6 +511,8 @@ class ChatRoomListTile extends StatefulWidget {
 class _ChatRoomListTileState extends State<ChatRoomListTile> {
   @override
   Widget build(BuildContext context) {
+    final theme = ChatUIKitTheme.of(context);
+
     List<InlineSpan> list = [];
     // time
     if (ChatRoomSettings.enableMsgListTime) {
@@ -531,11 +539,8 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
                   size: 15,
                   placeholderWidget: (ChatRoomSettings.defaultIdentify == null)
                       ? Container()
-                      : Image.asset(
-                          ChatRoomSettings.defaultIdentify!,
-                          width: 15,
-                          height: 15,
-                        ),
+                      : Image.asset(ChatRoomSettings.defaultIdentify!,
+                          width: 15, height: 15),
                 ),
               );
             } else {
@@ -573,12 +578,11 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
                 ? user?.nickname
                 : widget.msg.from,
             style: TextStyle(
-              color: (ChatUIKitTheme.of(context).color.isDark
-                  ? ChatUIKitTheme.of(context).color.primaryColor8
-                  : ChatUIKitTheme.of(context).color.primaryColor8),
-              fontWeight:
-                  ChatUIKitTheme.of(context).font.labelMedium.fontWeight,
-              fontSize: ChatUIKitTheme.of(context).font.labelMedium.fontSize,
+              color: (theme.color.isDark
+                  ? theme.color.primaryColor8
+                  : theme.color.primaryColor8),
+              fontWeight: theme.font.labelMedium.fontWeight,
+              fontSize: theme.font.labelMedium.fontSize,
             ),
           ),
         ]),
@@ -592,9 +596,10 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
     Widget content = Text.rich(
       TextSpan(
         style: TextStyle(
+          height: 1,
           color: Colors.white,
-          fontSize: ChatUIKitTheme.of(context).font.bodyMedium.fontSize,
-          fontWeight: ChatUIKitTheme.of(context).font.bodyMedium.fontWeight,
+          fontSize: theme.font.bodyMedium.fontSize,
+          fontWeight: theme.font.bodyMedium.fontWeight,
         ),
         children: list,
       ),
@@ -603,8 +608,10 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
     content = Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: ChatUIKitTheme.of(context).color.barrageColor1),
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+          color: theme.color.isDark
+              ? theme.color.barrageColor1
+              : theme.color.barrageColor2),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: content,
     );
 

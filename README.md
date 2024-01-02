@@ -17,6 +17,13 @@
 
 - minSDKVersion 21
 
+release 时需要在在 `xxx/android/app/proguard-rules.pro` 中设置免混淆规则：
+
+```java
+-keep class com.hyphenate.** {*;}
+-dontwarn  com.hyphenate.**
+```
+
 ## 安装 UIKit 到项目中
 
 ```sh

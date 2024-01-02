@@ -1,5 +1,4 @@
 import 'package:chatroom_uikit/chatroom_uikit.dart';
-import 'package:flutter/material.dart';
 
 class ChatRoomSettings {
   /// Default display avatar
@@ -10,6 +9,9 @@ class ChatRoomSettings {
 
   /// Default gift icon
   static String? defaultGiftIcon;
+
+  /// Default gift icon
+  static String? defaultGiftPriceIcon;
 
   /// Whether to display time in the message list
   static bool enableMsgListTime = true;

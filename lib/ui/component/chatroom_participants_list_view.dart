@@ -331,11 +331,19 @@ class _ChatRoomParticipantsPageState extends State<ChatRoomParticipantsPage>
                                   ? Brightness.dark
                                   : Brightness.light,
                           focusNode: focusNode,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             border:
                                 OutlineInputBorder(borderSide: BorderSide.none),
                             contentPadding: EdgeInsets.symmetric(
                               vertical: -8,
+                            ),
+                            hintText: ChatroomLocal.search.getString(context),
+                            hintStyle: TextStyle(
+                              fontWeight: theme.font.bodyLarge.fontWeight,
+                              fontSize: theme.font.bodyLarge.fontSize,
+                              color: (theme.color.isDark
+                                  ? theme.color.neutralColor4
+                                  : theme.color.neutralColor6),
                             ),
                           ),
                           onChanged: (value) {
@@ -748,7 +756,7 @@ class _ChatRoomParticipantItemState extends State<ChatRoomParticipantItem> {
     );
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      padding: const EdgeInsets.fromLTRB(16, 10, 12, 10),
       height: 60,
       color: (ChatUIKitTheme.of(context).color.isDark
           ? ChatUIKitTheme.of(context).color.neutralColor1
