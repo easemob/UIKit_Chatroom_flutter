@@ -74,10 +74,13 @@ class _ChatroomMessageListViewState extends State<ChatroomMessageListView>
         list.addAll(msgs);
       });
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        if (!canScroll) {
+        if (!canScroll &&
+            !msgs
+                .any((element) => element.direction == MessageDirection.SEND)) {
           unreadCount.value++;
           return;
         } else {
+          canScroll = true;
           scrollController.animateTo(
             scrollController.position.maxScrollExtent,
             duration: const Duration(milliseconds: 100),
@@ -236,19 +239,6 @@ class _ChatroomMessageListViewState extends State<ChatroomMessageListView>
         )
       ],
     );
-
-    // content = ShaderMask(
-    //   shaderCallback: (rect) {
-    //     return const LinearGradient(
-    //       begin: Alignment.bottomCenter,
-    //       end: Alignment.topCenter,
-    //       stops: [0.98, 1],
-    //       colors: [Colors.black, Colors.transparent],
-    //     ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
-    //   },
-    //   blendMode: BlendMode.dstIn,
-    //   child: content,
-    // );
 
     return content;
   }

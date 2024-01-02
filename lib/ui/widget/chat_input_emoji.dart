@@ -6,16 +6,16 @@ typedef EmojiClick = void Function(String emoji);
 class ChatInputEmoji extends StatelessWidget {
   const ChatInputEmoji({
     this.deleteOnTap,
-    this.crossAxisCount = 7,
-    this.mainAxisSpacing = 2.0,
-    this.crossAxisSpacing = 2.0,
+    this.maxCrossAxisExtent = 36,
+    this.mainAxisSpacing = 19.0,
+    this.crossAxisSpacing = 19.0,
     this.childAspectRatio = 1.0,
     this.bigSizeRatio = 0.0,
     this.emojiClicked,
     super.key,
   });
 
-  final int crossAxisCount;
+  final double maxCrossAxisExtent;
 
   final double mainAxisSpacing;
 
@@ -39,10 +39,11 @@ class ChatInputEmoji extends StatelessWidget {
             controller: ScrollController(),
             padding:
                 const EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 60),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: crossAxisCount,
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: maxCrossAxisExtent,
               mainAxisSpacing: mainAxisSpacing,
               crossAxisSpacing: crossAxisSpacing,
+              childAspectRatio: childAspectRatio,
             ),
             childrenDelegate: SliverChildBuilderDelegate((context, position) {
               return _getEmojiItemContainer(position);

@@ -20,6 +20,7 @@ typedef BodyType = chat.MessageType;
 typedef TextBody = chat.EMTextMessageBody;
 typedef CustomBody = chat.EMCustomMessageBody;
 typedef RoomPermissionType = chat.EMChatRoomPermissionType;
+typedef MessageDirection = chat.MessageDirection;
 
 vLog(String log) {
   debugPrint("ChatRoomDemo: $log");

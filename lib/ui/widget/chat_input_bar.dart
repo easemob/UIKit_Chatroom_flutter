@@ -85,13 +85,14 @@ class ChatInputBarState extends State<ChatInputBar> {
       ],
     );
 
-    content = SafeArea(
-      maintainBottomViewPadding: true,
-      minimum: focusNode.hasFocus
+    content = Padding(
+      padding: focusNode.hasFocus
           ? EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom)
           : EdgeInsets.zero,
       child: content,
     );
+
+    content = SafeArea(child: content, bottom: false, top: false);
 
     content = WillPopScope(
         child: content,
