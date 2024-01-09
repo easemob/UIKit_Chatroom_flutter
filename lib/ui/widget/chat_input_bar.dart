@@ -92,7 +92,10 @@ class ChatInputBarState extends State<ChatInputBar> {
       child: content,
     );
 
-    content = SafeArea(child: content, top: false);
+    content = SafeArea(
+      top: false,
+      child: content,
+    );
 
     content = WillPopScope(
         child: content,

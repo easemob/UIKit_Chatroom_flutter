@@ -332,9 +332,9 @@ class _ChatRoomParticipantsPageState extends State<ChatRoomParticipantsPage>
                                   : Brightness.light,
                           focusNode: focusNode,
                           decoration: InputDecoration(
-                            border:
-                                OutlineInputBorder(borderSide: BorderSide.none),
-                            contentPadding: EdgeInsets.symmetric(
+                            border: const OutlineInputBorder(
+                                borderSide: BorderSide.none),
+                            contentPadding: const EdgeInsets.symmetric(
                               vertical: -8,
                             ),
                             hintText: ChatroomLocal.search.getString(context),
