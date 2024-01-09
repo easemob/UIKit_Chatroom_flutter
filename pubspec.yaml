@@ -15,7 +15,7 @@ dependencies:
 
   extended_text_library: ^11.0.2
 
-  im_flutter_sdk: ^4.2.0-rc.1
+  im_flutter_sdk: ^4.2.0
 
   flutter_localization: ^0.1.14
   # flutter_localization:
