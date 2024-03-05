@@ -22,9 +22,9 @@ Before trying out the example, ensure you have already created a [chatroom](http
 
 ### Log in and Retrieve Room List
 
-After running the example, enter the userId and password [registered](### Register Easemob ID) in Register Easemob ID, then click the chatroom_list button.
+After running the example, enter the userId and password [registered](# Register Easemob ID) in Register Easemob ID, then click the chatroom_list button.
 
 ### Enter the Chatroom
 
-After clicking the chatroom_list button, you can enter the chatroom list and see the [created chatrooms](### Create a Chatroom). Click on a room in the list to enter.
+After clicking the chatroom_list button, you can enter the chatroom list and see the [created chatrooms](# Create a Chatroom). Click on a room in the list to enter.
 
