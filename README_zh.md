@@ -1,41 +1,52 @@
-# ChatroomUIKit
+_中文 | [English](./README.md)_
 
-ChatroomUIKit is designed to address most users' chat room requirements specific to pan-entertainment scenarios. It delivers good user experience in the use of APIs (for user-side developers) by streamlining SDK integration, facilitating customization, and offering comprehensive documentation.
+# 聊天室 UIKit 介绍
 
-## Development environment requirements
+本产品主要为了解决大部分用户的泛娱乐业务场景下对聊天室的绝大部分用户需求，主要为用户解决直接集成 SDK 繁琐，复杂度高，部分 api 体验不好（在用户侧开发者来看）等问题。致力于打造集成简单，自由度高，流程简单，文档说明足够详细的聊天室 UIKit 产品。
 
-- SDK: >=3.0.0 <4.0.0
-- Flutter: >=3.3.0
+## 开发环境要求
 
-For the iOS app:
+- sdk: '>=3.0.0 <4.0.0'
+- flutter: ">=3.12.0"
 
-- Xcode 13 or higher
-- iOS 11 or higher
- 
-For the Android app:
+对于 `iOS` 应用：
+
+- Xcode 13+;
+- ios 11+;
+
+对于 `Android` 应用：
 
 - minSDKVersion 21
 
-## ChatroomUIKit installation
+release 时需要在在 `xxx/android/app/proguard-rules.pro` 中设置免混淆规则：
+
+```java
+-keep class com.hyphenate.** {*;}
+-dontwarn  com.hyphenate.**
+```
+
+## 安装 UIKit 到项目中
 
 ```sh
 flutter pub get add chatroom_uikit
 ```
 
-## Run the demo
+## 运行 example
 
 [example](./example/README.md)
 
-## Project structure
+## 项目结构
+
+项目的主要结构如下：
 
 ```sh
 .
-├── chatroom_localizations.dart // Internationalization tool
-├── chatroom_settings.dart // Component configuration
-├── chatroom_uikit.dart // ChatroomUIKit component
-├── chatroom_uikit_client.dart // ChatroomUIKit initialization class
-├── service // Basic service components
-│   ├── controllers // UI component protocol
+├── chatroom_localizations.dart // 国际化工具
+├── chatroom_settings.dart // 组件配置
+├── chatroom_uikit.dart // ChatroomUIKit 组件
+├── chatroom_uikit_client.dart // ChatroomUIKit 初始化类。
+├── service // 基础服务组件。
+│   ├── controllers // UI 组件协议
 │   │   ├── chat_report_controller.dart
 │   │   ├── chat_text_editing_controller.dart
 │   │   ├── chatroom_controller.dart
@@ -43,25 +54,25 @@ flutter pub get add chatroom_uikit
 │   │   ├── gift_page_controller.dart
 │   │   └── participant_page_controller.dart
 │   ├── default
-│   │   ├── controllers // UI component protocol implementation
+│   │   ├── controllers // UI 组件协议实现
 │   │   │   ├── default_gift_page_controller.dart
 │   │   │   ├── default_members_controller.dart
 │   │   │   ├── default_message_list_controller.dart
 │   │   │   ├── default_mutes_controller.dart
 │   │   │   └── default_report_controller.dart
-│   │   └── data  // UI component data protocol
+│   │   └── data  // UI 组件数据协议
 │   │       ├── gift_entity.dart
 │   │       └── user_entity.dart
-│   ├── implement // Protocol implementation component
+│   ├── implement // 协议实现组件。
 │   │   ├── chatroom_context.dart
 │   │   ├── chatroom_service_implement.dart
 │   │   ├── gift_service_implement.dart
 │   │   └── user_service_implement.dart
-│   └── protocol // Business protocol component
+│   └── protocol // 业务协议组件。
 │       ├── chatroom_service.dart
 │       ├── gift_service.dart
 │       └── user_service.dart
-├── ui // Basic UI components
+├── ui // 基本UI组件
 │   ├── component
 │   │   ├── chatroom_gift_list_view.dart
 │   │   ├── chatroom_gift_message_list_view.dart
@@ -79,7 +90,7 @@ flutter pub get add chatroom_uikit
 │       ├── chat_more_item_action.dart
 │       ├── chat_uikit_button.dart
 │       └── custom_tab_indicator.dart
-└── utils // Toolkit
+└── utils // 工具类
     ├── chatroom_enums.dart
     ├── chatroom_event_item_action.dart
     ├── define.dart
@@ -90,11 +101,11 @@ flutter pub get add chatroom_uikit
     └── time_tool.dart
 ```
 
-## Advanced usage
+## 进阶用法
 
-### Initialize the ChatroomUIKit
+### 初始化 聊天室UIKit
 
-To initialize the ChatroomUIKit, you need to [get the App Key on the Agora Console](https://docs.agora.io/en/agora-chat/get-started/enable?platform=flutter#get-chat-project-information).  
+`appkey` 需要在 [console](https://docs-im-beta.easemob.com/product/enable_and_configure_IM.html#%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6) 中 注册。
 
 ```dart
 
@@ -102,47 +113,48 @@ await ChatroomUIKitClient.instance.initWithAppkey(appKey);
 
 ```
 
-### Log in to ChatroomUIKit
+### 登录
 
-To log in to the ChatroomUIKit, you need to pass in the user ID and password typed when you [register a user on the Agora Console](https://docs.agora.io/en/agora-chat/get-started/enable?platform=flutter#register-a-user).
+需要在 [`console`](https://docs-im-beta.easemob.com/product/enable_and_configure_IM.html#%E5%88%9B%E5%BB%BA-im-%E7%94%A8%E6%88%B7) 中创建 `userId`
 
 ```dart
 try {
     await ChatroomUIKitClient.instance.loginWithPassword(
         userId: userId,
-        password: password, // Password typed when you register a user.
-        userInfo: userInfo, // The current user object that conforms to the UserInfoProtocol protocol. The default user object is `UserEntity` in the ChatroomUIKit. 
+        password: password, // 注册 userId 是填写的 password
+        userInfo: userInfo, // 实现 UserInfoProtocol 的对象，uikit 中使用 `UserEntity`。
     );
 }on ChatError catch(e) {
     // error.
 }
 ```
 
-Alternatively, you can use a user token for login. To generate a temporary user token for testing purposes, visit https://docs.agora.io/en/agora-chat/get-started/enable?platform=flutter#generate-a-user-token.
+也可以调用 `token` 登录, `token` 获取方式参考 [文档](https://docs-im-beta.easemob.com/product/easemob_user_token.html)
 
 ```dart
 try {
     await ChatroomUIKitClient.instance.loginWithToken(
         userId: userId,
-        token: userToken,   // User token.
-        userInfo: userInfo, // The current user object that conforms to the UserInfoProtocol protocol. The default user object is `UserEntity` in the ChatroomUIKit.
+        token: userToken,   // userId 对应的token
+        userInfo: userInfo, // 实现 UserInfoProtocol 的对象，uikit 中使用 `UserEntity`。
     );
 }on ChatError catch(e) {
     // error.
 }
 ```
 
-### Switch the theme
+### 设置主题颜色
 
-You can use `ChatUIKitTheme` to switch to the `light` or `dark` theme that comes with the ChatroomUIKit.
+可以通过 `ChatUIKitTheme` 进行主题设置，默认提供了 `light` 和 `dart` 两种主题:
 
 ```dart
 ChatUIKitTheme(
-  color: ChatUIKitColor.light() // Switch to the light theme. For the dark them, specify the parameter with `ChatUIKitColor.dark()`.
+  color: ChatUIKitColor.light() // 亮色主题， 暗色主题为：ChatUIKitColor.dark()
   child: child,
 ),
 ```
-To adjust theme colors, you need to define the `hue` value of the following colors in `ChatUIKitColor`:
+
+如果需要修改主题色，可以通过修改`ChatUIKitColor` 的 `hue` 值：
 
 ```dart
 ChatUIKitColor({
@@ -156,9 +168,9 @@ ChatUIKitColor({
 });
 ```
 
-### chatroom_uikit component
+### 使用 chatroom_uikit 组件
 
-1. Make sure that `ChatUIKitTheme` acts as a parent node of the `ChatroomUIKit` component in your project. You are advised to set `ChatUIKitTheme` as the root node of the project.
+1. 需要确保 `ChatUIKitTheme` 在 `ChatroomUIKit` 组件在你项目的父节点，建议将 `ChatUIKitTheme` 放到项目的根节点。
 
 ```dart
 
@@ -174,11 +186,11 @@ ChatUIKitColor({
   }
 ```
 
-2. To use `chatroom_uikit`, you need to first create `ChatroomController` and then set `ChatRoomUIKit` as the root node of the current page and other components as children of `ChatRoomUIKit`.
+2. 在需要使用 `chatroom_uikit` 时，需要先创建 `ChatroomController`, 并使 `ChatRoomUIKit` 作为 当前页面的 根节点，并将其他组件作为 `ChatRoomUIKit` 的child。
 
 ```dart
-// roomId: Chat room ID.
-// ownerId: User ID of the chat room owner.
+// roomId: 房间id；
+// ownerId: 房主id；
 ChatroomController controller = ChatroomController(roomId: roomId, ownerId: ownerId);
 
 @override
@@ -189,7 +201,7 @@ Widget build(BuildContext context) {
     body: ChatRoomUIKit(
       controller: controller,
       child: (context) {
-        // Build pages within child components, like gift window and message list page. 
+        // 在子组件中构建页面，比如 礼物弹窗，消息列表等。
         return ...;
       },
     ),
@@ -200,9 +212,9 @@ Widget build(BuildContext context) {
 
 ```
 
-### ChatroomMessageListView component
+### 使用 ChatroomMessageListView 组件
 
-The `ChatroomMessageListView` component presents messages within the chat room. Make sure that this component acts as a child node of `ChatRoomUIKit`. You can add `ChatroomMessageListView` to the screen and set its position as follows:
+`ChatroomMessageListView` 组件用于展示聊天室消息，使用时需要确保在 `ChatRoomUIKit` 的子节点，如果要添加 `ChatroomMessageListView` 到屏幕并设置位置，可以使用如下方式：
 
 ```dart
 @override
@@ -234,7 +246,7 @@ Widget build(BuildContext context) {
 
 ```
 
-`ChatroomMessageListView` provides items like click, long press, and repaint and also allows you to set the reportController. 
+`ChatroomMessageListView` 提供了点击、长按、重绘item、设置report controller的方法。
 
 ```dart
 const ChatroomMessageListView({
@@ -247,19 +259,19 @@ const ChatroomMessageListView({
 });
 ```
 
-The `ChatroomMessageListView` component does not show gifts by default. To show gifts, you need to set `enableMsgListGift` to `true` in [ChatRoomSettings](#chatroomsettings-settings).
+`ChatroomMessageListView` 组件默认不显示礼物，如果需要展示礼物，需要修改[ChatRoomSettings](#chatroomsettings-设置)中 `enableMsgListGift` 为 `true`。
 
 ```dart
 ChatRoomSettings.enableMsgListGift = true;
 ```
 
-### ChatInputBar component
+### 使用 ChatInputBar 组件
 
-The `ChatInputBar` component is used to send messages. It is placed in [chatroom_uikit](#chatroom_uikit-component) by default and the position is not configurable. This component can involve more click options and you can configure more click events in `ChatroomUIKit`.
+`ChatInputBar` 用于发送消息，同时可以设置更多的点击选项，位置不可配置，默认在 [chatroom_uikit](#使用-chatroom_uikit-组件) 中，如果需要设置更多的点击事件，可以在 `ChatroomUIKit` 中进行设置。
 
 ```dart
-// roomId: chat room ID.
-// ownerId: user ID of the chat room.
+// roomId: 房间id；
+// ownerId: 房主id；
 ChatroomController controller = ChatroomController(roomId: roomId, ownerId: ownerId);
 
 @override
@@ -271,7 +283,7 @@ Widget build(BuildContext context) {
       controller: controller,
       inputBar: ChatInputBar(),
       child: (context) {
-        // Build pages within child components, like gift window and message list page.
+        // 在子组件中构建页面，比如 礼物弹窗，消息列表等。
         return ...;
       },
     ),
@@ -282,7 +294,7 @@ Widget build(BuildContext context) {
 
 ```
 
-`ChatInputBar` allows you to add widgets via `leading` and `actions`. You can add four actions via `actions`.
+`ChatInputBar` 提供添加按钮的方法，包括 `leading` 和 `actions`, 其中 `actions` 最多为 4 个。
 
 ```dart
 ChatInputBar({
@@ -299,9 +311,9 @@ ChatInputBar({
 }
 ```
 
-### ChatRoomGiftListView component
+### 使用 ChatRoomGiftListView 组件
 
-You need to configure gifts before selecting and sending them. For this purpose, you need to configure `giftControllers` in `ChatroomController`, passing in an instance that conforms to the `ChatroomGiftPageController` protocol (`DefaultGiftPageController` is available in `chatroom_uikit`).
+如果需要选择礼物并且进行发送，需要先进行礼物的配置，这需要在 `ChatroomController` 中配置 `giftControllers`， `giftControllers` 需要传入实现了`ChatroomGiftPageController` 协议的实例, `chatroom_uikit` 中提供了 `DefaultGiftPageController`。
 
 ```dart
 ChatroomController controller = ChatroomController(
@@ -309,7 +321,7 @@ ChatroomController controller = ChatroomController(
       ownerId: widget.ownerId,
       giftControllers: () async {
         List<DefaultGiftPageController> service = [];
-        // Parse the gift JSON and fill the parsing result in the gifts list in DefaultGiftPageController.
+        // 解析 礼物 json，并将结果填入 DefaultGiftPageController 的 gifts list 中。
         final value = await rootBundle.loadString('data/Gifts.json');
         Map<String, dynamic> map = json.decode(value);
         for (var element in map.keys.toList()) {
@@ -319,7 +331,7 @@ ChatroomController controller = ChatroomController(
               gifts: () {
                 List<GiftEntityProtocol> list = [];
                 map[element].forEach((element) {
-                  // Parse the JSON into the object that conforms to the GiftEntityProtocol protocol.
+                  // 将 json 解析为 实现 GiftEntityProtocol 协议的对象。
                   GiftEntityProtocol? gift = ChatroomUIKitClient
                       .instance.giftService
                       .giftFromJson(element);
@@ -338,7 +350,7 @@ ChatroomController controller = ChatroomController(
 
 ```
 
-The gift list is displayed. You can add a button in [ChatInputBar](#chatinputbar-component) to show the gift list.
+弹出礼物选择列表。可以在[ChatInputBar](#使用-chatinputbar-组件)中添加按钮弹出礼物列表的按钮。
 
 ```dart
 @override
@@ -370,21 +382,21 @@ Widget build(BuildContext context) {
 
 ```
 
-You can select a gift and click `Send` to send it.
+选择礼物后，点击 `发送` 将完成发送。
 
-Gifts can be displayed via either of the following components:
+礼物的展示方式有两种，
 
-- [ChatroomMessageListView component](#chatroommessagelistview-component)
-- [ChatroomGiftMessageListView component](#chatroomgiftmessagelistview-component)
+- [ChatroomMessageListView 组件](#使用-chatroommessagelistview-组件) 展示;
+- [ChatroomGiftMessageListView 组件](#使用-chatroomgiftmessagelistview-组件) 展示;
 
-### ChatroomGiftMessageListView component
+### 使用 ChatroomGiftMessageListView 组件
 
-The `ChatroomGiftMessageListView` component displays gifts that are sent and received. Make sure that this component is set as a child component of `ChatRoomUIKit`. You can add this component to the screen and set its position as follows:
+`ChatroomGiftMessageListView` 会展示你发送和收到的礼物，使用时需要确保在 `ChatRoomUIKit` 的子节点，如果要添加 `ChatroomGiftMessageListView` 到屏幕并设置位置，可以使用如下方式：
 
 ```dart
 @override
 Widget build(BuildContext context) {
-  // Do not show gifts on the message list. 
+  // 关闭消息列表中显示礼物。
   ChatRoomSettings.enableMsgListGift = false;
   Widget content = Scaffold(
     resizeToAvoidBottomInset: false,
@@ -413,7 +425,7 @@ Widget build(BuildContext context) {
 
 ```
 
-`ChatroomGiftMessageListView` allows you to set the gift widget and placeholder icon.
+`ChatroomGiftMessageListView` 提供了设置图标，设置默认图标，的方法。
 
 ```dart
 const ChatroomGiftMessageListView({
@@ -423,9 +435,9 @@ const ChatroomGiftMessageListView({
 });
 ```
 
-### ChatroomGlobalBroadcastView component
+### 使用 ChatroomGlobalBroadcastView 组件
 
-The `ChatroomGlobalBroadcastView` component shows global broadcast messages. Remember to set this component as a child node of `ChatRoomUIKit`. You can add the `ChatroomGlobalBroadcastView` component to the screen and set its position as follows:
+`ChatroomGlobalBroadcastView` 组件用于展示全局广播，使用时需要确保在 `ChatRoomUIKit` 的子节点，如果要添加 `ChatroomGlobalBroadcastView` 到屏幕并设置位置，可以使用如下方式：
 
 ```dart
 
@@ -458,7 +470,7 @@ Widget build(BuildContext context) {
 
 ```
 
-`ChatroomGlobalBroadcastView` allows you to set the icon, font, and background color.
+`ChatroomGlobalBroadcastView` 提供了设置图标、字体、背景颜色的方法。
 
 ```dart
 const ChatroomGlobalBroadcastView({
@@ -469,31 +481,31 @@ const ChatroomGlobalBroadcastView({
 });
 ```
 
-### ChatRoomSettings class  
+### ChatRoomSettings 设置
 
-The `ChatRoomSettings` class provides ChatroomUIKit settings.
+`ChatRoomSettings` 提供了简单的设置，需要在界面展示前设置
 
 ```dart
 class ChatRoomSettings {
-  static String? userDefaultAvatar; // Default avatar.
-  static String? defaultIdentify; // Default identity icon.
-  static String? defaultGiftIcon; // Default gift icon.
+  static String? userDefaultAvatar; // 默认头像
+  static String? defaultIdentify; // 默认身份标识标识图标
+  static String? defaultGiftIcon; // 默认礼物图标
 
-  static bool enableMsgListTime = true; // Whether the time is displayed on the message list.
-  static bool enableMsgListAvatar = true; // Whether the avatars are displayed on the message list.
-  static bool enableMsgListNickname = true; // Whether nicknames are displayed on the message list.
-  static bool enableMsgListIdentify = true; // Whether identities are displayed on the message list.
+  static bool enableMsgListTime = true; // 消息列表是否显示时间
+  static bool enableMsgListAvatar = true; // 消息列表是否显示头像
+  static bool enableMsgListNickname = true; // 消息列表是否显示昵称
+  static bool enableMsgListIdentify = true; // 消息列表是否显示身份标识
 
-  static bool enableMsgListGift = false; // Whether gifts are displayed on the message list.
+  static bool enableMsgListGift = false; // 消息列表中是否展示礼物
 
-  static bool enableParticipantItemIdentify = false; // Whether identities are displayed on the participant list.
+  static bool enableParticipantItemIdentify = false; // 成员列表中是否显示身份标识
 
-  static CornerRadius inputBarRadius = CornerRadius.large; // Corner radius of the input box.
-  static CornerRadius avatarRadius = CornerRadius.large; // Corner radius of the avatar.
+  static CornerRadius inputBarRadius = CornerRadius.large; // 输入框圆角
+  static CornerRadius avatarRadius = CornerRadius.large; // 头像圆角
 }
 
 ```
 
-## License
+## 许可证
 
 MIT

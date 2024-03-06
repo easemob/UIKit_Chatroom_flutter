@@ -42,13 +42,13 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   chatroom_uikit: 7770dee556851a0e727fbe184b750d8ef0ed5123
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_localization: f43b18844a2b3d2c71fd64f04ffd6b1e64dd54d4
   HyphenateChat: e43d1ec9ccf404eeb2ee7d3265cd12a4e83f0d3a
   im_flutter_sdk: 0012f5bb4bf59284f6b5e55059f96e60eb527328
   integration_test: 13825b8a9334a850581300559b8839134b124670
-  shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
+  shared_preferences_foundation: b4c3b4cddf1c21f02770737f147a3f5da9d39695
 
-PODFILE CHECKSUM: 02caaa843f6501172c0d470d80e72f61175c8b93
+PODFILE CHECKSUM: 6e700dec67e6deac9b1c69bb14c49a2217a12d15
 
 COCOAPODS: 1.11.3

@@ -61,7 +61,6 @@ class _ChatRoomGiftListViewState extends State<ChatRoomGiftListView>
             labelColor: (ChatUIKitTheme.of(context).color.isDark
                 ? ChatUIKitTheme.of(context).color.neutralColor98
                 : ChatUIKitTheme.of(context).color.neutralColor1),
-            isScrollable: true,
             tabs:
                 widget.giftControllers.map((e) => Tab(text: e.title)).toList(),
           ),

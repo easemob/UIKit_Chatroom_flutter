@@ -275,12 +275,12 @@ class _ChatRoomParticipantsPageState extends State<ChatRoomParticipantsPage>
       ],
     );
 
-    content = WillPopScope(
-        child: content,
-        onWillPop: () async {
-          focusNode.unfocus();
-          return true;
-        });
+    content = PopScope(
+      child: content,
+      onPopInvoked: (didPop) async {
+        focusNode.unfocus();
+      },
+    );
 
     return content;
   }

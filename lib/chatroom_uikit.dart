@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 export 'package:chat_uikit_theme/chat_uikit_theme.dart';
 export 'package:flutter_localization/flutter_localization.dart';
-export 'package:extended_text_library/extended_text_library.dart';
 
 export 'chatroom_uikit_client.dart';
 export 'chatroom_settings.dart';
@@ -183,12 +182,11 @@ class ChatRoomUIKitState extends State<ChatRoomUIKit> {
       ],
     );
 
-    content = WillPopScope(
+    content = PopScope(
       child: content,
-      onWillPop: () async {
+      onPopInvoked: (didPop) async {
         widget.controller.setShowParticipantsViewCallback(null);
         widget.controller.setShowGiftsViewCallback(null);
-        return true;
       },
     );
 

@@ -166,11 +166,10 @@ class _ChatroomGlobalBroadcastViewState
       );
     }
 
-    content = WillPopScope(
+    content = PopScope(
       child: content,
-      onWillPop: () async {
+      onPopInvoked: (didPop) async {
         showList.clear();
-        return true;
       },
     );
 
