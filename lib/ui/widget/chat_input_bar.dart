@@ -99,7 +99,7 @@ class ChatInputBarState extends State<ChatInputBar> {
 
     content = PopScope(
       child: content,
-      onPopInvoked: (didPop) async {
+      onPopInvokedWithResult: (didPop, obj) async {
         ChatRoomUIKit.roomController(context)?.setInputBarState(null);
       },
     );

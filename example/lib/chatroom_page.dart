@@ -101,7 +101,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                 ),
                 const Positioned(
                   left: 16,
-                  right: 180,
+                  right: 16,
                   height: 84,
                   bottom: 300,
                   child: ChatroomGiftMessageListView(),

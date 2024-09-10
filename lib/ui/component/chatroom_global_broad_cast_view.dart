@@ -168,7 +168,7 @@ class _ChatroomGlobalBroadcastViewState
 
     content = PopScope(
       child: content,
-      onPopInvoked: (didPop) async {
+      onPopInvokedWithResult: (didPop, obj) async {
         showList.clear();
       },
     );

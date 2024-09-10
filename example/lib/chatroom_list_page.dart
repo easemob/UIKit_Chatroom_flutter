@@ -38,12 +38,18 @@ class _ChatRoomListPageState extends State<ChatRoomListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: ElevatedButton(
-          onPressed: () async {
+        leading: InkWell(
+          onTap: () async {
             Navigator.pop(context);
             await ChatroomUIKitClient.instance.logout();
           },
-          child: const Text('Logout'),
+          child: const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+            child: Text(
+              'Logout',
+              style: TextStyle(color: Colors.blue),
+            ),
+          ),
         ),
       ),
       body: ListView.separated(

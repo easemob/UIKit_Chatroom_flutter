@@ -43,6 +43,7 @@ class IconImageProvider extends ImageProvider<IconImageProvider> {
   }
 
   @override
+  // ignore: non_nullable_equals_parameter
   bool operator ==(dynamic other) {
     if (other.runtimeType != runtimeType) return false;
     final IconImageProvider typedOther = other;

@@ -1,6 +1,6 @@
 name: chatroom_uikit
 description: uikit that can quickly build chat room scenes.
-version: 1.0.0
+version: 1.0.1
 homepage: https://www.easemob.com/
 
 environment:
@@ -11,19 +11,13 @@ dependencies:
   flutter:
     sdk: flutter
 
-  chat_uikit_theme: ^0.0.3
+  chat_uikit_theme: ^0.0.9
 
   # extended_text_library: ^11.0.2
 
-  im_flutter_sdk: ^4.2.0
+  im_flutter_sdk: ^4.6.1+2
 
-  flutter_localization: ^0.1.14
-  # flutter_localization:
-  #   git:
-  #     url: https://github.com/channdara/flutter_localization.git
-  #     ref: feature/script-code
-  
-
+  flutter_localization: ^0.2.2
 
 dev_dependencies:
   flutter_test:

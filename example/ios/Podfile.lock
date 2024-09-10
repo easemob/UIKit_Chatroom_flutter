@@ -4,12 +4,10 @@ PODS:
   - Flutter (1.0.0)
   - flutter_localization (0.0.1):
     - Flutter
-  - HyphenateChat (4.2.0)
+  - HyphenateChat (4.7.0)
   - im_flutter_sdk (0.0.1):
     - Flutter
-    - HyphenateChat (= 4.2.0)
-  - integration_test (0.0.1):
-    - Flutter
+    - HyphenateChat (= 4.7.0)
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -19,7 +17,6 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_localization (from `.symlinks/plugins/flutter_localization/ios`)
   - im_flutter_sdk (from `.symlinks/plugins/im_flutter_sdk/ios`)
-  - integration_test (from `.symlinks/plugins/integration_test/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
 
 SPEC REPOS:
@@ -35,20 +32,17 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_localization/ios"
   im_flutter_sdk:
     :path: ".symlinks/plugins/im_flutter_sdk/ios"
-  integration_test:
-    :path: ".symlinks/plugins/integration_test/ios"
   shared_preferences_foundation:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
 
 SPEC CHECKSUMS:
-  chatroom_uikit: 7770dee556851a0e727fbe184b750d8ef0ed5123
+  chatroom_uikit: 12c761d534c98af37001f1ad1fe0ef68bbad2a7b
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_localization: f43b18844a2b3d2c71fd64f04ffd6b1e64dd54d4
-  HyphenateChat: e43d1ec9ccf404eeb2ee7d3265cd12a4e83f0d3a
-  im_flutter_sdk: 0012f5bb4bf59284f6b5e55059f96e60eb527328
-  integration_test: 13825b8a9334a850581300559b8839134b124670
-  shared_preferences_foundation: b4c3b4cddf1c21f02770737f147a3f5da9d39695
+  HyphenateChat: 0d76f40cec79d084a2c1133e43987e7379124694
+  im_flutter_sdk: fcff186ef0acfb1e7b0e9ba6c5260d0f2278ede8
+  shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
 
 PODFILE CHECKSUM: 6e700dec67e6deac9b1c69bb14c49a2217a12d15
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.15.2

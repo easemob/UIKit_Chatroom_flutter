@@ -277,7 +277,7 @@ class _ChatRoomParticipantsPageState extends State<ChatRoomParticipantsPage>
 
     content = PopScope(
       child: content,
-      onPopInvoked: (didPop) async {
+      onPopInvokedWithResult: (didPop, obj) async {
         focusNode.unfocus();
       },
     );

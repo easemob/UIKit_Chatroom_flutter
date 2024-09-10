@@ -184,7 +184,7 @@ class ChatRoomUIKitState extends State<ChatRoomUIKit> {
 
     content = PopScope(
       child: content,
-      onPopInvoked: (didPop) async {
+      onPopInvokedWithResult: (finish, obj) async {
         widget.controller.setShowParticipantsViewCallback(null);
         widget.controller.setShowGiftsViewCallback(null);
       },

@@ -52,7 +52,11 @@ class DefaultMessageListController extends ChatroomMessageListController {
                   type: ChatroomUserOperationType.unmute,
                 )
                 .then((value) {})
-                .whenComplete(() => Navigator.of(context).pop());
+                .whenComplete(() {
+              if (context.mounted) {
+                Navigator.of(context).pop();
+              }
+            });
           },
         ),
       if (ChatRoomUIKit.roomController(context)?.ownerId ==
@@ -69,7 +73,11 @@ class DefaultMessageListController extends ChatroomMessageListController {
                   type: ChatroomUserOperationType.mute,
                 )
                 .then((value) {})
-                .whenComplete(() => Navigator.of(context).pop());
+                .whenComplete(() {
+              if (context.mounted) {
+                Navigator.of(context).pop();
+              }
+            });
           },
         ),
       ChatBottomSheetItem.destructive(

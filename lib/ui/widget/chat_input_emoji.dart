@@ -112,7 +112,7 @@ class ChatExpression extends StatelessWidget {
     Widget icon = ChatImageLoader.emoji(emojiImage, size: 36);
     return TextButton(
       style: ButtonStyle(
-        padding: MaterialStateProperty.all(
+        padding: WidgetStateProperty.all(
           EdgeInsets.all(bigSizeRatio),
         ),
       ),
