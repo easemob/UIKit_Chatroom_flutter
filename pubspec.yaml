@@ -1,6 +1,6 @@
 name: chatroom_uikit
 description: uikit that can quickly build chat room scenes.
-version: 1.0.1
+version: 1.1.0
 homepage: https://www.easemob.com/
 
 environment:
