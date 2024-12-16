@@ -21,6 +21,8 @@ mixin ChatroomLocal {
   static const String bottomSheetMute = 'barrage_long_press_menu_mute';
   static const String bottomSheetUnmute = 'barrage_long_press_menu_unmute';
   static const String bottomSheetReport = 'barrage_long_press_menu_report';
+  static const String bottomSheetPin = 'barrage_long_press_menu_pin';
+  static const String bottomSheetUnpin = 'barrage_long_press_menu_unpin';
   static const String bottomSheetRemove = 'barrage_long_press_menu_remove';
   static const String bottomSheetCancel = 'barrage_long_press_menu_cancel';
   static const String reportButtonClickMenuTitle =
@@ -67,6 +69,8 @@ mixin ChatroomLocal {
     bottomSheetMute: '禁言',
     bottomSheetUnmute: '解除禁言',
     bottomSheetReport: '举报',
+    bottomSheetPin: "置顶",
+    bottomSheetUnpin: "取消置顶",
     bottomSheetRemove: "移除",
     bottomSheetCancel: '取消',
     reportButtonClickMenuTitle: '举报',
@@ -113,6 +117,8 @@ mixin ChatroomLocal {
     bottomSheetUnmute: 'Unmute',
     bottomSheetRemove: "Remove",
     bottomSheetReport: 'Report',
+    bottomSheetPin: "Pin this message",
+    bottomSheetUnpin: "Unpin this message",
     bottomSheetCancel: 'Cancel',
     reportButtonClickMenuTitle: 'Report',
     dialogCancel: 'Cancel',

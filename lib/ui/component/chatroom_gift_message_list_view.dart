@@ -32,7 +32,8 @@ const double originHeight = 44;
 const double movedHeight = 36;
 
 class _ChatroomGiftMessageListViewState
-    extends State<ChatroomGiftMessageListView> with GiftResponse {
+    extends State<ChatroomGiftMessageListView>
+    with GiftResponse, ChatUIKitThemeMixin {
   List<GiftReceiveModel> list = [];
 
   ScrollController controller = ScrollController();
@@ -56,7 +57,7 @@ class _ChatroomGiftMessageListViewState
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget themeBuilder(BuildContext context, ChatUIKitTheme theme) {
     Widget content = CustomScrollView(
       physics: const NeverScrollableScrollPhysics(),
       controller: controller,
@@ -251,13 +252,14 @@ class GiftItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = ChatUIKitTheme.instance;
     return Align(
       alignment: Alignment.bottomLeft,
       child: Container(
         margin: const EdgeInsets.only(top: 4),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(22),
-            color: ChatUIKitTheme.of(context).color.barrageColor1),
+            color: theme.color.barrageColor1),
         height: originHeight,
         child: item(context),
       ),
@@ -265,6 +267,7 @@ class GiftItem extends StatelessWidget {
   }
 
   Widget item(BuildContext context) {
+    final theme = ChatUIKitTheme.instance;
     List<Widget> list = [];
 
     Widget content = ChatAvatar(
@@ -291,9 +294,8 @@ class GiftItem extends StatelessWidget {
                 userInfo?.nickname ?? userInfo?.userId ?? fromUserId,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                  fontWeight:
-                      ChatUIKitTheme.of(context).font.labelSmall.fontWeight,
-                  fontSize: ChatUIKitTheme.of(context).font.labelSmall.fontSize,
+                  fontWeight: theme.font.labelSmall.fontWeight,
+                  fontSize: theme.font.labelSmall.fontSize,
                   color: Colors.white,
                 ),
               ),
@@ -310,10 +312,8 @@ class GiftItem extends StatelessWidget {
                 '${ChatroomLocal.giftSent.getString(context)} \'${gift.giftName}\'',
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                  fontWeight:
-                      ChatUIKitTheme.of(context).font.bodyExtraSmall.fontWeight,
-                  fontSize:
-                      ChatUIKitTheme.of(context).font.bodyExtraSmall.fontSize,
+                  fontWeight: theme.font.bodyExtraSmall.fontWeight,
+                  fontSize: theme.font.bodyExtraSmall.fontSize,
                   color: Colors.white,
                 ),
               ),

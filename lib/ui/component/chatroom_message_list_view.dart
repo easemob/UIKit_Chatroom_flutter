@@ -26,7 +26,7 @@ class ChatroomMessageListView extends StatefulWidget {
 }
 
 class _ChatroomMessageListViewState extends State<ChatroomMessageListView>
-    with ChatroomResponse, GiftResponse {
+    with ChatroomResponse, GiftResponse, ChatUIKitThemeMixin {
   List<Message> list = [];
   bool isScrolling = false;
   bool canScroll = true;
@@ -170,7 +170,7 @@ class _ChatroomMessageListViewState extends State<ChatroomMessageListView>
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget themeBuilder(BuildContext context, ChatUIKitTheme theme) {
     Widget content = ListView.separated(
       physics: const BouncingScrollPhysics(),
       padding: EdgeInsets.zero,
@@ -244,8 +244,6 @@ class _ChatroomMessageListViewState extends State<ChatroomMessageListView>
   }
 
   Widget unreadBubble() {
-    final theme = ChatUIKitTheme.of(context);
-
     return ValueListenableBuilder(
       valueListenable: unreadCount,
       builder: (context, value, child) {
@@ -317,17 +315,18 @@ class ChatRoomJoinListTile extends StatefulWidget {
   State<ChatRoomJoinListTile> createState() => _ChatRoomJoinListTileState();
 }
 
-class _ChatRoomJoinListTileState extends State<ChatRoomJoinListTile> {
+class _ChatRoomJoinListTileState extends State<ChatRoomJoinListTile>
+    with ChatUIKitThemeMixin {
   @override
-  Widget build(BuildContext context) {
+  Widget themeBuilder(BuildContext context, ChatUIKitTheme theme) {
     return ChatRoomListTile(
       widget.msg,
       child: TextSpan(
           text: " ${ChatroomLocal.joined.getString(context)}",
           style: TextStyle(
-            color: ChatUIKitTheme.of(context).color.isDark
-                ? ChatUIKitTheme.of(context).color.secondaryColor7
-                : ChatUIKitTheme.of(context).color.secondaryColor8,
+            color: theme.color.isDark
+                ? theme.color.secondaryColor7
+                : theme.color.secondaryColor8,
           )),
     );
   }
@@ -498,11 +497,10 @@ class ChatRoomListTile extends StatefulWidget {
   State<ChatRoomListTile> createState() => _ChatRoomListTileState();
 }
 
-class _ChatRoomListTileState extends State<ChatRoomListTile> {
+class _ChatRoomListTileState extends State<ChatRoomListTile>
+    with ChatUIKitThemeMixin {
   @override
-  Widget build(BuildContext context) {
-    final theme = ChatUIKitTheme.of(context);
-
+  Widget themeBuilder(BuildContext context, ChatUIKitTheme theme) {
     List<InlineSpan> list = [];
     // time
     if (ChatRoomSettings.enableMsgListTime) {

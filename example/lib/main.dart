@@ -2,13 +2,12 @@ import 'package:chatroom_uikit/chatroom_uikit.dart';
 
 import 'package:chatroom_uikit_example/chatroom_list_page.dart';
 import 'package:chatroom_uikit_example/chatroom_page.dart';
-import 'package:chatroom_uikit_example/ui_test/my_notification.dart';
 
 import 'package:chatroom_uikit_example/ui_test/ui_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-const String appKey = '';
+const String appKey = 'easemob#easeim';
 
 void main() async {
   await ChatroomUIKitClient.instance.initWithAppkey(
@@ -47,24 +46,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       supportedLocales: _localization.supportedLocales,
       localizationsDelegates: _localization.localizationsDelegates,
-      builder: EasyLoading.init(
-        builder: (context, child) {
-          return NotificationListener(
-            onNotification: (notification) {
-              if (notification is MyNotification) {
-                setState(() {
-                  isLight = notification.isLight;
-                });
-              }
-              return false;
-            },
-            child: ChatUIKitTheme(
-              color: isLight ? ChatUIKitColor.dark() : ChatUIKitColor.light(),
-              child: child!,
-            ),
-          );
-        },
-      ),
+      builder: EasyLoading.init(),
       onGenerateRoute: (settings) {
         return MaterialPageRoute(builder: (context) {
           if (settings.name == "ui_test") {

@@ -33,7 +33,7 @@ enum InputType {
   emoji,
 }
 
-class ChatInputBarState extends State<ChatInputBar> {
+class ChatInputBarState extends State<ChatInputBar> with ChatUIKitThemeMixin {
   @override
   void initState() {
     super.initState();
@@ -76,7 +76,7 @@ class ChatInputBarState extends State<ChatInputBar> {
   late FocusNode focusNode;
 
   @override
-  Widget build(BuildContext context) {
+  Widget themeBuilder(BuildContext context, ChatUIKitTheme theme) {
     Widget content = Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -99,7 +99,7 @@ class ChatInputBarState extends State<ChatInputBar> {
 
     content = PopScope(
       child: content,
-      onPopInvokedWithResult: (didPop, obj) async {
+      onPopInvoked: (didPop) async {
         ChatRoomUIKit.roomController(context)?.setInputBarState(null);
       },
     );
@@ -136,9 +136,9 @@ class ChatInputBarState extends State<ChatInputBar> {
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   color: const Color.fromRGBO(255, 255, 255, 0.8),
-                  fontSize: ChatUIKitTheme.of(context).font.bodyLarge.fontSize,
+                  fontSize: theme.font.bodyLarge.fontSize,
                   fontWeight:
-                      ChatUIKitTheme.of(context).font.bodyLarge.fontWeight,
+                      theme.font.bodyLarge.fontWeight,
                 ),
               ),
             ),
@@ -153,9 +153,9 @@ class ChatInputBarState extends State<ChatInputBar> {
       width: 38,
       height: 38,
       decoration: BoxDecoration(
-        color: ChatUIKitTheme.of(context).color.isDark
-            ? ChatUIKitTheme.of(context).color.barrageColor2
-            : ChatUIKitTheme.of(context).color.barrageColor1,
+        color: theme.color.isDark
+            ? theme.color.barrageColor2
+            : theme.color.barrageColor1,
         borderRadius: BorderRadius.circular(24),
       ),
       child: child,
@@ -191,9 +191,9 @@ class ChatInputBarState extends State<ChatInputBar> {
       height: height,
       padding: const EdgeInsets.only(left: 4, right: 4),
       decoration: BoxDecoration(
-        color: ChatUIKitTheme.of(context).color.isDark
-            ? ChatUIKitTheme.of(context).color.barrageColor2
-            : ChatUIKitTheme.of(context).color.barrageColor1,
+        color: theme.color.isDark
+            ? theme.color.barrageColor2
+            : theme.color.barrageColor1,
         borderRadius: BorderRadius.circular(circle),
       ),
       child: interiorWidget(),
@@ -255,26 +255,26 @@ class ChatInputBarState extends State<ChatInputBar> {
       Expanded(
         child: Container(
           decoration: BoxDecoration(
-            color: (ChatUIKitTheme.of(context).color.isDark
-                ? ChatUIKitTheme.of(context).color.neutralColor2
-                : ChatUIKitTheme.of(context).color.neutralColor95),
+            color: (theme.color.isDark
+                ? theme.color.neutralColor2
+                : theme.color.neutralColor95),
             borderRadius: BorderRadius.circular(circle),
           ),
           margin: const EdgeInsets.all(8),
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: TextField(
             textDirection: widget.textDirection,
-            keyboardAppearance: ChatUIKitTheme.of(context).color.isDark
+            keyboardAppearance: theme.color.isDark
                 ? Brightness.dark
                 : Brightness.light,
             maxLines: 4,
             minLines: 1,
             style: TextStyle(
-              color: (ChatUIKitTheme.of(context).color.isDark
-                  ? ChatUIKitTheme.of(context).color.neutralColor98
-                  : ChatUIKitTheme.of(context).color.neutralColor1),
-              fontSize: ChatUIKitTheme.of(context).font.bodyLarge.fontSize,
-              fontWeight: ChatUIKitTheme.of(context).font.bodyLarge.fontWeight,
+              color: (theme.color.isDark
+                  ? theme.color.neutralColor98
+                  : theme.color.neutralColor1),
+              fontSize: theme.font.bodyLarge.fontSize,
+              fontWeight: theme.font.bodyLarge.fontWeight,
             ),
             decoration: const InputDecoration(
               border: InputBorder.none,
@@ -306,14 +306,14 @@ class ChatInputBarState extends State<ChatInputBar> {
         child: () {
           return _inputType == InputType.emoji
               ? ChatImageLoader.textKeyboard(
-                  color: (ChatUIKitTheme.of(context).color.isDark
-                      ? ChatUIKitTheme.of(context).color.neutralColor98
-                      : ChatUIKitTheme.of(context).color.neutralColor1),
+                  color: (theme.color.isDark
+                      ? theme.color.neutralColor98
+                      : theme.color.neutralColor1),
                 )
               : ChatImageLoader.face(
-                  color: (ChatUIKitTheme.of(context).color.isDark
-                      ? ChatUIKitTheme.of(context).color.neutralColor98
-                      : ChatUIKitTheme.of(context).color.neutralColor1),
+                  color: (theme.color.isDark
+                      ? theme.color.neutralColor98
+                      : theme.color.neutralColor1),
                 );
         }(),
       ),
@@ -355,9 +355,9 @@ class ChatInputBarState extends State<ChatInputBar> {
 
     content = Container(
       padding: const EdgeInsets.symmetric(horizontal: 8),
-      color: (ChatUIKitTheme.of(context).color.isDark
-          ? ChatUIKitTheme.of(context).color.neutralColor1
-          : ChatUIKitTheme.of(context).color.neutralColor98),
+      color: (theme.color.isDark
+          ? theme.color.neutralColor1
+          : theme.color.neutralColor98),
       child: content,
     );
 
@@ -371,9 +371,9 @@ class ChatInputBarState extends State<ChatInputBar> {
       duration: const Duration(milliseconds: 300),
       height: _inputType == InputType.emoji ? 280 : 0,
       child: Container(
-        color: (ChatUIKitTheme.of(context).color.isDark
-            ? ChatUIKitTheme.of(context).color.neutralColor1
-            : ChatUIKitTheme.of(context).color.neutralColor98),
+        color: (theme.color.isDark
+            ? theme.color.neutralColor1
+            : theme.color.neutralColor98),
         child: ChatInputEmoji(
           deleteOnTap: () {
             TextSelection selection = textEditingController.selection;

@@ -26,20 +26,21 @@ class ChatBottomSheetWidget extends StatelessWidget {
   }
 
   Widget _build(BuildContext context) {
+    final theme = ChatUIKitTheme.instance;
     TextStyle? normalStyle = TextStyle(
-      fontWeight: ChatUIKitTheme.of(context).font.bodyLarge.fontWeight,
-      fontSize: ChatUIKitTheme.of(context).font.bodyLarge.fontSize,
-      color: (ChatUIKitTheme.of(context).color.isDark
-          ? ChatUIKitTheme.of(context).color.primaryColor6
-          : ChatUIKitTheme.of(context).color.primaryColor5),
+      fontWeight: theme.font.bodyLarge.fontWeight,
+      fontSize: theme.font.bodyLarge.fontSize,
+      color: (theme.color.isDark
+          ? theme.color.primaryColor6
+          : theme.color.primaryColor5),
     );
 
     TextStyle? destructive = TextStyle(
-      fontWeight: ChatUIKitTheme.of(context).font.bodyLarge.fontWeight,
-      fontSize: ChatUIKitTheme.of(context).font.bodyLarge.fontSize,
-      color: (ChatUIKitTheme.of(context).color.isDark
-          ? ChatUIKitTheme.of(context).color.errorColor6
-          : ChatUIKitTheme.of(context).color.errorColor5),
+      fontWeight: theme.font.bodyLarge.fontWeight,
+      fontSize: theme.font.bodyLarge.fontSize,
+      color: (theme.color.isDark
+          ? theme.color.errorColor6
+          : theme.color.errorColor5),
     );
 
     List<Widget> list = [];
@@ -48,9 +49,9 @@ class ChatBottomSheetWidget extends StatelessWidget {
       Container(
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(3)),
-          color: (ChatUIKitTheme.of(context).color.isDark
-              ? ChatUIKitTheme.of(context).color.neutralColor3
-              : ChatUIKitTheme.of(context).color.neutralColor8),
+          color: (theme.color.isDark
+              ? theme.color.neutralColor3
+              : theme.color.neutralColor8),
         ),
         margin: const EdgeInsets.symmetric(vertical: 6),
         height: 5,
@@ -66,11 +67,11 @@ class ChatBottomSheetWidget extends StatelessWidget {
           style: titleStyle ??
               TextStyle(
                 fontWeight:
-                    ChatUIKitTheme.of(context).font.labelMedium.fontWeight,
-                fontSize: ChatUIKitTheme.of(context).font.labelMedium.fontSize,
-                color: (ChatUIKitTheme.of(context).color.isDark
-                    ? ChatUIKitTheme.of(context).color.neutralColor6
-                    : ChatUIKitTheme.of(context).color.neutralColor5),
+                    theme.font.labelMedium.fontWeight,
+                fontSize: theme.font.labelMedium.fontSize,
+                color: (theme.color.isDark
+                    ? theme.color.neutralColor6
+                    : theme.color.neutralColor5),
               ),
         ),
       ));
@@ -83,9 +84,9 @@ class ChatBottomSheetWidget extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Divider(
               height: .5,
-              color: (ChatUIKitTheme.of(context).color.isDark
-                  ? ChatUIKitTheme.of(context).color.neutralColor2
-                  : ChatUIKitTheme.of(context).color.neutralColor9),
+              color: (theme.color.isDark
+                  ? theme.color.neutralColor2
+                  : theme.color.neutralColor9),
             ),
           ),
         );
@@ -113,9 +114,9 @@ class ChatBottomSheetWidget extends StatelessWidget {
 
     list.add(Container(
       height: 8,
-      color: (ChatUIKitTheme.of(context).color.isDark
-          ? ChatUIKitTheme.of(context).color.neutralColor0
-          : ChatUIKitTheme.of(context).color.neutralColor95),
+      color: (theme.color.isDark
+          ? theme.color.neutralColor0
+          : theme.color.neutralColor95),
     ));
     list.add(
       InkWell(
@@ -130,12 +131,12 @@ class ChatBottomSheetWidget extends StatelessWidget {
             style: cancelStyle ??
                 TextStyle(
                   fontWeight:
-                      ChatUIKitTheme.of(context).font.titleMedium.fontWeight,
+                      theme.font.titleMedium.fontWeight,
                   fontSize:
-                      ChatUIKitTheme.of(context).font.titleMedium.fontSize,
-                  color: (ChatUIKitTheme.of(context).color.isDark
-                      ? ChatUIKitTheme.of(context).color.primaryColor6
-                      : ChatUIKitTheme.of(context).color.primaryColor5),
+                      theme.font.titleMedium.fontSize,
+                  color: (theme.color.isDark
+                      ? theme.color.primaryColor6
+                      : theme.color.primaryColor5),
                 ),
           ),
         ),
@@ -151,9 +152,9 @@ class ChatBottomSheetWidget extends StatelessWidget {
 
     content = Container(
       decoration: BoxDecoration(
-        color: (ChatUIKitTheme.of(context).color.isDark
-            ? ChatUIKitTheme.of(context).color.neutralColor1
-            : ChatUIKitTheme.of(context).color.neutralColor98),
+        color: (theme.color.isDark
+            ? theme.color.neutralColor1
+            : theme.color.neutralColor98),
       ),
       child: content,
     );

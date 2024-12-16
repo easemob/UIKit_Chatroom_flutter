@@ -21,7 +21,7 @@ class ChatroomReportListView extends StatefulWidget {
 }
 
 class _ChatroomReportListViewState extends State<ChatroomReportListView>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, ChatUIKitThemeMixin {
   late TabController _tabController;
 
   late ChatReportController controller;
@@ -34,7 +34,7 @@ class _ChatroomReportListViewState extends State<ChatroomReportListView>
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget themeBuilder(BuildContext context, ChatUIKitTheme theme) {
     return ChatBottomSheetBackground(
       child: _buildContent(),
     );
@@ -47,19 +47,19 @@ class _ChatroomReportListViewState extends State<ChatroomReportListView>
           dividerColor: Colors.transparent,
           indicator: CustomTabIndicator(
             radius: 2,
-            color: ChatUIKitTheme.of(context).color.isDark
-                ? ChatUIKitTheme.of(context).color.primaryColor6
-                : ChatUIKitTheme.of(context).color.primaryColor5,
+            color: theme.color.isDark
+                ? theme.color.primaryColor6
+                : theme.color.primaryColor5,
             size: const Size(28, 4),
           ),
           controller: _tabController,
           labelStyle: TextStyle(
-            fontWeight: ChatUIKitTheme.of(context).font.titleMedium.fontWeight,
-            fontSize: ChatUIKitTheme.of(context).font.titleMedium.fontSize,
+            fontWeight: theme.font.titleMedium.fontWeight,
+            fontSize: theme.font.titleMedium.fontSize,
           ),
-          labelColor: (ChatUIKitTheme.of(context).color.isDark
-              ? ChatUIKitTheme.of(context).color.neutralColor98
-              : ChatUIKitTheme.of(context).color.neutralColor1),
+          labelColor: (theme.color.isDark
+              ? theme.color.neutralColor98
+              : theme.color.neutralColor1),
           isScrollable: true,
           tabs: [controller].map((e) => Tab(text: e.title(context))).toList(),
         ),
@@ -97,13 +97,14 @@ class ChatReportPage extends StatefulWidget {
   State<ChatReportPage> createState() => _ChatReportPageState();
 }
 
-class _ChatReportPageState extends State<ChatReportPage> {
+class _ChatReportPageState extends State<ChatReportPage>
+    with ChatUIKitThemeMixin {
   String? selectedKey;
 
   final scrollController = ScrollController();
 
   @override
-  Widget build(BuildContext context) {
+  Widget themeBuilder(BuildContext context, ChatUIKitTheme theme) {
     Map<String, String> items =
         widget.controller.reportList(context, widget.messageId);
 
@@ -117,13 +118,11 @@ class _ChatReportPageState extends State<ChatReportPage> {
                 ChatroomLocal.violationOptions.getString(context),
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                    fontWeight:
-                        ChatUIKitTheme.of(context).font.titleSmall.fontWeight,
-                    fontSize:
-                        ChatUIKitTheme.of(context).font.titleSmall.fontSize,
-                    color: (ChatUIKitTheme.of(context).color.isDark
-                        ? ChatUIKitTheme.of(context).color.neutralColor6
-                        : ChatUIKitTheme.of(context).color.neutralColor5)),
+                    fontWeight: theme.font.titleSmall.fontWeight,
+                    fontSize: theme.font.titleSmall.fontSize,
+                    color: (theme.color.isDark
+                        ? theme.color.neutralColor6
+                        : theme.color.neutralColor5)),
               );
             },
             childCount: 1,
@@ -169,10 +168,8 @@ class _ChatReportPageState extends State<ChatReportPage> {
                 child: ChatUIKitButton.neutral(
                   ChatroomLocal.bottomSheetCancel.getString(context),
                   radius: 24,
-                  fontWeight:
-                      ChatUIKitTheme.of(context).font.headlineSmall.fontWeight,
-                  fontSize:
-                      ChatUIKitTheme.of(context).font.headlineSmall.fontSize,
+                  fontWeight: theme.font.headlineSmall.fontWeight,
+                  fontSize: theme.font.headlineSmall.fontSize,
                   onTap: () {
                     Navigator.of(context).pop();
                   },
@@ -183,10 +180,8 @@ class _ChatReportPageState extends State<ChatReportPage> {
                 child: ChatUIKitButton.primary(
                   ChatroomLocal.reportButtonClickMenuTitle.getString(context),
                   radius: 24,
-                  fontWeight:
-                      ChatUIKitTheme.of(context).font.headlineSmall.fontWeight,
-                  fontSize:
-                      ChatUIKitTheme.of(context).font.headlineSmall.fontSize,
+                  fontWeight: theme.font.headlineSmall.fontWeight,
+                  fontSize: theme.font.headlineSmall.fontSize,
                   onTap: () {
                     widget.controller.report(
                       context,
@@ -227,25 +222,24 @@ class _ChatReportPageState extends State<ChatReportPage> {
           Text(
             title,
             style: TextStyle(
-                fontWeight:
-                    ChatUIKitTheme.of(context).font.titleMedium.fontWeight,
-                fontSize: ChatUIKitTheme.of(context).font.titleMedium.fontSize,
-                color: (ChatUIKitTheme.of(context).color.isDark
-                    ? ChatUIKitTheme.of(context).color.neutralColor98
-                    : ChatUIKitTheme.of(context).color.neutralColor1)),
+                fontWeight: theme.font.titleMedium.fontWeight,
+                fontSize: theme.font.titleMedium.fontSize,
+                color: (theme.color.isDark
+                    ? theme.color.neutralColor98
+                    : theme.color.neutralColor1)),
           ),
           Expanded(child: Container()),
           selected
               ? Icon(Icons.radio_button_checked,
                   size: 21.33,
-                  color: (ChatUIKitTheme.of(context).color.isDark
-                      ? ChatUIKitTheme.of(context).color.primaryColor6
-                      : ChatUIKitTheme.of(context).color.primaryColor5))
+                  color: (theme.color.isDark
+                      ? theme.color.primaryColor6
+                      : theme.color.primaryColor5))
               : Icon(Icons.radio_button_unchecked,
                   size: 21.33,
-                  color: (ChatUIKitTheme.of(context).color.isDark
-                      ? ChatUIKitTheme.of(context).color.neutralColor8
-                      : ChatUIKitTheme.of(context).color.neutralColor7))
+                  color: (theme.color.isDark
+                      ? theme.color.neutralColor8
+                      : theme.color.neutralColor7))
         ],
       ),
     );

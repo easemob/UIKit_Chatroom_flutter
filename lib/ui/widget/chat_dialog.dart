@@ -76,11 +76,12 @@ class ChatDialog<T> extends StatelessWidget {
   }
 
   _buildContent(BuildContext context) {
+    final theme = ChatUIKitTheme.instance;
     Widget content = Container(
       padding: const EdgeInsets.fromLTRB(0, 12, 0, 16),
-      color: (ChatUIKitTheme.of(context).color.isDark
-          ? ChatUIKitTheme.of(context).color.neutralColor1
-          : ChatUIKitTheme.of(context).color.neutralColor98),
+      color: (theme.color.isDark
+          ? theme.color.neutralColor1
+          : theme.color.neutralColor98),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -92,10 +93,10 @@ class ChatDialog<T> extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight:
-                      ChatUIKitTheme.of(context).font.titleLarge.fontWeight,
-                  fontSize: ChatUIKitTheme.of(context).font.titleLarge.fontSize,
-                  color: ChatUIKitTheme.of(context).color.isDark
-                      ? ChatUIKitTheme.of(context).color.neutralColor98
+                      theme.font.titleLarge.fontWeight,
+                  fontSize: theme.font.titleLarge.fontSize,
+                  color: theme.color.isDark
+                      ? theme.color.neutralColor98
                       : Colors.black,
                 ),
               ),
@@ -108,12 +109,12 @@ class ChatDialog<T> extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight:
-                      ChatUIKitTheme.of(context).font.labelMedium.fontWeight,
+                      theme.font.labelMedium.fontWeight,
                   fontSize:
-                      ChatUIKitTheme.of(context).font.labelMedium.fontSize,
-                  color: (ChatUIKitTheme.of(context).color.isDark
-                      ? ChatUIKitTheme.of(context).color.neutralColor6
-                      : ChatUIKitTheme.of(context).color.neutralColor5),
+                      theme.font.labelMedium.fontSize,
+                  color: (theme.color.isDark
+                      ? theme.color.neutralColor6
+                      : theme.color.neutralColor5),
                 ),
               ),
             ),
@@ -143,19 +144,19 @@ class ChatDialog<T> extends StatelessWidget {
                         width: 1,
                         color: () {
                           if (item.type == ChatDialogItemType.destructive) {
-                            return (ChatUIKitTheme.of(context).color.isDark
-                                ? ChatUIKitTheme.of(context).color.errorColor6
-                                : ChatUIKitTheme.of(context).color.errorColor5);
+                            return (theme.color.isDark
+                                ? theme.color.errorColor6
+                                : theme.color.errorColor5);
                           } else if (item.type == ChatDialogItemType.confirm) {
-                            return (ChatUIKitTheme.of(context).color.isDark
-                                ? ChatUIKitTheme.of(context).color.primaryColor6
-                                : ChatUIKitTheme.of(context)
+                            return (theme.color.isDark
+                                ? theme.color.primaryColor6
+                                : theme
                                     .color
                                     .primaryColor5);
                           } else {
-                            return (ChatUIKitTheme.of(context).color.isDark
-                                ? ChatUIKitTheme.of(context).color.neutralColor4
-                                : ChatUIKitTheme.of(context)
+                            return (theme.color.isDark
+                                ? theme.color.neutralColor4
+                                : theme
                                     .color
                                     .neutralColor7);
                           }
@@ -163,13 +164,13 @@ class ChatDialog<T> extends StatelessWidget {
                       ),
                       color: () {
                         if (item.type == ChatDialogItemType.destructive) {
-                          return (ChatUIKitTheme.of(context).color.isDark
-                              ? ChatUIKitTheme.of(context).color.errorColor6
-                              : ChatUIKitTheme.of(context).color.errorColor5);
+                          return (theme.color.isDark
+                              ? theme.color.errorColor6
+                              : theme.color.errorColor5);
                         } else if (item.type == ChatDialogItemType.confirm) {
-                          return (ChatUIKitTheme.of(context).color.isDark
-                              ? ChatUIKitTheme.of(context).color.primaryColor6
-                              : ChatUIKitTheme.of(context).color.primaryColor5);
+                          return (theme.color.isDark
+                              ? theme.color.primaryColor6
+                              : theme.color.primaryColor5);
                         }
                       }(),
                     ),
@@ -190,35 +191,35 @@ class ChatDialog<T> extends StatelessWidget {
                           }
                         }(),
                         style: TextStyle(
-                          fontSize: ChatUIKitTheme.of(context)
+                          fontSize: theme
                               .font
                               .headlineSmall
                               .fontSize,
-                          fontWeight: ChatUIKitTheme.of(context)
+                          fontWeight: theme
                               .font
                               .headlineSmall
                               .fontWeight,
                           color: () {
                             if (item.type == ChatDialogItemType.destructive) {
-                              return (ChatUIKitTheme.of(context).color.isDark
-                                  ? ChatUIKitTheme.of(context)
+                              return (theme.color.isDark
+                                  ? theme
                                       .color
                                       .neutralColor98
-                                  : ChatUIKitTheme.of(context)
+                                  : theme
                                       .color
                                       .neutralColor98);
                             } else if (item.type ==
                                 ChatDialogItemType.confirm) {
-                              return (ChatUIKitTheme.of(context).color.isDark
-                                  ? ChatUIKitTheme.of(context)
+                              return (theme.color.isDark
+                                  ? theme
                                       .color
                                       .neutralColor98
-                                  : ChatUIKitTheme.of(context)
+                                  : theme
                                       .color
                                       .neutralColor98);
                             } else {
-                              return ChatUIKitTheme.of(context).color.isDark
-                                  ? ChatUIKitTheme.of(context)
+                              return theme.color.isDark
+                                  ? theme
                                       .color
                                       .neutralColor98
                                   : Colors.black;

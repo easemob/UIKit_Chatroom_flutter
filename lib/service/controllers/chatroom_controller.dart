@@ -27,6 +27,9 @@ enum RoomEventsType {
   fetchParticipants,
   fetchMutes,
   sendMessage,
+  fetchPinnedMessages,
+  pinMessage,
+  unpinMessage,
 }
 
 class ChatroomEventListener {

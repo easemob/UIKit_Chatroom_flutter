@@ -31,6 +31,7 @@ class ChatInputEmoji extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = ChatUIKitTheme.instance;
     return Stack(
       children: [
         SizedBox(
@@ -62,19 +63,19 @@ class ChatInputEmoji extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                boxShadow: ChatUIKitTheme.of(context).color.isDark
+                boxShadow: theme.color.isDark
                     ? ChatUIKitShadow.darkSmall
                     : ChatUIKitShadow.lightSmall,
                 borderRadius: BorderRadius.circular(24),
-                color: (ChatUIKitTheme.of(context).color.isDark
-                    ? ChatUIKitTheme.of(context).color.neutralColor3
-                    : ChatUIKitTheme.of(context).color.neutralColor98),
+                color: (theme.color.isDark
+                    ? theme.color.neutralColor3
+                    : theme.color.neutralColor98),
               ),
               child: ChatImageLoader.delete(
                 size: 40,
-                color: (ChatUIKitTheme.of(context).color.isDark
-                    ? ChatUIKitTheme.of(context).color.neutralColor98
-                    : ChatUIKitTheme.of(context).color.neutralColor3),
+                color: (theme.color.isDark
+                    ? theme.color.neutralColor98
+                    : theme.color.neutralColor3),
               ),
             ),
           ),
@@ -112,7 +113,7 @@ class ChatExpression extends StatelessWidget {
     Widget icon = ChatImageLoader.emoji(emojiImage, size: 36);
     return TextButton(
       style: ButtonStyle(
-        padding: WidgetStateProperty.all(
+        padding: MaterialStatePropertyAll(
           EdgeInsets.all(bigSizeRatio),
         ),
       ),

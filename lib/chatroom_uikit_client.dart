@@ -279,6 +279,26 @@ extension ChatRoomServiceAction on ChatroomUIKitClient {
     });
   }
 
+  Future<List<Message>> fetchPinnedMessages({required String roomId}) async {
+    return _checkResult(roomId, RoomEventsType.fetchPinnedMessages, () {
+      return roomService.fetchPinnedMessages(roomId: roomId);
+    });
+  }
+
+  Future<void> pinMessage(
+      {required String roomId, required Message message}) async {
+    return _checkResult(roomId, RoomEventsType.pinMessage, () async {
+      await roomService.pinMessage(roomId: roomId, message: message);
+    });
+  }
+
+  Future<void> unpinMessage(
+      {required String roomId, required Message message}) async {
+    return _checkResult(roomId, RoomEventsType.unpinMessage, () {
+      return roomService.unpinMessage(roomId: roomId, message: message);
+    });
+  }
+
   /// send custom message.
   ///
   /// Param [roomId] chat room id.

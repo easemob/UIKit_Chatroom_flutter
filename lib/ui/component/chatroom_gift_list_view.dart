@@ -20,7 +20,7 @@ class ChatRoomGiftListView extends StatefulWidget {
 }
 
 class _ChatRoomGiftListViewState extends State<ChatRoomGiftListView>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, ChatUIKitThemeMixin {
   late TabController _tabController;
 
   @override
@@ -39,7 +39,7 @@ class _ChatRoomGiftListViewState extends State<ChatRoomGiftListView>
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget themeBuilder(BuildContext context, ChatUIKitTheme theme) {
     return ChatBottomSheetBackground(
       child: Column(
         children: [
@@ -47,20 +47,19 @@ class _ChatRoomGiftListViewState extends State<ChatRoomGiftListView>
             dividerColor: Colors.transparent,
             indicator: CustomTabIndicator(
               radius: 2,
-              color: ChatUIKitTheme.of(context).color.isDark
-                  ? ChatUIKitTheme.of(context).color.primaryColor6
-                  : ChatUIKitTheme.of(context).color.primaryColor5,
+              color: theme.color.isDark
+                  ? theme.color.primaryColor6
+                  : theme.color.primaryColor5,
               size: const Size(28, 4),
             ),
             controller: _tabController,
             labelStyle: TextStyle(
-              fontWeight:
-                  ChatUIKitTheme.of(context).font.titleMedium.fontWeight,
-              fontSize: ChatUIKitTheme.of(context).font.titleMedium.fontSize,
+              fontWeight: theme.font.titleMedium.fontWeight,
+              fontSize: theme.font.titleMedium.fontSize,
             ),
-            labelColor: (ChatUIKitTheme.of(context).color.isDark
-                ? ChatUIKitTheme.of(context).color.neutralColor98
-                : ChatUIKitTheme.of(context).color.neutralColor1),
+            labelColor: (theme.color.isDark
+                ? theme.color.neutralColor98
+                : theme.color.neutralColor1),
             tabs:
                 widget.giftControllers.map((e) => Tab(text: e.title)).toList(),
           ),
@@ -170,7 +169,7 @@ class ChatRoomGiftItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = ChatUIKitTheme.of(context);
+    final theme = ChatUIKitTheme.instance;
 
     Widget placeholderWidget = (placeholder != null)
         ? Image.asset(placeholder!, fit: BoxFit.fill)
@@ -219,8 +218,8 @@ class ChatRoomGiftItem extends StatelessWidget {
                   fontWeight: theme.font.labelExtraSmall.fontWeight,
                   fontSize: theme.font.labelExtraSmall.fontSize,
                   color: (theme.color.isDark
-                      ? ChatUIKitTheme.of(context).color.neutralColor6
-                      : ChatUIKitTheme.of(context).color.neutralColor5),
+                      ? theme.color.neutralColor6
+                      : theme.color.neutralColor5),
                 ),
               ),
             )
@@ -294,8 +293,8 @@ class ChatRoomGiftItem extends StatelessWidget {
                     fontWeight: theme.font.labelExtraSmall.fontWeight,
                     fontSize: theme.font.labelExtraSmall.fontSize,
                     color: (theme.color.isDark
-                        ? ChatUIKitTheme.of(context).color.neutralColor6
-                        : ChatUIKitTheme.of(context).color.neutralColor5),
+                        ? theme.color.neutralColor6
+                        : theme.color.neutralColor5),
                   ),
                 ),
               )

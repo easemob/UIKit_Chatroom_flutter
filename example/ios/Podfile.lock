@@ -4,10 +4,10 @@ PODS:
   - Flutter (1.0.0)
   - flutter_localization (0.0.1):
     - Flutter
-  - HyphenateChat (4.7.0)
+  - HyphenateChat (4.8.1)
   - im_flutter_sdk (0.0.1):
     - Flutter
-    - HyphenateChat (= 4.7.0)
+    - HyphenateChat (= 4.8.1)
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -39,8 +39,8 @@ SPEC CHECKSUMS:
   chatroom_uikit: 12c761d534c98af37001f1ad1fe0ef68bbad2a7b
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_localization: f43b18844a2b3d2c71fd64f04ffd6b1e64dd54d4
-  HyphenateChat: 0d76f40cec79d084a2c1133e43987e7379124694
-  im_flutter_sdk: fcff186ef0acfb1e7b0e9ba6c5260d0f2278ede8
+  HyphenateChat: 88ff1478183f1349498bd592c89ea9c394c12f76
+  im_flutter_sdk: e144b155d47b2050850b36510d96160ee3206c91
   shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
 
 PODFILE CHECKSUM: 6e700dec67e6deac9b1c69bb14c49a2217a12d15

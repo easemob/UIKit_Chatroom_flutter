@@ -123,6 +123,30 @@ class ChatRoomServiceImplement extends ChatRoomService {
   }
 
   @override
+  Future<List<Message>> fetchPinnedMessages({required String roomId}) {
+    return Client.getInstance.chatManager
+        .fetchPinnedMessages(conversationId: roomId);
+  }
+
+  @override
+  Future<void> pinMessage(
+      {required String roomId, required Message message}) async {
+    await Client.getInstance.chatManager.pinMessage(messageId: message.msgId);
+    for (var response in responses) {
+      response.onPinChanged(true, message);
+    }
+  }
+
+  @override
+  Future<void> unpinMessage(
+      {required String roomId, required Message message}) async {
+    await Client.getInstance.chatManager.unpinMessage(messageId: message.msgId);
+    for (var response in responses) {
+      response.onPinChanged(false, message);
+    }
+  }
+
+  @override
   Future<Message> translateMessage({
     required String roomId,
     required Message message,

@@ -21,6 +21,9 @@ typedef TextBody = chat.EMTextMessageBody;
 typedef CustomBody = chat.EMCustomMessageBody;
 typedef RoomPermissionType = chat.EMChatRoomPermissionType;
 typedef MessageDirection = chat.MessageDirection;
+typedef LoginExtensionInfo = chat.LoginExtensionInfo;
+typedef MessagePinOperation = chat.MessagePinOperation;
+typedef MessagePinInfo = chat.MessagePinInfo;
 
 vLog(String log) {
   debugPrint("ChatRoomDemo: $log");

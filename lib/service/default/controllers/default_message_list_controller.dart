@@ -11,6 +11,19 @@ class DefaultMessageListController extends ChatroomMessageListController {
     String? ownerId,
   }) {
     return [
+      if (ownerId == Client.getInstance.currentUserId)
+        ChatBottomSheetItem.normal(
+          label: ChatroomLocal.bottomSheetPin.getString(context),
+          onTap: () async {
+            Navigator.of(context).pop();
+            try {
+              await ChatroomUIKitClient.instance.pinMessage(
+                  roomId: message.conversationId!, message: message);
+            } catch (e) {
+              vLog(e.toString());
+            }
+          },
+        ),
       ChatBottomSheetItem.normal(
         label: ChatroomLocal.bottomSheetTranslate.getString(context),
         onTap: () async {

@@ -20,6 +20,15 @@ class ChatImageLoader {
     );
   }
 
+  static Widget pinMessage({double size = 18, Color? color}) {
+    return Image.asset(
+      'assets/images/pin/pin.png',
+      package: 'chatroom_uikit',
+      width: size,
+      height: size,
+    );
+  }
+
   static Widget textKeyboard({double size = 30, Color? color}) {
     return Image.asset(
       'assets/images/textKeyboard/textKeyboard.png',

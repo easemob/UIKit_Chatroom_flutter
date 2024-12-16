@@ -36,7 +36,7 @@ class ChatroomParticipantsListView extends StatefulWidget {
 
 class ChatroomParticipantsListViewState
     extends State<ChatroomParticipantsListView>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, ChatUIKitThemeMixin {
   late TabController _tabController;
 
   ValueNotifier onSearch = ValueNotifier(false);
@@ -51,7 +51,7 @@ class ChatroomParticipantsListViewState
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget themeBuilder(BuildContext context, ChatUIKitTheme theme) {
     String? ownerId = ChatRoomUIKit.roomController(context)?.ownerId;
     String? roomId = ChatRoomUIKit.roomController(context)?.roomId;
     Widget content = ValueListenableBuilder(
@@ -68,23 +68,19 @@ class ChatroomParticipantsListViewState
                     dividerColor: Colors.transparent,
                     indicator: CustomTabIndicator(
                       radius: 2,
-                      color: ChatUIKitTheme.of(context).color.isDark
-                          ? ChatUIKitTheme.of(context).color.primaryColor6
-                          : ChatUIKitTheme.of(context).color.primaryColor5,
+                      color: theme.color.isDark
+                          ? theme.color.primaryColor6
+                          : theme.color.primaryColor5,
                       size: value ? Size.zero : const Size(28, 4),
                     ),
                     controller: _tabController,
                     labelStyle: TextStyle(
-                      fontWeight: ChatUIKitTheme.of(context)
-                          .font
-                          .titleMedium
-                          .fontWeight,
-                      fontSize:
-                          ChatUIKitTheme.of(context).font.titleMedium.fontSize,
+                      fontWeight: theme.font.titleMedium.fontWeight,
+                      fontSize: theme.font.titleMedium.fontSize,
                     ),
-                    labelColor: (ChatUIKitTheme.of(context).color.isDark
-                        ? ChatUIKitTheme.of(context).color.neutralColor98
-                        : ChatUIKitTheme.of(context).color.neutralColor1),
+                    labelColor: (theme.color.isDark
+                        ? theme.color.neutralColor98
+                        : theme.color.neutralColor1),
                     isScrollable: true,
                     tabs: widget.services
                         .map(
@@ -150,7 +146,7 @@ class ChatRoomParticipantsPage extends StatefulWidget {
 }
 
 class _ChatRoomParticipantsPageState extends State<ChatRoomParticipantsPage>
-    with AutomaticKeepAliveClientMixin {
+    with AutomaticKeepAliveClientMixin, ChatUIKitThemeMixin {
   List<ChatRoomParticipantItemData> list = [];
   List<String> showUsers = [];
   Map<String, String> detailsMap = {};
@@ -198,7 +194,7 @@ class _ChatRoomParticipantsPageState extends State<ChatRoomParticipantsPage>
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget themeBuilder(BuildContext context, ChatUIKitTheme theme) {
     super.build(context);
     if (firstLoading) {
       return firstLoadingWidget();
@@ -228,9 +224,9 @@ class _ChatRoomParticipantsPageState extends State<ChatRoomParticipantsPage>
       controller: scrollController,
       separatorBuilder: (context, index) => Divider(
         indent: 68,
-        color: (ChatUIKitTheme.of(context).color.isDark
-            ? ChatUIKitTheme.of(context).color.neutralColor1
-            : ChatUIKitTheme.of(context).color.neutralColor9),
+        color: (theme.color.isDark
+            ? theme.color.neutralColor1
+            : theme.color.neutralColor9),
       ),
       cacheExtent: 100,
       itemCount: tmpList.length,
@@ -277,7 +273,7 @@ class _ChatRoomParticipantsPageState extends State<ChatRoomParticipantsPage>
 
     content = PopScope(
       child: content,
-      onPopInvokedWithResult: (didPop, obj) async {
+      onPopInvoked: (didPop) async {
         focusNode.unfocus();
       },
     );
@@ -291,7 +287,6 @@ class _ChatRoomParticipantsPageState extends State<ChatRoomParticipantsPage>
     content = ValueListenableBuilder(
       valueListenable: isSearch,
       builder: (context, value, child) {
-        final theme = ChatUIKitTheme.of(context);
         Widget content;
         if (value) {
           content = Row(
@@ -326,10 +321,9 @@ class _ChatRoomParticipantsPageState extends State<ChatRoomParticipantsPage>
                                   : theme.color.neutralColor1,
                               fontWeight: theme.font.bodyLarge.fontWeight,
                               fontSize: theme.font.bodyLarge.fontSize),
-                          keyboardAppearance:
-                              ChatUIKitTheme.of(context).color.isDark
-                                  ? Brightness.dark
-                                  : Brightness.light,
+                          keyboardAppearance: theme.color.isDark
+                              ? Brightness.dark
+                              : Brightness.light,
                           focusNode: focusNode,
                           decoration: InputDecoration(
                             border: const OutlineInputBorder(
@@ -404,10 +398,8 @@ class _ChatRoomParticipantsPageState extends State<ChatRoomParticipantsPage>
                 Text(
                   ChatroomLocal.search.getString(context),
                   style: TextStyle(
-                    fontWeight:
-                        ChatUIKitTheme.of(context).font.bodyLarge.fontWeight,
-                    fontSize:
-                        ChatUIKitTheme.of(context).font.bodyLarge.fontSize,
+                    fontWeight: theme.font.bodyLarge.fontWeight,
+                    fontSize: theme.font.bodyLarge.fontSize,
                     color: (theme.color.isDark
                         ? theme.color.neutralColor4
                         : theme.color.neutralColor6),
@@ -588,9 +580,9 @@ class _ChatRoomParticipantsPageState extends State<ChatRoomParticipantsPage>
         child: SafeArea(
           child: CircularProgressIndicator(
             strokeWidth: 2,
-            color: (ChatUIKitTheme.of(context).color.isDark
-                ? ChatUIKitTheme.of(context).color.neutralColor4
-                : ChatUIKitTheme.of(context).color.neutralColor7),
+            color: (theme.color.isDark
+                ? theme.color.neutralColor4
+                : theme.color.neutralColor7),
           ),
         ),
       ),
@@ -663,9 +655,10 @@ class ChatRoomParticipantItem extends StatefulWidget {
       _ChatRoomParticipantItemState();
 }
 
-class _ChatRoomParticipantItemState extends State<ChatRoomParticipantItem> {
+class _ChatRoomParticipantItemState extends State<ChatRoomParticipantItem>
+    with ChatUIKitThemeMixin {
   @override
-  Widget build(BuildContext context) {
+  Widget themeBuilder(BuildContext context, ChatUIKitTheme theme) {
     Widget content = Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -701,13 +694,11 @@ class _ChatRoomParticipantItemState extends State<ChatRoomParticipantItem> {
               Text(
                 widget.user.showName(),
                 style: TextStyle(
-                  fontWeight:
-                      ChatUIKitTheme.of(context).font.titleMedium.fontWeight,
-                  fontSize:
-                      ChatUIKitTheme.of(context).font.titleMedium.fontSize,
-                  color: (ChatUIKitTheme.of(context).color.isDark
-                      ? ChatUIKitTheme.of(context).color.neutralColor98
-                      : ChatUIKitTheme.of(context).color.neutralColor1),
+                  fontWeight: theme.font.titleMedium.fontWeight,
+                  fontSize: theme.font.titleMedium.fontSize,
+                  color: (theme.color.isDark
+                      ? theme.color.neutralColor98
+                      : theme.color.neutralColor1),
                 ),
               ),
               ...() {
@@ -718,15 +709,11 @@ class _ChatRoomParticipantItemState extends State<ChatRoomParticipantItem> {
                       widget.user.detail!,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        fontWeight: ChatUIKitTheme.of(context)
-                            .font
-                            .bodyMedium
-                            .fontWeight,
-                        fontSize:
-                            ChatUIKitTheme.of(context).font.bodyMedium.fontSize,
-                        color: (ChatUIKitTheme.of(context).color.isDark
-                            ? ChatUIKitTheme.of(context).color.neutralColor1
-                            : ChatUIKitTheme.of(context).color.neutralColor5),
+                        fontWeight: theme.font.bodyMedium.fontWeight,
+                        fontSize: theme.font.bodyMedium.fontSize,
+                        color: (theme.color.isDark
+                            ? theme.color.neutralColor1
+                            : theme.color.neutralColor5),
                       ),
                     )
                   ];
@@ -746,9 +733,9 @@ class _ChatRoomParticipantItemState extends State<ChatRoomParticipantItem> {
               },
               child: Icon(
                 Icons.more_vert,
-                color: (ChatUIKitTheme.of(context).color.isDark
-                    ? ChatUIKitTheme.of(context).color.neutralColor98
-                    : ChatUIKitTheme.of(context).color.neutralColor6),
+                color: (theme.color.isDark
+                    ? theme.color.neutralColor98
+                    : theme.color.neutralColor6),
               ),
             );
           }()
@@ -758,9 +745,9 @@ class _ChatRoomParticipantItemState extends State<ChatRoomParticipantItem> {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 10, 12, 10),
       height: 60,
-      color: (ChatUIKitTheme.of(context).color.isDark
-          ? ChatUIKitTheme.of(context).color.neutralColor1
-          : ChatUIKitTheme.of(context).color.neutralColor98),
+      color: (theme.color.isDark
+          ? theme.color.neutralColor1
+          : theme.color.neutralColor98),
       child: content,
     );
   }

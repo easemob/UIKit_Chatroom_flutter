@@ -112,56 +112,65 @@ class ChatUIKitButton extends StatelessWidget {
   }
 
   Color primaryBorderColor(BuildContext context) {
-    return (ChatUIKitTheme.of(context).color.isDark
-        ? ChatUIKitTheme.of(context).color.primaryColor6
-        : ChatUIKitTheme.of(context).color.primaryColor5);
+    final theme = ChatUIKitTheme.instance;
+    return (theme.color.isDark
+        ? theme.color.primaryColor6
+        : theme.color.primaryColor5);
   }
 
   Color neutralBorderColor(BuildContext context) {
-    return (ChatUIKitTheme.of(context).color.isDark
-        ? ChatUIKitTheme.of(context).color.neutralColor4
-        : ChatUIKitTheme.of(context).color.neutralColor7);
+    final theme = ChatUIKitTheme.instance;
+    return (theme.color.isDark
+        ? theme.color.neutralColor4
+        : theme.color.neutralColor7);
   }
 
   Color destructiveBorderColor(BuildContext context) {
-    return (ChatUIKitTheme.of(context).color.isDark
-        ? ChatUIKitTheme.of(context).color.neutralColor4
-        : ChatUIKitTheme.of(context).color.neutralColor7);
+    final theme = ChatUIKitTheme.instance;
+    return (theme.color.isDark
+        ? theme.color.neutralColor4
+        : theme.color.neutralColor7);
   }
 
   Color primaryTextColor(BuildContext context) {
-    return (ChatUIKitTheme.of(context).color.isDark
-        ? ChatUIKitTheme.of(context).color.neutralColor98
-        : ChatUIKitTheme.of(context).color.neutralColor1);
+    final theme = ChatUIKitTheme.instance;
+    return (theme.color.isDark
+        ? theme.color.neutralColor98
+        : theme.color.neutralColor1);
   }
 
   Color neutralTextColor(BuildContext context) {
-    return (ChatUIKitTheme.of(context).color.isDark
-        ? ChatUIKitTheme.of(context).color.neutralColor95
-        : ChatUIKitTheme.of(context).color.neutralColor3);
+    final theme = ChatUIKitTheme.instance;
+    return (theme.color.isDark
+        ? theme.color.neutralColor95
+        : theme.color.neutralColor3);
   }
 
   Color destructiveTextColor(BuildContext context) {
-    return (ChatUIKitTheme.of(context).color.isDark
-        ? ChatUIKitTheme.of(context).color.errorColor6
-        : ChatUIKitTheme.of(context).color.errorColor5);
+    final theme = ChatUIKitTheme.instance;
+    return (theme.color.isDark
+        ? theme.color.errorColor6
+        : theme.color.errorColor5);
   }
 
   Color primaryBgColor(BuildContext context) {
-    return (ChatUIKitTheme.of(context).color.isDark
-        ? ChatUIKitTheme.of(context).color.primaryColor6
-        : ChatUIKitTheme.of(context).color.primaryColor5);
+    final theme = ChatUIKitTheme.instance;
+    return (theme.color.isDark
+        ? theme.color.primaryColor6
+        : theme.color.primaryColor5);
   }
 
   Color neutralBgColor(BuildContext context) {
-    return (ChatUIKitTheme.of(context).color.isDark
-        ? ChatUIKitTheme.of(context).color.neutralColor1
-        : ChatUIKitTheme.of(context).color.neutralColor98);
+    final theme = ChatUIKitTheme.instance;
+    return (theme.color.isDark
+        ? theme.color.neutralColor1
+        : theme.color.neutralColor98);
   }
 
   Color destructiveBgColor(BuildContext context) {
-    return (ChatUIKitTheme.of(context).color.isDark
-        ? ChatUIKitTheme.of(context).color.neutralColor1
-        : ChatUIKitTheme.of(context).color.neutralColor98);
+    final theme = ChatUIKitTheme.instance;
+    return (theme.color.isDark
+        ? theme.color.neutralColor1
+        : theme.color.neutralColor98);
   }
 }

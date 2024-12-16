@@ -13,22 +13,22 @@ class ChatBottomSheetBackground extends StatefulWidget {
       _ChatBottomSheetBackgroundState();
 }
 
-class _ChatBottomSheetBackgroundState extends State<ChatBottomSheetBackground> {
+class _ChatBottomSheetBackgroundState extends State<ChatBottomSheetBackground> with ChatUIKitThemeMixin {
   @override
-  Widget build(BuildContext context) {
+  Widget themeBuilder(BuildContext context, ChatUIKitTheme theme){
     return Container(
-      color: (ChatUIKitTheme.of(context).color.isDark
-          ? ChatUIKitTheme.of(context).color.neutralColor1
-          : ChatUIKitTheme.of(context).color.neutralColor98),
+      color: (theme.color.isDark
+          ? theme.color.neutralColor1
+          : theme.color.neutralColor98),
       child: Column(
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(3)),
               color: widget.showGrip
-                  ? (ChatUIKitTheme.of(context).color.isDark
-                      ? ChatUIKitTheme.of(context).color.neutralColor3
-                      : ChatUIKitTheme.of(context).color.neutralColor8)
+                  ? (theme.color.isDark
+                      ? theme.color.neutralColor3
+                      : theme.color.neutralColor8)
                   : Colors.transparent,
             ),
             margin: const EdgeInsets.symmetric(vertical: 6),

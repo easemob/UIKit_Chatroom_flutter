@@ -94,10 +94,24 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
               children: [
                 Positioned(
                   top: MediaQuery.of(context).viewInsets.top + 10,
-                  height: 20,
-                  left: 20,
-                  right: 20,
-                  child: const ChatroomGlobalBroadcastView(),
+                  left: 0,
+                  right: 0,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 12, right: 54),
+                        child: ChatroomPinMessageWidget(
+                          roomId: controller.roomId,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      const SizedBox(
+                        height: 20,
+                        child: ChatroomGlobalBroadcastView(),
+                      )
+                    ],
+                  ),
                 ),
                 const Positioned(
                   left: 16,

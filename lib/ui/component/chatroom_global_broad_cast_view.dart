@@ -26,7 +26,8 @@ class ChatroomGlobalBroadcastView extends StatefulWidget
 }
 
 class _ChatroomGlobalBroadcastViewState
-    extends State<ChatroomGlobalBroadcastView> with ChatroomResponse {
+    extends State<ChatroomGlobalBroadcastView>
+    with ChatroomResponse, ChatUIKitThemeMixin {
   ScrollController scrollController = ScrollController();
 
   double maxSize = 0;
@@ -73,7 +74,7 @@ class _ChatroomGlobalBroadcastViewState
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget themeBuilder(BuildContext context, ChatUIKitTheme theme) {
     Widget content;
     if (!isPlaying) {
       content = Container();
@@ -83,8 +84,8 @@ class _ChatroomGlobalBroadcastViewState
         style: widget.textStyle ??
             TextStyle(
               height: 1.6,
-              fontSize: ChatUIKitTheme.of(context).font.bodySmall.fontSize,
-              fontWeight: ChatUIKitTheme.of(context).font.bodySmall.fontWeight,
+              fontSize: theme.font.bodySmall.fontSize,
+              fontWeight: theme.font.bodySmall.fontWeight,
               color: Colors.white,
             ),
       );
@@ -109,9 +110,9 @@ class _ChatroomGlobalBroadcastViewState
                 height: 20,
                 decoration: BoxDecoration(
                   color: (widget.backgroundColor ??
-                      (ChatUIKitTheme.of(context).color.isDark
-                          ? ChatUIKitTheme.of(context).color.primaryColor6
-                          : ChatUIKitTheme.of(context).color.primaryColor5)),
+                      (theme.color.isDark
+                          ? theme.color.primaryColor6
+                          : theme.color.primaryColor5)),
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(10),
                     bottomLeft: Radius.circular(10),
@@ -137,9 +138,9 @@ class _ChatroomGlobalBroadcastViewState
               height: 20,
               decoration: BoxDecoration(
                 color: (widget.backgroundColor ??
-                    (ChatUIKitTheme.of(context).color.isDark
-                        ? ChatUIKitTheme.of(context).color.primaryColor6
-                        : ChatUIKitTheme.of(context).color.primaryColor5)),
+                    (theme.color.isDark
+                        ? theme.color.primaryColor6
+                        : theme.color.primaryColor5)),
                 borderRadius: BorderRadius.only(
                   topLeft: widget.icon == null
                       ? const Radius.circular(10)
@@ -168,7 +169,7 @@ class _ChatroomGlobalBroadcastViewState
 
     content = PopScope(
       child: content,
-      onPopInvokedWithResult: (didPop, obj) async {
+      onPopInvoked: (didPop) async {
         showList.clear();
       },
     );

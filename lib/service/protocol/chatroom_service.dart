@@ -73,6 +73,13 @@ abstract class ChatRoomService {
     List<String>? receiver,
   });
 
+  Future<List<Message>> fetchPinnedMessages({required String roomId});
+
+  Future<void> pinMessage({required String roomId, required Message message});
+
+  Future<void> unpinMessage(
+      {required String roomId, required Message message});
+
   /// Description Translate the specified message
   /// - Parameters:
   ///   - message: ChatMessage kind of text message.
@@ -166,4 +173,6 @@ mixin ChatroomResponse {
   void onUserUnmuted(String roomId, List<String> userIds) {}
 
   void onMessageTransformed(String roomId, Message message) {}
+
+  void onPinChanged(bool isPin, Message message) {}
 }
