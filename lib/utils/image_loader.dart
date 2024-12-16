@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
+const String packageName = 'chatroom_uikit';
+
 class ChatImageLoader {
   static Widget emoji(String imageName, {double size = 36}) {
     String name = imageName.substring(0, imageName.length);
     return Image.asset(
       'assets/images/emojis/$name.png',
-      package: 'chatroom_uikit',
+      package: packageName,
       width: size,
       height: size,
     );
@@ -14,7 +16,7 @@ class ChatImageLoader {
   static Widget airplane({double size = 30, Color? color}) {
     return Image.asset(
       'assets/images/airplane/airplane.png',
-      package: 'chatroom_uikit',
+      package: packageName,
       width: size,
       height: size,
     );
@@ -23,7 +25,7 @@ class ChatImageLoader {
   static Widget pinMessage({double size = 18, Color? color}) {
     return Image.asset(
       'assets/images/pin/pin.png',
-      package: 'chatroom_uikit',
+      package: packageName,
       width: size,
       height: size,
     );
@@ -32,7 +34,7 @@ class ChatImageLoader {
   static Widget textKeyboard({double size = 30, Color? color}) {
     return Image.asset(
       'assets/images/textKeyboard/textKeyboard.png',
-      package: 'chatroom_uikit',
+      package: packageName,
       width: size,
       height: size,
       color: color,
@@ -42,7 +44,7 @@ class ChatImageLoader {
   static Widget face({double size = 30, Color? color}) {
     return Image.asset(
       'assets/images/face/face.png',
-      package: 'chatroom_uikit',
+      package: packageName,
       width: size,
       height: size,
       color: color,
@@ -52,7 +54,7 @@ class ChatImageLoader {
   static Widget avatar({double size = 30, Color? color}) {
     return Image.asset(
       'assets/images/avatar/avatar.png',
-      package: 'chatroom_uikit',
+      package: packageName,
       width: size,
       height: size,
       color: color,
@@ -62,7 +64,7 @@ class ChatImageLoader {
   static Widget chatRaise({double size = 30, Color? color}) {
     return Image.asset(
       'assets/images/chatRaise/chatRaise.png',
-      package: 'chatroom_uikit',
+      package: packageName,
       width: size,
       height: size,
       color: color,
@@ -72,7 +74,7 @@ class ChatImageLoader {
   static Widget more({double size = 30, Color? color}) {
     return Image.asset(
       'assets/images/more/more.png',
-      package: 'chatroom_uikit',
+      package: packageName,
       width: size,
       height: size,
       color: color,
@@ -82,7 +84,7 @@ class ChatImageLoader {
   static Widget search({double size = 30, Color? color}) {
     return Image.asset(
       'assets/images/search/search.png',
-      package: 'chatroom_uikit',
+      package: packageName,
       width: size,
       height: size,
       color: color,
@@ -92,7 +94,7 @@ class ChatImageLoader {
   static Widget selected({double size = 30, Color? color}) {
     return Image.asset(
       'assets/images/selected/selected.png',
-      package: 'chatroom_uikit',
+      package: packageName,
       width: size,
       height: size,
       color: color,
@@ -102,7 +104,7 @@ class ChatImageLoader {
   static Widget success({double size = 30, Color? color}) {
     return Image.asset(
       'assets/images/success/success.png',
-      package: 'chatroom_uikit',
+      package: packageName,
       width: size,
       height: size,
       color: color,
@@ -112,7 +114,7 @@ class ChatImageLoader {
   static Widget unselected({double size = 30, Color? color}) {
     return Image.asset(
       'assets/images/unselected/unselected.png',
-      package: 'chatroom_uikit',
+      package: packageName,
       width: size,
       height: size,
       color: color,
@@ -122,7 +124,7 @@ class ChatImageLoader {
   static Widget inputChat({double size = 30, Color? color}) {
     return Image.asset(
       'assets/images/chat/chat.png',
-      package: 'chatroom_uikit',
+      package: packageName,
       width: size,
       height: size,
       color: color,
@@ -132,7 +134,7 @@ class ChatImageLoader {
   static Widget delete({double size = 30, Color? color}) {
     return Image.asset(
       'assets/images/delete/delete.png',
-      package: 'chatroom_uikit',
+      package: packageName,
       width: size,
       height: size,
       color: color,
@@ -142,7 +144,7 @@ class ChatImageLoader {
   static Widget empty({double size = 140, Color? color}) {
     return Image.asset(
       'assets/images/empty/empty.png',
-      package: 'chatroom_uikit',
+      package: packageName,
       width: size,
       height: size,
       color: color,
@@ -152,7 +154,7 @@ class ChatImageLoader {
   static Widget defaultGift({double size = 30, Color? color}) {
     return Image.asset(
       'assets/images/gift/default_gift.png',
-      package: 'chatroom_uikit',
+      package: packageName,
       width: size,
       height: size,
       color: color,

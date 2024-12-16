@@ -1,6 +1,5 @@
 import 'dart:convert';
-
-import 'package:chatroom_uikit/chatroom_uikit.dart';
+import '../../inner_headers.dart';
 
 class UserServiceImplement extends UserService {
   List<UserStateChangedResponse> responseDelegates = [];
@@ -59,7 +58,7 @@ class UserServiceImplement extends UserService {
   Future<List<UserInfoProtocol>> fetchUserInfos({
     required List<String> userIds,
   }) async {
-    Map<String, UserInfo> map =
+    Map<String, ChatUserInfo> map =
         await Client.getInstance.userInfoManager.fetchUserInfoById(userIds);
     List<UserInfoProtocol> list = [];
     for (var element in map.values) {
@@ -88,7 +87,7 @@ class UserServiceImplement extends UserService {
     ChatroomContext.instance.updateUserInfos([user]);
   }
 
-  UserInfoProtocol convertUserInfo(UserInfo user) {
+  UserInfoProtocol convertUserInfo(ChatUserInfo user) {
     String? identify;
     if (user.ext?.isNotEmpty == true) {
       try {
@@ -136,9 +135,9 @@ extension _ChatClientListener on UserServiceImplement {
             element.onUserTokenWillExpired();
           }
         },
-        onUserDidLoginFromOtherDevice: (deviceName) {
+        onUserDidLoginFromOtherDevice: (deviceInfo) {
           for (var element in responseDelegates) {
-            element.onUserLoginOtherDevice(deviceName);
+            element.onUserLoginOtherDevice(deviceInfo);
           }
         },
         onConnected: () {

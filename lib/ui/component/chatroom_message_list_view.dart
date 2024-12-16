@@ -1,10 +1,8 @@
-import 'package:chatroom_uikit/chatroom_uikit.dart';
-import 'package:chatroom_uikit/service/controllers/chat_text_editing_controller.dart';
-
-import 'package:chatroom_uikit/utils/extension.dart';
-import 'package:chatroom_uikit/utils/time_tool.dart';
+import '../../inner_headers.dart';
 
 import 'package:flutter/material.dart';
+
+
 
 class ChatroomMessageListView extends StatefulWidget {
   const ChatroomMessageListView({

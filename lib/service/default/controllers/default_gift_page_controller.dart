@@ -1,4 +1,4 @@
-import 'package:chatroom_uikit/chatroom_uikit.dart';
+import '../../../inner_headers.dart';
 
 /// Default gift page controller
 class DefaultGiftPageController extends ChatroomGiftPageController {

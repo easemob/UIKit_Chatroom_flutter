@@ -1,11 +1,9 @@
-import 'package:chatroom_uikit/chatroom_uikit.dart';
-
 import 'package:flutter/material.dart';
 
-export 'package:chat_uikit_theme/chat_uikit_theme.dart';
-export 'package:flutter_localization/flutter_localization.dart';
+import '../../inner_headers.dart';
 
-export 'chatroom_uikit_client.dart';
+export '../../inner_headers.dart';
+
 export 'chatroom_settings.dart';
 export 'chatroom_uikit.dart';
 export 'chatroom_localizations.dart';
@@ -56,7 +54,6 @@ export 'ui/component/chatroom_gift_message_list_view.dart';
 export 'ui/component/chatroom_global_broad_cast_view.dart';
 export 'ui/component/chatroom_message_list_view.dart';
 export 'ui/component/chatroom_participants_list_view.dart';
-export 'ui/component/chatroom_pin_message_view.dart';
 
 class ChatRoomUIKit extends StatefulWidget {
   const ChatRoomUIKit({

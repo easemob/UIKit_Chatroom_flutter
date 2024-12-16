@@ -1,4 +1,4 @@
-import 'package:chatroom_uikit/chatroom_uikit.dart';
+import 'utils/chatroom_enums.dart';
 
 class ChatRoomSettings {
   /// Default display avatar

@@ -1,4 +1,4 @@
-import 'package:chatroom_uikit/chatroom_uikit.dart';
+import '../../inner_headers.dart';
 
 abstract class ChatRoomService {
   /// Description Binding a listener to receive callback events.
@@ -77,8 +77,7 @@ abstract class ChatRoomService {
 
   Future<void> pinMessage({required String roomId, required Message message});
 
-  Future<void> unpinMessage(
-      {required String roomId, required Message message});
+  Future<void> unpinMessage({required String roomId, required Message message});
 
   /// Description Translate the specified message
   /// - Parameters:

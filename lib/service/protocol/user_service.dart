@@ -1,4 +1,4 @@
-import 'package:chatroom_uikit/chatroom_uikit.dart';
+import '../../inner_headers.dart';
 
 abstract class UserInfoProtocol {
   String get userId;
@@ -52,7 +52,7 @@ abstract class UserService {
 abstract class UserStateChangedResponse {
   /// User login at other device
   /// - Parameter device: Other device name
-  void onUserLoginOtherDevice(LoginExtensionInfo device);
+  void onUserLoginOtherDevice(LoginExtensionInfo info);
 
   /// User token will expired,when you need to fetch chat token  re-login.
   void onUserTokenWillExpired();

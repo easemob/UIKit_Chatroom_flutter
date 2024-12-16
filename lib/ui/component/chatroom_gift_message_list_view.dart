@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:chatroom_uikit/chatroom_uikit.dart';
-import 'package:chatroom_uikit/utils/extension.dart';
+import '../../inner_headers.dart';
 
 import 'package:flutter/material.dart';
 

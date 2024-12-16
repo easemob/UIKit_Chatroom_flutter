@@ -1,4 +1,4 @@
-import 'package:chatroom_uikit/service/protocol/gift_service.dart';
+import '../../inner_headers.dart';
 
 /// Gift page controller, you can customize the gift page
 abstract class ChatroomGiftPageController {

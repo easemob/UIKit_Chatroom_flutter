@@ -1,6 +1,6 @@
-import 'package:chatroom_uikit/chatroom_uikit.dart';
-
 import 'package:flutter/widgets.dart';
+
+import '../../inner_headers.dart';
 
 abstract class ChatroomParticipantPageController {
   String title(BuildContext context, String? roomId, String? ownerId);
